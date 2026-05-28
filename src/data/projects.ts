@@ -74,6 +74,9 @@ export const PROJECTS: Project[] = [
       'Designed to deliver on three KPIs: Bolder Claims (stronger purchase intent), Faster Time-to-Claim, and Smarter Collaboration',
     ],
     competencies: ['AI AGENTS', 'PRODUCT DESIGN', 'BEAUTY TECH', 'ENTERPRISE'],
+    images: {
+      col2: '/power_claims.gif',
+    },
   },
   {
     number: '04',

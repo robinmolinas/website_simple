@@ -15,6 +15,7 @@
 export const TRENDS_ATLAS_GIF = '/trends_atlas.gif';
 export const SIGMA_AI_GIF = '/sigma_ai.gif';
 export const QUEST_FOR_HOPE_GIF = '/quest_for_hope.gif';
+export const POWER_CLAIMS_GIF = '/power_claims.gif';
 
 // ─── External showcase GIFs (motionsites.ai CDN) ───────────────────────────
 // NOTE: If these start 404-ing, rebuild the array from the motionsites.ai
@@ -50,12 +51,14 @@ export const ROW1_IMAGES: string[] = [
   QUEST_FOR_HOPE_GIF,
   ...EXTERNAL_IMAGES.slice(0, 4),
   SIGMA_AI_GIF,
-  ...EXTERNAL_IMAGES.slice(4, 11),
+  POWER_CLAIMS_GIF,
+  ...EXTERNAL_IMAGES.slice(4, 10),
 ];
 
 export const ROW2_IMAGES: string[] = [
   SIGMA_AI_GIF,
   ...EXTERNAL_IMAGES.slice(11, 13),
+  POWER_CLAIMS_GIF,
   QUEST_FOR_HOPE_GIF,
   ...EXTERNAL_IMAGES.slice(13, 15),
   TRENDS_ATLAS_GIF,
