@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 
 interface AnimatedTextProps {
   text: string;
@@ -39,7 +39,7 @@ interface AnimatedWordProps {
   word: string;
   index: number;
   total: number;
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
 }
 
 function AnimatedWord({ word, index, total, scrollYProgress }: AnimatedWordProps) {

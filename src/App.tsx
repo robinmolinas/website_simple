@@ -4,9 +4,10 @@ import MarqueeSection from './sections/MarqueeSection';
 import AboutSection from './sections/AboutSection';
 import ProjectsSection from './sections/ProjectsSection';
 import ProjectModal from './components/ProjectModal';
+import type { Project } from '@/types/project';
 
 export default function App() {
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
     <main className="bg-[#000000] font-kanit relative" style={{ overflowX: 'clip' }}>

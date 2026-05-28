@@ -1,0 +1,33 @@
+/*
+ * Content Security Policy headers
+ *
+ * These headers are consumed by Netlify and Cloudflare Pages.
+ * If you're on Vercel, see vercel.json in the project root.
+ *
+ * Policy rationale:
+ *  - default-src 'self'             → block anything not explicitly listed
+ *  - script-src  'self'             → no inline scripts, no third-party scripts
+ *  - style-src   'self' 'unsafe-inline' fonts.googleapis.com
+ *                                   → TailwindCSS inlines critical styles;
+ *                                     Framer Motion injects transform styles.
+ *                                     unsafe-inline is necessary here for CSS-in-JS.
+ *  - font-src    fonts.gstatic.com  → Google Fonts CDN only
+ *  - img-src     'self' data: motionsites.ai
+ *                                   → local images + the marquee GIF CDN
+ *  - connect-src 'self'             → no outgoing fetch/XHR except to self
+ *  - frame-src   'none'             → no iframes
+ *  - object-src  'none'             → no Flash/plugins
+ *  - base-uri    'self'             → prevent <base> injection attacks
+ *  - form-action 'self'             → contact form submits to self only
+ */
+
+/*
+ * Apply to all routes.
+ */
+https://*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://motionsites.ai; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'

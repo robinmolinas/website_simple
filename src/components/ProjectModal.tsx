@@ -2,26 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowUpRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import ProjectVisual from './ProjectVisual';
-
-interface Project {
-  number: string;
-  category: string;
-  name: string;
-  description: string;
-  buttonLabel: string;
-  buttonHref?: string;
-  caseStudyLink?: string;
-  buttonSubtitle?: string;
-  tags?: string[];
-  accent?: string;
-  accentRgb?: string;
-  // Modal detail view fields
-  client?: string;
-  intro?: string;
-  role?: string[];
-  impact?: string[];
-  metrics?: [string, string][];
-}
+import type { Project } from '@/types/project';
 
 interface ProjectModalProps {
   isOpen: boolean;

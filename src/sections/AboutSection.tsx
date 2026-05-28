@@ -10,13 +10,13 @@ const DECORATIVE_IMAGES = {
     fadeProps: { delay: 0.1, x: -80, y: 0, duration: 0.9 },
   },
   bottomLeft: {
-    src: 'https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png',
+    src: '/cursor_3d.png',
     alt: '3D Cursor',
     className: 'w-[130px] sm:w-[170px] md:w-[220px] absolute bottom-[8%] left-[3%] sm:left-[6%] md:left-[10%]',
     fadeProps: { delay: 0.25, x: -80, y: 0, duration: 0.9 },
   },
   topRight: {
-    src: 'https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png',
+    src: '/lego_icon.png',
     alt: 'Lego icon',
     className: 'w-[120px] sm:w-[160px] md:w-[210px] absolute top-[4%] right-[1%] sm:right-[2%] md:right-[4%]',
     fadeProps: { delay: 0.15, x: 80, y: 0, duration: 0.9 },
