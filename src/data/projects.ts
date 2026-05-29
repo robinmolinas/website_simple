@@ -10,27 +10,77 @@ import type { Project } from '@/types/project';
 export const PROJECTS: Project[] = [
   {
     number: '01',
-    category: 'AI PROJECT',
-    name: "THE TRENDS\nATLAS",
+    category: 'AI TOOL · STRATEGIC INTELLIGENCE',
+    name: "2026 TRENDS\nATLAS",
     description:
       "A RAG-powered knowledge graph ingesting 70+ macro trend reports — so the whole team can query 2026's biggest signals like a strategist, with citations.",
     buttonLabel: 'Explore the Atlas',
     buttonHref: 'https://trends-lime.vercel.app/',
-    buttonSubtitle: '70+ documents live',
-    tags: ['RAG', 'KNOWLEDGE GRAPH', 'STRATEGY', 'KARPATHY'],
+    tags: ['LLM-Wiki Architecture', 'Knowledge Graphs', 'Trends 2026'],
+    client: 'Self-built · Compounding Trend Intelligence Knowledge Graph',
+    intro:
+      "Every strategist starts the year drowning in the same 60+ trend reports — Accenture, Gartner, Deloitte, McKinsey, WGSN, GWI and dozens more — each siloed in its own PDF, none of them talking to each other. The standard fix is RAG: dump the PDFs into a vector database and retrieve chunks at query time. But that approach re-derives everything from scratch on every question and accumulates nothing — the connections between reports, which is where the real insight lives, are never actually built. I took a different approach, based on Andrej Karpathy's \"LLM-Wiki\" pattern. Instead of retrieving raw chunks on demand, the system has an LLM incrementally build and maintain a persistent, interlinked wiki that sits between the user and the raw reports. As each source is ingested, the LLM reads it, extracts the key claims, files them into structured pages, and updates the cross-references and synthesis across the whole wiki. The knowledge is compiled once and kept current — so it compounds with every source added. On top of that living wiki I built an interactive knowledge graph and a query layer: ask a strategic question in plain language, and the Atlas reads its own index, drills into the relevant pages, and returns a synthesized answer with every claim mapped back to its source evidence. The result is a static pile of PDFs turned into a compounding, interrogable intelligence system — no vector database required.",
+    metrics: [
+      ['63', 'trend reports ingested'],
+      ['17', 'cross-domain concepts mapped'],
+      ['0', 'vector DBs (index-based retrieval)'],
+      ['1', 'compounding knowledge graph'],
+    ],
+    role: [
+      'Designed and built the full application end-to-end as an interactive Next.js web app, deployed on Vercel',
+      'Implemented the Karpathy LLM-Wiki pattern: a three-layer architecture of immutable raw sources, an LLM-maintained markdown wiki, and a schema file governing ingest and synthesis conventions',
+      'Built the ingest workflow so the LLM extracts claims from each report, files them into structured source/concept/entity pages, and maintains cross-references and contradiction flags across the wiki',
+      'Engineered index-based retrieval — the query engine reads a content catalog (index.md) first, then drills into linked pages — deliberately avoiding embedding/vector-DB infrastructure, which is unnecessary at this scale (63 sources)',
+      "Built the graph visualization layer from the wiki's Obsidian-style links: nodes, weighted connections, type filtering, search and navigation",
+      'Engineered a dual-mode query engine: a deterministic retrieval-and-ranking mode and an optional LLM-grounded mode (via OpenRouter)',
+      'Designed the evidence-grounding system so every answer maps its claims to specific source pages with inline citations — guarding against unsupported AI output',
+    ],
+    impact: [
+      'Replaces query-time RAG with a knowledge layer that compounds — every source added makes the whole system richer, not just larger',
+      'Surfaces cross-domain connections that linear report-reading and chunk-retrieval both miss — the actual source of strategic insight',
+      'Cuts the front-end of any strategy or innovation project from days of manual reading to minutes of querying',
+      'Every synthesized answer is auditable back to its evidence, making it usable in real client and boardroom contexts',
+      'Demonstrates a repeatable pattern: turning any large, messy knowledge corpus into a navigable, self-maintaining graph',
+    ],
     images: {
       col2: '/trends_atlas.gif',
     },
   },
   {
     number: '02',
-    category: 'AI PROJECT',
+    category: 'AI TOOL · AUTONOMOUS STRATEGY',
     name: "SIGMA\nAI",
     description:
       'An autonomous multi-agent platform that turns complex research into boardroom-ready strategic insights — in minutes.',
     buttonLabel: 'Craft Insights',
     buttonHref: 'https://sigmai.lovable.app/',
-    tags: ['AI AGENT', 'MULTI-AGENT', 'FORESIGHT', 'N8N'],
+    tags: ['Multi-Agent Systems', 'Prompt Engineering', 'n8n', 'AI Evaluation'],
+    client: 'Self-built · Multi-Agent Strategic Insight Engine',
+    intro:
+      "The most valuable — and most manual — part of strategy consulting is turning a mountain of research into a handful of insights sharp enough to change a decision. It's slow, it's subjective, and it doesn't scale. Sigma AI is my attempt to operationalize that craft. It's an autonomous multi-agent platform that takes a company and a research brief and runs the entire foresight workflow end-to-end: it decomposes the topic into 18 MECE sub-briefs, launches parallel research agents, consolidates findings across a proprietary six-lens framework (SCHEMA: Structures, Culture, Humans, Economics, Machinery, Actors), then generates insights by deliberately cross-combining those lenses — Culture × Economics, Humans × Technology — to surface the non-obvious tensions and paradoxes where real insight lives. Crucially, it doesn't stop at a first draft. Every insight is scored against an FPET rubric (Fresh, Potent, Energizing, True), and weak insights are critiqued and rewritten in an autonomous quality loop until they clear a threshold. The output isn't raw text — it's a polished, presentation-ready insight deck. Sigma AI isn't \"AI that summarizes research.\" It's a system that encodes a strategic methodology and runs it at scale.",
+    metrics: [
+      ['18', 'MECE sub-briefs per run'],
+      ['6', 'SCHEMA research lenses'],
+      ['4-point', 'FPET quality scoring'],
+      ['End-to-End', 'research → deck pipeline'],
+    ],
+    role: [
+      'Designed the full multi-agent strategic intelligence architecture, from research orchestration to deck output',
+      'Developed the proprietary SCHEMA framework decomposing any topic into six strategic research dimensions',
+      'Engineered the orchestration logic: MECE decomposition into 18 sub-briefs, parallelized research agents, and SCHEMA-based consolidation',
+      'Built the insight-generation engine that cross-combines dimensions pairwise to surface hidden tensions and opportunity spaces',
+      'Created the FPET evaluation system (Fresh, Potent, Energizing, True) and the autonomous QA loop that scores, critiques, rewrites and version-tracks insights until quality thresholds are met',
+      'Built large-scale n8n orchestration pipelines integrating OpenRouter, GPT models and Perplexity for parallelized research and synthesis',
+      'Automated the final deliverable: Google Sheets and Google Slides integration for templated, presentation-ready insight decks',
+    ],
+    impact: [
+      'Automates the slowest, most senior-dependent step of strategy work — research-to-insight synthesis',
+      'Codifies a consulting methodology into a repeatable system, removing reliance on individual intuition',
+      'Parallelized architecture compresses what is normally days of analyst work into a single orchestrated run',
+      'The self-improving QA loop raises insight quality without manual review cycles',
+      'Outputs boardroom-ready decks, not raw notes — operationalizing the entire consulting deliverable pipeline',
+      'Positions the work at the intersection of strategy, AI systems design and foresight automation',
+    ],
     images: {
       col2: '/sigma_ai.gif',
     },

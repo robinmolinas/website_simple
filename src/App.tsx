@@ -10,7 +10,7 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <main className="bg-[#000000] font-kanit relative" style={{ overflowX: 'clip' }}>
+    <main className="bg-[#0C0C0C] font-kanit relative" style={{ overflowX: 'clip' }}>
       {/* Immersive scaled backdrop layout */}
       <div
         className="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center"

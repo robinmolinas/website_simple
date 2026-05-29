@@ -31,9 +31,7 @@ function ProjectCard({
   const isConsultingCard = parseInt(project.number) >= 3;
 
   const handleCardClick = () => {
-    if (isConsultingCard) {
-      onOpenModal(project);
-    }
+    onOpenModal(project);
   };
 
   return (
@@ -46,7 +44,7 @@ function ProjectCard({
       }}
     >
       <motion.div
-        className="w-full origin-top cursor-pointer md:cursor-default"
+        className="w-full origin-top cursor-pointer"
         style={{
           scale,
         }}
@@ -54,9 +52,9 @@ function ProjectCard({
       >
         {/* Consulting cards have identical desktop sizing: md:h-[55vh] md:min-h-[460px] md:max-h-[500px] */}
         <div
-          className={`rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#000000] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl transition-all duration-300 ${
+          className={`rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#000000] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl transition-all duration-300 hover:border-[#D7E2EA]/60 ${
             isConsultingCard
-              ? 'w-full h-auto md:h-[55vh] md:min-h-[460px] md:max-h-[500px] hover:border-[#D7E2EA]/60'
+              ? 'w-full h-auto md:h-[55vh] md:min-h-[460px] md:max-h-[500px]'
               : 'w-full h-auto'
           }`}
         >
@@ -72,12 +70,12 @@ function ProjectCard({
                     {/* Category Label: Gradient for 01 & 02 AI Projects, Solid White for Consulting / Strategy */}
                     <span
                       className={`text-xs sm:text-sm uppercase tracking-widest block mb-1.5 ${
-                        project.category === 'AI PROJECT' && !isConsultingCard
+                        !isConsultingCard
                           ? 'font-extrabold'
                           : 'font-semibold text-[#D7E2EA]/80'
                       }`}
                       style={
-                        project.category === 'AI PROJECT' && !isConsultingCard
+                        !isConsultingCard
                           ? {
                               background: 'linear-gradient(90deg, #B600A8 0%, #7621B0 50%, #BE4C00 100%)',
                               WebkitBackgroundClip: 'text',
@@ -126,7 +124,20 @@ function ProjectCard({
                     {project.buttonLabel}
                   </button>
                 ) : (
-                  <LiveProjectButton label={project.buttonLabel} href={project.buttonHref} />
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenModal(project);
+                      }}
+                      className="inline-block rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base transition-colors duration-200 hover:bg-[#D7E2EA]/10"
+                    >
+                      Learn more →
+                    </button>
+                    {project.buttonHref && (
+                      <LiveProjectButton label={project.buttonLabel} href={project.buttonHref} />
+                    )}
+                  </>
                 )}
                 {project.buttonSubtitle && (
                   <span className="text-[#D7E2EA]/50 text-xs sm:text-sm tracking-wider uppercase font-light">
@@ -173,7 +184,7 @@ export default function ProjectsSection({ onOpenProject }: ProjectsSectionProps)
   return (
     <section
       id="work"
-      className="bg-[#000000] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 relative z-10 pb-[15vh]"
+      className="bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 relative z-10 pb-[15vh]"
     >
       <div className="px-5 sm:px-8 md:px-10 pt-16 sm:pt-20 md:pt-24 max-w-7xl mx-auto">
         <FadeIn delay={0} y={40}>

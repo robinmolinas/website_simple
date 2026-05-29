@@ -5,7 +5,7 @@ const PORTRAIT_URL = '/avatar_skeptical.svg';
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen flex flex-col overflow-x-clip bg-[#000000]">
+    <section className="relative h-screen flex flex-col overflow-x-clip bg-[#0C0C0C]">
       {/* Navbar */}
       <FadeIn delay={0} y={-20}>
         <nav className="flex justify-center gap-8 md:gap-12 pt-6 md:pt-8">
