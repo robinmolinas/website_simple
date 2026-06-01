@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowUpRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import ProjectVisual from './ProjectVisual';
+import ProjectGallery from './ProjectGallery';
 import type { Project } from '@/types/project';
 
 interface ProjectModalProps {
@@ -103,12 +104,16 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
                   perspective: 1200
                 }}
               >
-                <div style={{ transform: 'translateZ(60px)' }} className="w-full h-full">
-                  <ProjectVisual
-                    num={project.number}
-                    accent={project.accent || 'blue'}
-                    accentRgb={project.accentRgb}
-                  />
+                <div style={{ transform: 'translateZ(60px)', transformStyle: 'preserve-3d' }} className="w-full h-full">
+                  {project.gallery && project.gallery.length > 0 ? (
+                    <ProjectGallery items={project.gallery} accentColor={accentColor} />
+                  ) : (
+                    <ProjectVisual
+                      num={project.number}
+                      accent={project.accent || 'blue'}
+                      accentRgb={project.accentRgb}
+                    />
+                  )}
                 </div>
               </motion.div>
             </div>
@@ -214,13 +219,13 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
                 )}
 
                 {/* Skill badges */}
-                {project.tags && project.tags.length > 0 && (
+                {(project.competencies || project.tags) && (project.competencies || project.tags)!.length > 0 && (
                   <div className="space-y-3">
                     <span className="text-[10px] font-mono tracking-[0.25em] text-[#D7E2EA]/30 uppercase block">
                       [05] // Competencies
                     </span>
                     <div className="flex flex-wrap gap-2 pt-1">
-                      {project.tags.map((tag) => (
+                      {(project.competencies || project.tags)!.map((tag) => (
                         <span
                           key={tag}
                           className="text-[#D7E2EA]/75 border border-[#D7E2EA]/10 bg-[#0A0A0C]/80 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs uppercase tracking-widest font-semibold"

@@ -6,6 +6,10 @@ import { resolve } from 'path';
 export default defineConfig({
   base: '/',
 
+  // Honour a PORT env var when one is provided (e.g. by preview/proxy tooling),
+  // otherwise fall back to Vite's default.
+  server: process.env.PORT ? { port: Number(process.env.PORT) } : undefined,
+
   plugins: [react()],
 
   resolve: {

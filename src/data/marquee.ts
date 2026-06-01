@@ -14,17 +14,21 @@
 // ─── Local project GIFs (safe — served from /public/) ──────────────────────
 export const TRENDS_ATLAS_GIF = '/trends_atlas.gif';
 export const SIGMA_AI_GIF = '/sigma_ai.gif';
+export const SIGMA_AI_MOTION_GIF = '/sigma_ai_motion.gif';
 export const QUEST_FOR_HOPE_GIF = '/quest_for_hope.gif';
 export const POWER_CLAIMS_GIF = '/power_claims.gif';
+export const POWER_CLAIMS_IMAGES_GIF = '/power_claims_images.gif';
+export const LEOPARDS_GIF = '/leopards.gif';
+export const ROBLOX_GAME_GIF = '/roblox_game.gif';
 
 // ─── External showcase GIFs (motionsites.ai CDN) ───────────────────────────
 // NOTE: If these start 404-ing, rebuild the array from the motionsites.ai
 // website or replace with locally downloaded copies.
 export const EXTERNAL_IMAGES = [
-  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+  SIGMA_AI_MOTION_GIF,
   'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
   'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+  POWER_CLAIMS_IMAGES_GIF,
   'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
   'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
   'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
@@ -32,7 +36,7 @@ export const EXTERNAL_IMAGES = [
   'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
   'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
   'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
+  POWER_CLAIMS_IMAGES_GIF,
   'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
   'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
   'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
@@ -49,6 +53,7 @@ export const EXTERNAL_IMAGES = [
 export const ROW1_IMAGES: string[] = [
   TRENDS_ATLAS_GIF,
   QUEST_FOR_HOPE_GIF,
+  LEOPARDS_GIF,
   ...EXTERNAL_IMAGES.slice(0, 4),
   SIGMA_AI_GIF,
   POWER_CLAIMS_GIF,
@@ -57,6 +62,7 @@ export const ROW1_IMAGES: string[] = [
 
 export const ROW2_IMAGES: string[] = [
   SIGMA_AI_GIF,
+  ROBLOX_GAME_GIF,
   ...EXTERNAL_IMAGES.slice(11, 13),
   POWER_CLAIMS_GIF,
   QUEST_FOR_HOPE_GIF,

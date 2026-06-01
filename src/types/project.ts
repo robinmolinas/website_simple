@@ -52,4 +52,11 @@ export interface Project {
   images?: {
     col2: string;
   };
+  /**
+   * Real media for the modal's left viewport. When present, the modal renders
+   * this layered GIF/image gallery instead of the generative SVG "motion".
+   * Each entry can be a plain path or a { src, label } pair for a caption.
+   * As real project media arrives, populate this to replace the motion.
+   */
+  gallery?: Array<string | { src: string; label?: string }>;
 }

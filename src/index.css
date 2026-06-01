@@ -25,3 +25,29 @@ body,
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Discreet Premium Scrollbar Design (impeccable theme compliance) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(215, 226, 234, 0.15) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(215, 226, 234, 0.15);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(215, 226, 234, 0.35);
+}
