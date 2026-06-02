@@ -4,27 +4,27 @@ import ContactButton from '../components/ContactButton';
 
 const DECORATIVE_IMAGES = {
   topLeft: {
-    src: '/oculus.svg',
-    alt: 'Oculus VR headset',
-    className: 'w-[150px] sm:w-[200px] md:w-[260px] lg:w-[290px] absolute top-[4%] left-[1%] sm:left-[2%] md:left-[4%]',
-    fadeProps: { delay: 0.1, x: -80, y: 0, duration: 0.9 },
-  },
-  bottomLeft: {
-    src: '/cursor_3d.png',
-    alt: '3D Cursor',
-    className: 'w-[120px] sm:w-[160px] md:w-[210px] lg:w-[230px] absolute bottom-[8%] left-[3%] sm:left-[6%] md:left-[10%]',
-    fadeProps: { delay: 0.25, x: -80, y: 0, duration: 0.9 },
-  },
-  topRight: {
     src: '/lego_icon.png',
     alt: 'Lego icon',
-    className: 'w-[110px] sm:w-[145px] md:w-[190px] lg:w-[210px] absolute top-[4%] right-[1%] sm:right-[2%] md:right-[4%]',
+    className: 'w-[120px] sm:w-[160px] md:w-[200px] lg:w-[220px] absolute top-[6%] left-[2%] sm:left-[4%] md:left-[6%]',
+    fadeProps: { delay: 0.1, x: -80, y: 0, duration: 0.9 },
+  },
+  topRight: {
+    src: '/oculus.svg',
+    alt: 'Oculus VR headset',
+    className: 'w-[140px] sm:w-[180px] md:w-[230px] lg:w-[260px] absolute top-[6%] right-[2%] sm:right-[4%] md:right-[6%]',
     fadeProps: { delay: 0.15, x: 80, y: 0, duration: 0.9 },
   },
-  bottomRight: {
+  bottomLeft: {
     src: '/lightning.svg',
     alt: 'Lightning bolt',
-    className: 'w-[65px] sm:w-[85px] md:w-[110px] lg:w-[125px] absolute bottom-[8%] right-[3%] sm:right-[6%] md:right-[10%]',
+    className: 'w-[80px] sm:w-[110px] md:w-[140px] lg:w-[160px] absolute bottom-[8%] left-[4%] sm:left-[8%] md:left-[10%]',
+    fadeProps: { delay: 0.25, x: -80, y: 0, duration: 0.9 },
+  },
+  bottomRight: {
+    src: '/cursor_3d.png',
+    alt: '3D Cursor',
+    className: 'w-[110px] sm:w-[150px] md:w-[190px] lg:w-[210px] absolute bottom-[8%] right-[4%] sm:right-[8%] md:right-[10%]',
     fadeProps: { delay: 0.3, x: 80, y: 0, duration: 0.9 },
   },
 };
