@@ -125,18 +125,18 @@ function ProjectCard({
                   </button>
                 ) : (
                   <>
+                    {project.buttonHref && (
+                      <LiveProjectButton label={project.buttonLabel} href={project.buttonHref} />
+                    )}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onOpenModal(project);
                       }}
-                      className="inline-block rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base transition-colors duration-200 hover:bg-[#D7E2EA]/10"
+                      className="inline-block rounded-full border-2 border-[#D7E2EA]/45 text-[#D7E2EA]/85 font-medium uppercase tracking-widest px-8 py-3.5 sm:px-10 sm:py-4 text-sm sm:text-base transition-colors duration-200 hover:bg-[#D7E2EA]/10 hover:border-[#D7E2EA] hover:text-[#D7E2EA]"
                     >
-                      Learn more →
+                      Learn more
                     </button>
-                    {project.buttonHref && (
-                      <LiveProjectButton label={project.buttonLabel} href={project.buttonHref} />
-                    )}
                   </>
                 )}
                 {project.buttonSubtitle && (

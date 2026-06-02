@@ -10,11 +10,11 @@ import type { Project } from '@/types/project';
 export const PROJECTS: Project[] = [
   {
     number: '01',
-    category: 'AI TOOL · STRATEGIC INTELLIGENCE',
+    category: 'SELF-BUILT AI PRODUCT · STRATEGIC INTELLIGENCE',
     name: "2026 TRENDS\nATLAS",
     description:
       "A RAG-powered knowledge graph ingesting 70+ macro trend reports — so the whole team can query 2026's biggest signals like a strategist, with citations.",
-    buttonLabel: 'Explore the Atlas',
+    buttonLabel: 'Launch Live App',
     buttonHref: 'https://trends-lime.vercel.app/',
     tags: ['LLM-Wiki Architecture', 'Knowledge Graphs', 'Trends 2026'],
     client: 'Self-built · Compounding Trend Intelligence Knowledge Graph',
@@ -48,13 +48,13 @@ export const PROJECTS: Project[] = [
   },
   {
     number: '02',
-    category: 'AI TOOL · AUTONOMOUS STRATEGY',
+    category: 'SELF-BUILT AI PRODUCT · AUTONOMOUS STRATEGY',
     name: "SIGMA\nAI",
     description:
       'An autonomous multi-agent platform that turns complex research into boardroom-ready strategic insights — in minutes.',
-    buttonLabel: 'Craft Insights',
+    buttonLabel: 'Launch Live App',
     buttonHref: 'https://sigmai.lovable.app/',
-    tags: ['Multi-Agent Systems', 'Prompt Engineering', 'n8n', 'AI Evaluation'],
+    tags: ['Multi-Agent Systems', 'Prompt Engineering', 'n8n'],
     client: 'Self-built · Multi-Agent Strategic Insight Engine',
     intro:
       "The most valuable — and most manual — part of strategy consulting is turning a mountain of research into a handful of insights sharp enough to change a decision. It's slow, it's subjective, and it doesn't scale. Sigma AI is my attempt to operationalize that craft. It's an autonomous multi-agent platform that takes a company and a research brief and runs the entire foresight workflow end-to-end: it decomposes the topic into 18 MECE sub-briefs, launches parallel research agents, consolidates findings across a proprietary six-lens framework (SCHEMA: Structures, Culture, Humans, Economics, Machinery, Actors), then generates insights by deliberately cross-combining those lenses — Culture × Economics, Humans × Technology — to surface the non-obvious tensions and paradoxes where real insight lives. Crucially, it doesn't stop at a first draft. Every insight is scored against an FPET rubric (Fresh, Potent, Energizing, True), and weak insights are critiqued and rewritten in an autonomous quality loop until they clear a threshold. The output isn't raw text — it's a polished, presentation-ready insight deck. Sigma AI isn't \"AI that summarizes research.\" It's a system that encodes a strategic methodology and runs it at scale.",
@@ -125,7 +125,7 @@ export const PROJECTS: Project[] = [
     ],
     competencies: ['AI AGENTS', 'PRODUCT DESIGN', 'BEAUTY TECH', 'ENTERPRISE'],
     images: {
-      col2: '/power_claims.gif',
+      col2: '/power_claims_images.gif',
     },
   },
   {
@@ -241,7 +241,7 @@ export const PROJECTS: Project[] = [
       ['4', 'global billboards'],
     ],
     images: {
-      col2: '/quest_for_hope.gif',
+      col2: '/leopards.gif',
     },
     gallery: [
       { src: '/quest_for_hope.gif', label: 'The Quest' },

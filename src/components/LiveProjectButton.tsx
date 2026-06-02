@@ -1,3 +1,5 @@
+import { ArrowUpRight } from 'lucide-react';
+
 interface LiveProjectButtonProps {
   label?: string;
   href?: string;
@@ -5,17 +7,18 @@ interface LiveProjectButtonProps {
 }
 
 export default function LiveProjectButton({
-  label = 'View Project',
+  label = 'Launch Live App',
   href,
   className = '',
 }: LiveProjectButtonProps) {
   const baseClasses = `
-    inline-block rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA]
-    font-medium uppercase tracking-widest
-    px-8 py-3 sm:px-10 sm:py-3.5
+    inline-flex items-center justify-center gap-2 rounded-full
+    bg-[#D7E2EA] text-[#0C0C0C] hover:bg-[#BBCCD7]
+    font-bold uppercase tracking-widest
+    px-8 py-3.5 sm:px-10 sm:py-4
     text-sm sm:text-base
-    transition-colors duration-200
-    hover:bg-[#D7E2EA]/10
+    transition-all duration-200 hover:scale-[1.03]
+    shadow-lg hover:shadow-xl
     ${className}
   `;
 
@@ -28,6 +31,7 @@ export default function LiveProjectButton({
         className={baseClasses}
       >
         {label}
+        <ArrowUpRight className="w-4 h-4" />
       </a>
     );
   }
@@ -35,6 +39,7 @@ export default function LiveProjectButton({
   return (
     <button className={baseClasses} type="button">
       {label}
+      <ArrowUpRight className="w-4 h-4" />
     </button>
   );
 }
