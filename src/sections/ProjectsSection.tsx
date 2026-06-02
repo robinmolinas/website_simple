@@ -50,13 +50,9 @@ function ProjectCard({
         }}
         onClick={handleCardClick}
       >
-        {/* Consulting cards have identical desktop sizing: md:h-[55vh] md:min-h-[460px] md:max-h-[500px] */}
+        {/* All cards share a unified premium desktop sizing for deck stack symmetry */}
         <div
-          className={`rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#000000] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl transition-all duration-300 hover:border-[#D7E2EA]/60 ${
-            isConsultingCard
-              ? 'w-full h-auto md:h-[55vh] md:min-h-[460px] md:max-h-[500px]'
-              : 'w-full h-auto'
-          }`}
+          className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA]/20 bg-[#000000] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl transition-all duration-300 hover:border-[#D7E2EA]/75 w-full h-auto md:h-[55vh] md:min-h-[460px] md:max-h-[500px]"
         >
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-stretch h-full">
             {/* Left Column: Text copy and Action button */}
@@ -67,23 +63,13 @@ function ProjectCard({
                     {project.number}
                   </span>
                   <div className="pt-2 sm:pt-4">
-                    {/* Category Label: Gradient for 01 & 02 AI Projects, Solid White for Consulting / Strategy */}
+                    {/* Category Label: High-contrast tracking highlights for self-built products */}
                     <span
-                      className={`text-xs sm:text-sm uppercase tracking-widest block mb-1.5 ${
+                      className={`text-xs sm:text-sm uppercase block mb-1.5 ${
                         !isConsultingCard
-                          ? 'font-extrabold'
-                          : 'font-semibold text-[#D7E2EA]/80'
+                          ? 'font-extrabold text-[#D7E2EA] tracking-[0.2em]'
+                          : 'font-semibold text-[#D7E2EA]/70 tracking-widest'
                       }`}
-                      style={
-                        !isConsultingCard
-                          ? {
-                              background: 'linear-gradient(90deg, #B600A8 0%, #7621B0 50%, #BE4C00 100%)',
-                              WebkitBackgroundClip: 'text',
-                              WebkitTextFillColor: 'transparent',
-                              backgroundClip: 'text',
-                            }
-                          : undefined
-                      }
                     >
                       {project.category}
                     </span>
