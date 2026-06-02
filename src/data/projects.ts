@@ -132,7 +132,7 @@ export const PROJECTS: Project[] = [
     number: '04',
     category: 'GENAI · INNOVATION',
     accent: 'blue',
-    name: "FORVIAX",
+    name: "FORVIA-X",
     description:
       "Reinvented Forvia's innovation process by mapping 60+ GenAI use cases and prioritizing the 10 highest-value ones into built POCs.",
     buttonLabel: 'Learn more →',
