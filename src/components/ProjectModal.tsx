@@ -30,10 +30,10 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
 
   const accentColor = {
     pink: '#B600A8',
-    blue: '#0052FF',
+    blue: '#3B82F6',
     teal: '#00F5D4',
-    amber: '#FF9F1C',
-  }[project.accent || 'blue'] || project.accent || '#0052FF';
+    amber: '#F59E0B',
+  }[project.accent || 'blue'] || project.accent || '#3B82F6';
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { width, height, left, top } = e.currentTarget.getBoundingClientRect();

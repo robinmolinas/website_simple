@@ -29,9 +29,6 @@ function ProjectCard({
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
   const isConsultingCard = parseInt(project.number) >= 3;
-  const handleCardClick = () => {
-    onOpenModal(project);
-  };
 
   return (
     <div
@@ -43,15 +40,14 @@ function ProjectCard({
       }}
     >
       <motion.div
-        className="w-full origin-top cursor-pointer"
+        className="w-full origin-top"
         style={{
           scale,
         }}
-        onClick={handleCardClick}
       >
         {/* All cards share a unified premium desktop sizing for deck stack symmetry */}
         <div
-          className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA]/20 bg-[#000000] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl transition-all duration-300 hover:border-[#D7E2EA]/75 w-full h-auto md:h-[55vh] md:min-h-[460px] md:max-h-[500px]"
+          className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA]/20 bg-[#000000] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl transition-[border-color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#D7E2EA]/75 w-full h-auto md:h-[55vh] md:min-h-[460px] md:max-h-[500px]"
         >
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-stretch h-full">
             {/* Left Column: Text copy and Action button */}
@@ -80,7 +76,7 @@ function ProjectCard({
                 <p className="text-[#D7E2EA]/80 font-light text-base sm:text-lg md:text-xl max-w-[480px] leading-relaxed line-clamp-3 md:line-clamp-none">
                   {project.description}
                 </p>
-
+ 
                 {/* Tag badges */}
                 {project.tags && (
                   <div className="flex flex-wrap gap-2 pt-2 sm:pt-4">

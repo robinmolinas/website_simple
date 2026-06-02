@@ -7,18 +7,12 @@ export default function ContactButton({ className = '' }: ContactButtonProps) {
     <a
       href="mailto:robin.molinas@outlook.com"
       className={`
-        inline-block rounded-full font-medium uppercase tracking-widest text-white
-        px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4
+        inline-block rounded-full font-bold uppercase tracking-widest text-[#0C0C0C] bg-[#D7E2EA]
+        px-8 py-3.5 sm:px-10 sm:py-4 md:px-12 md:py-4.5
         text-xs sm:text-sm md:text-base
-        transition-transform duration-200 hover:scale-105
+        transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 hover:bg-[#D7E2EA]/90 hover:shadow-[0_0_30px_rgba(215,226,234,0.15)]
         ${className}
       `}
-      style={{
-        background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
-        boxShadow: '0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset',
-        outline: '2px solid white',
-        outlineOffset: '-3px',
-      }}
     >
       Contact Me
     </a>

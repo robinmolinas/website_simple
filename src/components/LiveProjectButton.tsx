@@ -17,7 +17,7 @@ export default function LiveProjectButton({
     font-bold uppercase tracking-widest
     px-8 py-3.5 sm:px-10 sm:py-4
     text-sm sm:text-base
-    transition-all duration-200 hover:scale-[1.03]
+    transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03]
     shadow-lg hover:shadow-xl
     ${className}
   `;

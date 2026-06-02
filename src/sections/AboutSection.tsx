@@ -30,7 +30,7 @@ const DECORATIVE_IMAGES = {
 };
 
 const ABOUT_TEXT =
-  "7 years building at the intersection of strategy and AI — from agentic platforms to growth strategies for some of the world's most iconic brands. I turn complex business challenges into scalable, intelligent solutions. Builder by nature, strategist by training.";
+  "7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for some of the world's most iconic brands. I turn complex business challenges into scalable, intelligent solutions. Builder by nature, strategist by training.";
 
 export default function AboutSection() {
   return (
