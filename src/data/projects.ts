@@ -132,7 +132,7 @@ export const PROJECTS: Project[] = [
     number: '04',
     category: 'GENAI · INNOVATION',
     accent: 'blue',
-    name: "INNOVATION\nx GenAI",
+    name: "FORVIAX",
     description:
       "Reinvented Forvia's innovation process by mapping 60+ GenAI use cases and prioritizing the 10 highest-value ones into built POCs.",
     buttonLabel: 'Learn more →',
@@ -158,6 +158,9 @@ export const PROJECTS: Project[] = [
       ['8-pt', 'scoring matrix'],
       ['4 mo', 'engagement'],
     ],
+    images: {
+      col2: '/Forvia.gif',
+    },
   },
   {
     number: '05',
@@ -201,6 +204,9 @@ export const PROJECTS: Project[] = [
       ['3', 'Alpha modules launched in the global platform foundation'],
       ['1', 'unified strategy replacing a fragmented GenAI tooling ecosystem'],
     ],
+    images: {
+      col2: '/songai.gif',
+    },
   },
   {
     number: '06',
