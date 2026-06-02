@@ -10,7 +10,7 @@ import type { Project } from '@/types/project';
 export const PROJECTS: Project[] = [
   {
     number: '01',
-    category: 'SELF-BUILT AI PRODUCT · STRATEGIC INTELLIGENCE',
+    category: 'SELF-BUILT AI PRODUCT',
     name: "2026 TRENDS\nATLAS",
     description:
       "A RAG-powered knowledge graph ingesting 70+ macro trend reports — so the whole team can query 2026's biggest signals like a strategist, with citations.",
@@ -48,7 +48,7 @@ export const PROJECTS: Project[] = [
   },
   {
     number: '02',
-    category: 'SELF-BUILT AI PRODUCT · AUTONOMOUS STRATEGY',
+    category: 'SELF-BUILT AI PRODUCT',
     name: "SIGMA\nAI",
     description:
       'An autonomous multi-agent platform that turns complex research into boardroom-ready strategic insights — in minutes.',
