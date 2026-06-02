@@ -29,6 +29,7 @@ function ProjectCard({
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
   const isConsultingCard = parseInt(project.number) >= 3;
+  const isLast = index === totalCards - 1;
 
   const handleCardClick = () => {
     onOpenModal(project);
@@ -37,7 +38,9 @@ function ProjectCard({
   return (
     <div
       ref={containerRef}
-      className="h-[85vh] sticky top-24 md:top-32 flex items-start justify-center origin-top w-full"
+      className={`sticky top-24 md:top-32 flex items-start justify-center origin-top w-full ${
+        isLast ? 'h-auto md:h-[55vh] md:min-h-[460px] md:max-h-[500px]' : 'h-[85vh]'
+      }`}
       style={{
         top: `${96 + index * 28}px`, // Stacks with a clean offset showing the tops of older cards
         zIndex: index + 1,
