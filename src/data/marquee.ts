@@ -20,7 +20,7 @@ export const POWER_CLAIMS_GIF = '/power_claims.gif';
 export const POWER_CLAIMS_IMAGES_GIF = '/power_claims_images.gif';
 export const LEOPARDS_GIF = '/leopards.gif';
 export const ROBLOX_GAME_GIF = '/roblox_game.gif';
-export const SONGAI_GIF = '/songai.gif';
+export const SONGAI_GIF = '/trends_atlas.gif';
 export const FORVIA_GIF = '/Forvia.gif';
 
 // ─── External showcase GIFs (motionsites.ai CDN) ───────────────────────────
