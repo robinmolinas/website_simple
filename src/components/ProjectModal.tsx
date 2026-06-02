@@ -104,9 +104,20 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
                   perspective: 1200
                 }}
               >
-                <div style={{ transform: 'translateZ(60px)', transformStyle: 'preserve-3d' }} className="w-full h-full">
+                <div style={{ transform: 'translateZ(60px)', transformStyle: 'preserve-3d' }} className="w-full h-full flex items-center justify-center">
                   {project.gallery && project.gallery.length > 0 ? (
                     <ProjectGallery items={project.gallery} accentColor={accentColor} />
+                  ) : project.images && project.images.col2 ? (
+                    <div className="w-full h-full rounded-[30px] overflow-hidden border border-[#D7E2EA]/10 bg-[#050505] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.85)] relative group">
+                      <img
+                        src={project.images.col2}
+                        alt={`${project.name} modal showcase`}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                        loading="lazy"
+                        draggable={false}
+                      />
+                      <div className="absolute inset-0 rounded-[30px] ring-1 ring-inset ring-white/5 pointer-events-none" />
+                    </div>
                   ) : (
                     <ProjectVisual
                       num={project.number}
