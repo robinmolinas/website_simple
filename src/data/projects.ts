@@ -205,7 +205,7 @@ export const PROJECTS: Project[] = [
       ['1', 'unified strategy replacing a fragmented GenAI tooling ecosystem'],
     ],
     images: {
-      col2: '/trends_atlas.gif',
+      col2: '/songai.gif',
     },
   },
   {
