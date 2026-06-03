@@ -46,6 +46,74 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
     setCoords({ x: 0, y: 0 });
   };
 
+  // Helper to dynamically format/bold lead-in clauses in descriptions/bullets
+  const formatBulletText = (text: string) => {
+    const parts = text.split(':');
+    if (parts.length > 1 && parts[0].split(' ').length <= 8) {
+      return (
+        <>
+          <span className="font-bold text-[#D7E2EA] tracking-tight">{parts[0]}:</span>
+          {parts.slice(1).join(':')}
+        </>
+      );
+    }
+    
+    const words = text.split(' ');
+    if (words.length <= 4) {
+      return <span className="font-bold text-[#D7E2EA] tracking-tight">{text}</span>;
+    }
+    const boldPart = words.slice(0, 4).join(' ');
+    const normalPart = words.slice(4).join(' ');
+    return (
+      <>
+        <span className="font-bold text-[#D7E2EA] tracking-tight">{boldPart}</span> {normalPart}
+      </>
+    );
+  };
+
+  // Helper to parse long intro texts into stylized editorial paragraphs with Challenge/Idea sections
+  const formatIntroText = (intro: string) => {
+    const paragraphs = intro.split(/\n\n|\n/);
+    return paragraphs.map((para, i) => {
+      const trimmed = para.trim();
+      if (!trimmed) return null;
+
+      // Extract structural subheadings if present
+      if (trimmed.startsWith('THE CHALLENGE') || trimmed.startsWith('THE IDEA')) {
+        const colonIdx = trimmed.indexOf(':');
+        if (colonIdx !== -1) {
+          const label = trimmed.substring(0, colonIdx + 1);
+          const content = trimmed.substring(colonIdx + 1).trim();
+          return (
+            <div key={i} className="space-y-1.5 mb-6">
+              <span className="text-[10px] font-mono tracking-[0.25em] text-[#D7E2EA]/40 uppercase block font-bold">
+                {label}
+              </span>
+              <p className="text-[#D7E2EA]/80 font-light text-base sm:text-lg leading-relaxed">
+                {content}
+              </p>
+            </div>
+          );
+        }
+      }
+
+      // First paragraph gets a prominent editorial style
+      if (i === 0) {
+        return (
+          <p key={i} className="text-[#D7E2EA] font-normal text-lg sm:text-xl leading-relaxed mb-4 tracking-tight">
+            {trimmed}
+          </p>
+        );
+      }
+
+      return (
+        <p key={i} className="text-[#D7E2EA]/80 font-light text-base sm:text-lg leading-relaxed mb-4">
+          {trimmed}
+        </p>
+      );
+    });
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -56,17 +124,17 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#000000]/70 backdrop-blur-md cursor-pointer"
+            className="fixed inset-0 bg-[#000000]/80 backdrop-blur-md cursor-pointer"
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           />
 
           {/* Immersive Volumetric Portal Panel */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: 'spring', damping: 28, stiffness: 200 }}
-            className="relative w-full max-w-6xl min-h-[70vh] md:min-h-[80vh] bg-[#030303]/90 border border-[#D7E2EA]/10 shadow-2xl rounded-[35px] flex flex-col md:flex-row items-stretch overflow-hidden z-10 origin-center"
+            exit={{ opacity: 0, scale: 0.96, y: 15 }}
+            transition={{ type: 'spring', damping: 30, stiffness: 220 }}
+            className="relative w-full max-w-6xl min-h-[70vh] md:min-h-[80vh] bg-[#030303]/95 border border-[#D7E2EA]/10 shadow-2xl rounded-[35px] flex flex-col md:flex-row items-stretch overflow-hidden z-10 origin-center"
             style={{
               boxShadow: `0 30px 100px -15px ${accentColor}15, 0 0 60px -15px ${accentColor}10`
             }}
@@ -134,7 +202,7 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
               {/* Header */}
               <div className="mb-8">
                 <span
-                  className="font-mono text-xs uppercase tracking-[0.25em] font-semibold block mb-1"
+                  className="font-mono text-xs uppercase tracking-[0.25em] font-semibold block mb-1.5"
                   style={{ color: accentColor }}
                 >
                   {project.category}
@@ -150,42 +218,42 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
               </div>
 
               {/* Fluid Layout Modules */}
-              <div className="space-y-8 flex-1">
+              <div className="space-y-10 flex-1">
                 {/* Intro Summary */}
                 {project.intro && (
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <span className="text-[10px] font-mono tracking-[0.25em] text-[#D7E2EA]/30 uppercase block">
                       [01] // Executive Summary
                     </span>
-                    <p className="text-[#D7E2EA] font-light text-base sm:text-lg leading-relaxed">
-                      {project.intro}
-                    </p>
+                    <div className="border-b border-[#D7E2EA]/5 pb-6">
+                      {formatIntroText(project.intro)}
+                    </div>
                   </div>
                 )}
 
                 {/* Micro-metrics Isometric Stat Blocks */}
                 {project.metrics && project.metrics.length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <span className="text-[10px] font-mono tracking-[0.25em] text-[#D7E2EA]/30 uppercase block">
                       [02] // Key Outcomes
                     </span>
-                    <div className="grid grid-cols-2 gap-4 pt-1">
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-1">
                       {project.metrics.map(([val, label], idx) => (
-                        <motion.div
+                        <div
                           key={idx}
-                          whileHover={{ scale: 1.02, y: -2 }}
-                          className="p-5 rounded-2xl bg-[#09090c]/60 border border-[#D7E2EA]/5 flex flex-col justify-center shadow-lg transition-all"
+                          className="flex flex-col border-l-2 pl-4 py-1.5 transition-colors duration-300"
+                          style={{ borderColor: `${accentColor}33` }}
                         >
-                          <span
-                            className="font-black text-2xl sm:text-3xl leading-none mb-1 block"
-                            style={{ color: '#D7E2EA' }}
-                          >
+                          <span className="font-mono text-[9px] tracking-[0.25em] text-[#D7E2EA]/30 uppercase block mb-1">
+                            Metric 0{idx + 1}
+                          </span>
+                          <span className="font-black text-3xl sm:text-4xl text-[#D7E2EA] leading-none mb-1 tracking-tighter">
                             {val}
                           </span>
-                          <span className="text-[#D7E2EA]/50 text-[10px] sm:text-xs uppercase tracking-wider font-medium">
+                          <span className="text-[#D7E2EA]/60 text-xs uppercase tracking-wider font-light">
                             {label}
                           </span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -193,45 +261,51 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
 
                 {/* Role Details */}
                 {project.role && project.role.length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <span className="text-[10px] font-mono tracking-[0.25em] text-[#D7E2EA]/30 uppercase block">
                       [03] // What I Did
                     </span>
-                    <ul className="space-y-3 pl-4">
+                    <div className="space-y-4">
                       {project.role.map((bullet, idx) => (
-                        <li
-                          key={idx}
-                          className="text-[#D7E2EA]/80 text-sm sm:text-base font-light leading-relaxed list-disc marker:text-[#D7E2EA]/30"
-                        >
-                          {bullet}
-                        </li>
+                        <div key={idx} className="flex items-start gap-3.5 group">
+                          <span 
+                            className="w-1.5 h-1.5 rounded-full mt-2.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"
+                            style={{ backgroundColor: accentColor, boxShadow: `0 0 6px ${accentColor}aa` }}
+                          />
+                          <p className="text-[#D7E2EA]/80 text-sm sm:text-base font-light leading-relaxed">
+                            {formatBulletText(bullet)}
+                          </p>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
 
                 {/* Impact */}
                 {project.impact && project.impact.length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <span className="text-[10px] font-mono tracking-[0.25em] text-[#D7E2EA]/30 uppercase block">
                       [04] // Business Impact
                     </span>
-                    <ul className="space-y-3 pl-4">
+                    <div className="space-y-4">
                       {project.impact.map((bullet, idx) => (
-                        <li
-                          key={idx}
-                          className="text-[#D7E2EA]/80 text-sm sm:text-base font-light leading-relaxed list-disc marker:text-[#D7E2EA]/30"
-                        >
-                          {bullet}
-                        </li>
+                        <div key={idx} className="flex items-start gap-3.5 group">
+                          <span 
+                            className="w-1.5 h-1.5 rounded-full mt-2.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"
+                            style={{ backgroundColor: accentColor, boxShadow: `0 0 6px ${accentColor}aa` }}
+                          />
+                          <p className="text-[#D7E2EA]/80 text-sm sm:text-base font-light leading-relaxed">
+                            {formatBulletText(bullet)}
+                          </p>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
 
                 {/* Skill badges */}
                 {(project.competencies || project.tags) && (project.competencies || project.tags)!.length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <span className="text-[10px] font-mono tracking-[0.25em] text-[#D7E2EA]/30 uppercase block">
                       [05] // Competencies
                     </span>
@@ -239,7 +313,7 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
                       {(project.competencies || project.tags)!.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[#D7E2EA]/75 border border-[#D7E2EA]/10 bg-[#0A0A0C]/80 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs uppercase tracking-widest font-semibold"
+                          className="text-[#D7E2EA]/85 border border-[#D7E2EA]/10 bg-[#0A0A0C]/50 px-3.5 py-1.5 rounded-[8px] text-[10px] uppercase tracking-widest font-semibold font-mono"
                         >
                           {tag}
                         </span>
@@ -251,7 +325,7 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
 
               {/* Action Buttons */}
               {(project.buttonHref || project.caseStudyLink) && (
-                <div className="pt-8 flex flex-wrap gap-4 mt-auto">
+                <div className="pt-10 flex flex-wrap gap-4 mt-auto">
                   {project.buttonHref && (
                     <a
                       href={project.buttonHref}
