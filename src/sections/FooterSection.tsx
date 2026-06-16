@@ -14,22 +14,10 @@ export default function FooterSection() {
         <FadeIn delay={0} y={40}>
           <h2
             className="hero-heading font-black uppercase leading-none tracking-tight text-center"
-            style={{ fontSize: 'clamp(2.5rem, 10vw, 120px)' }}
+            style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
           >
             Let&apos;s build
           </h2>
-        </FadeIn>
-
-        <div className="h-8 sm:h-10 md:h-12" />
-
-        <FadeIn delay={0.1} y={20}>
-          <p
-            className="text-[#D7E2EA]/70 font-light text-center max-w-[480px] mx-auto leading-relaxed"
-            style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.25rem)' }}
-          >
-            Have a complex problem that needs both strategic thinking and hands-on execution?
-            I&apos;m always open to the right conversation.
-          </p>
         </FadeIn>
 
         <div className="h-10 sm:h-12 md:h-14" />
@@ -51,22 +39,6 @@ export default function FooterSection() {
           <span className="text-[#D7E2EA]/40 text-xs sm:text-sm font-light tracking-wider uppercase order-3 sm:order-1">
             &copy; {CURRENT_YEAR} Robin Molinas
           </span>
-
-          {/* Center: nav */}
-          <nav className="flex gap-6 sm:gap-8 order-1 sm:order-2">
-            <a
-              href="#about"
-              className="text-[#D7E2EA]/60 font-medium uppercase tracking-wider text-xs sm:text-sm transition-opacity duration-200 hover:opacity-100 hover:text-[#D7E2EA]"
-            >
-              About
-            </a>
-            <a
-              href="#work"
-              className="text-[#D7E2EA]/60 font-medium uppercase tracking-wider text-xs sm:text-sm transition-opacity duration-200 hover:opacity-100 hover:text-[#D7E2EA]"
-            >
-              Work
-            </a>
-          </nav>
 
           {/* Right: social links */}
           <div className="flex gap-6 sm:gap-8 order-2 sm:order-3">
