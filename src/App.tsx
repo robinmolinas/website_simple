@@ -3,6 +3,8 @@ import HeroSection from './sections/HeroSection';
 import MarqueeSection from './sections/MarqueeSection';
 import AboutSection from './sections/AboutSection';
 import ProjectsSection from './sections/ProjectsSection';
+import FooterSection from './sections/FooterSection';
+
 import ProjectModal from './components/ProjectModal';
 import type { Project } from '@/types/project';
 
@@ -24,6 +26,7 @@ export default function App() {
         <MarqueeSection />
         <AboutSection />
         <ProjectsSection onOpenProject={setSelectedProject} activeProject={selectedProject} />
+        <FooterSection />
       </div>
 
       <ProjectModal

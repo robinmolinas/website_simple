@@ -29,11 +29,15 @@ function ProjectCard({
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
   const isConsultingCard = parseInt(project.number) >= 3;
+  // The last card has nothing stacking after it, so its sticky container doesn't
+  // need the tall 85vh scroll runway — sizing it to the card box keeps the gap
+  // before the footer tight instead of leaving ~30vh of dead space on release.
+  const isLast = index === totalCards - 1;
 
   return (
     <div
       ref={containerRef}
-      className="h-[85vh] sticky top-24 md:top-32 flex items-start justify-center origin-top w-full"
+      className={`${isLast ? 'h-[85vh] md:h-[600px]' : 'h-[85vh]'} sticky top-24 md:top-32 flex items-start justify-center origin-top w-full`}
       style={{
         top: `${96 + index * 28}px`, // Stacks with a clean offset showing the tops of older cards
         zIndex: index + 1,
@@ -165,7 +169,7 @@ export default function ProjectsSection({ onOpenProject }: ProjectsSectionProps)
   return (
     <section
       id="work"
-      className="bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 relative z-10 pb-[15vh]"
+      className="bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 relative z-10"
     >
       <div className="px-5 sm:px-8 md:px-10 pt-16 sm:pt-20 md:pt-24 max-w-7xl mx-auto">
         <FadeIn delay={0} y={40}>
@@ -178,7 +182,7 @@ export default function ProjectsSection({ onOpenProject }: ProjectsSectionProps)
         </FadeIn>
 
         {/* Vertical stacking container with scroll buffer for the final sticky card */}
-        <div className="relative flex flex-col gap-12 sm:gap-16 md:gap-20 pb-[5vh]">
+        <div className="relative flex flex-col gap-12 sm:gap-16 md:gap-20">
           {PROJECTS.map((project, index) => (
             <ProjectCard
               key={project.number}
