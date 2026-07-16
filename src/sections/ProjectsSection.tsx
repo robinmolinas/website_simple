@@ -98,7 +98,7 @@ function ProjectCard({
 
               {/* Action Button & Subtitle */}
               <div className="flex items-center gap-4 sm:gap-6 flex-wrap mt-auto">
-                {isConsultingCard ? (
+                {!project.buttonHref ? (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -110,9 +110,7 @@ function ProjectCard({
                   </button>
                 ) : (
                   <>
-                    {project.buttonHref && (
-                      <LiveProjectButton label={project.buttonLabel} href={project.buttonHref} />
-                    )}
+                    <LiveProjectButton label={project.buttonLabel} href={project.buttonHref} />
                     <button
                       onClick={(e) => {
                         e.stopPropagation();

@@ -212,7 +212,7 @@ export const PROJECTS: Project[] = [
     name: "QUEST FOR\nHOPE",
     description:
       'A decentralized conservation campaign turning endangered Arabian leopards into playable Roblox & Decentraland adventures, launched on the first ever UN International Arabian Leopard Day.',
-    buttonLabel: 'Learn more →',
+    buttonLabel: 'Launch Live App',
     buttonHref: 'https://questforhope.com/',
     caseStudyLink: 'https://www.frog.co/work/leaping-into-decentralized-conservation',
     client: 'RCU Saudi Arabia · AlUla Activation',
