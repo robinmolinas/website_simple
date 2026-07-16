@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
     description:
       'An autonomous multi-agent platform that turns complex research into boardroom-ready strategic insights in just minutes.',
     buttonLabel: 'Launch Live App',
-    buttonHref: 'https://sigmai.lovable.app/',
+    buttonHref: 'https://sigmai.lovable.app/demo',
     tags: ['Multi-Agent Systems', 'Prompt Engineering', 'n8n'],
     client: 'Self-built · Multi-Agent Strategic Insight Engine',
     intro:
