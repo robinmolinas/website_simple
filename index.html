@@ -1,73 +1,937 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Robin Molinas — Strategy & AI Builder | Portfolio</title>
-    <meta name="description" content="Robin Molinas — Strategy & AI Builder. 7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands." />
-    <meta name="theme-color" content="#0C0C0C" />
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Robin Molinas, Strategy and AI Builder</title>
+<meta name="description" content="Robin Molinas, strategy and AI builder. 7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands.">
+<meta name="theme-color" content="#0C0C0C">
+<link rel="canonical" href="https://robinmolinas.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Robin Molinas, Strategy and AI Builder">
+<meta property="og:description" content="7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands.">
+<meta property="og:url" content="https://robinmolinas.vercel.app/">
+<meta property="og:image" content="https://robinmolinas.vercel.app/og-image.jpg">
+<meta property="og:site_name" content="Robin Molinas">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Robin Molinas, Strategy and AI Builder">
+<meta name="twitter:description" content="7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands.">
+<meta name="twitter:image" content="https://robinmolinas.vercel.app/og-image.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Robin Molinas","url":"https://robinmolinas.vercel.app","jobTitle":"Strategy & AI Builder","description":"7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands.","sameAs":["https://www.linkedin.com/in/robinmolinas","mailto:robin.molinas@outlook.com"]}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Robin Molinas",
+  "url": "https://robinmolinas.vercel.app/"
+}
+</script>
+<link rel="icon" type="image/png" href="/assets/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/scrollcraft.css">
+<style>
+  /* ------------------------------------------------------------ tokens -- */
+  :root {
+    --sc-canvas:     #0C0C0C;
+    --sc-surface:    #141518;
+    --sc-ink:        #D7E2EA;
+    --sc-ink-soft:   #8C97A0;
+    --sc-accent:     #6C5CE7;
+    --sc-accent-ink: #0C0C0C;
+    --sc-font-display: "Kanit", system-ui, sans-serif;
+    --sc-font-text:    "Kanit", system-ui, sans-serif;
+    --sc-r-sm: 12px; --sc-r-md: 24px; --sc-r-lg: 50px;   /* DESIGN.md rounded scale */
+    --sc-shadow-color: 220 20% 2%;
+    --display-ink: #BBCCD7;   /* the current site's heading tone, from its own CSS */
+    --card-bg: #050506;
+    --line: rgba(215, 226, 234, 0.2);
+    --line-strong: rgba(215, 226, 234, 0.75);
+    --cw: 360px;               /* the fixed companion's base box */
+    --corner: 72px;            /* corner badge size, desktop */
+    --corner-pad: 28px;
+  }
+  body { font-weight: 400; }
+  .skip { position: absolute; left: var(--sc-4); top: -4rem; z-index: 100; background: var(--sc-ink); color: var(--sc-canvas); padding: .6rem 1rem; border-radius: var(--sc-r-pill); font-weight: 700; }
+  .skip:focus { top: var(--sc-4); }
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://robinmolinas.vercel.app/" />
+  /* ------------------------------------------------------------- type --- */
+  .display {
+    font-family: var(--sc-font-display); font-weight: 900; text-transform: uppercase;
+    line-height: .92; letter-spacing: -0.02em; color: var(--display-ink); margin: 0;
+    text-wrap: balance;
+  }
+  .display--poster { font-size: clamp(3rem, 12vw, 160px); }
+  .label {
+    font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700;
+    color: var(--sc-ink-soft); margin: 0;
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+    border-radius: var(--sc-r-pill); padding: .95rem 2.3rem; min-height: 3rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: .8rem;
+    text-decoration: none; white-space: nowrap; cursor: pointer; border: 2px solid transparent;
+    transition: transform var(--sc-d-fast) var(--sc-ease-out), background var(--sc-d-fast) var(--sc-ease-out), border-color var(--sc-d-fast) var(--sc-ease-out), color var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .btn:active { transform: scale(.97); }
+  .btn--primary { background: var(--sc-ink); color: var(--sc-canvas); border-color: var(--sc-ink); }
+  .btn--primary:hover { background: color-mix(in oklab, var(--sc-ink) 88%, white); border-color: transparent; }
+  .btn--ghost { color: var(--sc-ink); border-color: rgba(215,226,234,.45); background: transparent; }
+  .btn--ghost:hover { border-color: var(--sc-ink); background: rgba(215,226,234,.06); }
+  .btn svg { width: 1em; height: 1em; }
+  .links { display: flex; gap: var(--sc-6); margin: 0; padding: 0; list-style: none; }
+  .links a {
+    font-weight: 500; text-transform: uppercase; letter-spacing: .12em; font-size: .85rem;
+    text-decoration: none; color: var(--sc-ink); transition: opacity var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .links a:hover { opacity: .7; }
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Robin Molinas — Strategy & AI Builder" />
-    <meta property="og:description" content="7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands." />
-    <meta property="og:url" content="https://robinmolinas.vercel.app/" />
-    <meta property="og:image" content="https://robinmolinas.vercel.app/og-image.jpg" />
-    <meta property="og:image:width" content="1456" />
-    <meta property="og:image:height" content="816" />
-    <meta property="og:site_name" content="Robin Molinas" />
+  /* ----------------------------------------------------------- figures -- */
+  /* One drawing of him, used in four places. Square box, image cover-fit and
+     top-anchored, so a circle clip of the box frames the face. */
+  .figure { position: relative; aspect-ratio: 1; }
+  .figure__btn {
+    display: block; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background: none;
+    cursor: pointer; border-radius: inherit; overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .figure__btn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 4px; }
+  .figure__pose { width: 100%; height: 100%; transform-style: preserve-3d; will-change: transform; }
+  .figure img, .figure canvas {
+    width: 100%; height: 100%; object-fit: cover; object-position: 50% 0;
+    user-select: none; -webkit-user-drag: none; pointer-events: none;
+  }
+  .figure canvas { position: absolute; inset: 0; }
+  .figure.has-frames img { visibility: hidden; }
+  .figure:not(.has-frames) canvas { display: none; }
+  .figure--stage { opacity: 0; visibility: hidden; }
+  .figure--stage.is-on { opacity: 1; visibility: visible; }
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Robin Molinas — Strategy & AI Builder" />
-    <meta name="twitter:description" content="7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands." />
-    <meta name="twitter:image" content="https://robinmolinas.vercel.app/og-image.jpg" />
+  /* the fixed companion: travels between stages, sits in the corner as a badge */
+  .companion {
+    position: fixed; left: 0; top: 0; width: var(--cw); height: var(--cw);
+    transform-origin: 0 0; z-index: 35; pointer-events: none;
+    opacity: 0; visibility: hidden; will-change: transform;
+  }
+  .companion.is-on { opacity: 1; visibility: visible; }
+  .companion .figure { width: 100%; height: 100%; }
+  .companion .figure__btn { pointer-events: auto; }
+  .companion__disc {
+    position: absolute; inset: -3%; border-radius: 50%; background: var(--sc-surface);
+    box-shadow: var(--sc-e2), 0 0 0 2px color-mix(in oklab, var(--sc-accent) 55%, transparent);
+    opacity: 0; pointer-events: none;
+  }
+  .bubble {
+    position: fixed; z-index: 60; background: var(--sc-ink); color: var(--sc-canvas);
+    border-radius: var(--sc-r-md); padding: .5rem; box-shadow: var(--sc-e3);
+    display: flex; gap: .25rem; flex-direction: column; min-width: 12rem;
+    transform-origin: 50% 100%;
+    animation: bubble-in 220ms var(--sc-ease-out);
+  }
+  .bubble[hidden] { display: none; }
+  .bubble::after {
+    content: ""; position: absolute; left: var(--ax, 50%); bottom: -8px; width: 16px; height: 16px;
+    background: var(--sc-ink); transform: translateX(-50%) rotate(45deg);
+  }
+  .bubble--below { transform-origin: 50% 0; }
+  .bubble--below::after { bottom: auto; top: -8px; }
+  .bubble a, .bubble button {
+    display: block; width: 100%; text-align: left; padding: .7rem 1rem; border-radius: var(--sc-r-sm);
+    font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .78rem;
+    color: inherit; text-decoration: none; background: none; border: 0; cursor: pointer;
+    transition: background var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .bubble a:hover, .bubble button:hover { background: rgba(12,12,12,.08); }
+  .bubble a:focus-visible { outline-color: var(--sc-accent-ink); }
+  @keyframes bubble-in { from { opacity: 0; transform: scale(.92) translateY(6px); } to { opacity: 1; transform: none; } }
 
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Robin Molinas",
-      "url": "https://robinmolinas.vercel.app",
-      "jobTitle": "Strategy & AI Builder",
-      "description": "7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for iconic brands.",
-      "sameAs": [
-        "https://www.linkedin.com/in/robinmolinas",
-        "mailto:robin.molinas@outlook.com"
-      ]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Robin Molinas",
-      "url": "https://robinmolinas.vercel.app/"
-    }
-    </script>
+  /* --------------------------------------------------------------- hero -- */
+  .hero { display: grid; grid-template-rows: auto 1fr auto; padding: clamp(1.25rem, 3vh, 2rem) var(--sc-gutter) clamp(1.5rem, 4vh, 2.5rem); }
+  .hero__nav { display: flex; justify-content: center; gap: clamp(1.5rem, 4vw, 3rem); margin: 0; padding: 0; list-style: none; }
+  .hero__nav a {
+    color: var(--sc-ink); font-weight: 500; text-transform: uppercase; letter-spacing: .12em;
+    font-size: clamp(.85rem, 1.2vw, 1.25rem); text-decoration: none; transition: opacity var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .hero__nav a:hover { opacity: .7; }
+  .hero__title {
+    font-size: min(15.5vw, 262px); white-space: nowrap; text-align: center; letter-spacing: -0.03em;
+    line-height: 1; margin-top: clamp(.25rem, 1vh, 1rem); align-self: start;
+    transform: translateY(24px); opacity: 0;
+    transition: transform 900ms var(--sc-ease-out), opacity 700ms var(--sc-ease-out);
+  }
+  .is-loaded .hero__title { transform: none; opacity: 1; }
+  .hero__foot { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sc-6); }
+  .hero__tag {
+    margin: 0; max-width: 17rem; text-transform: uppercase; letter-spacing: .06em; line-height: 1.35;
+    font-size: clamp(.72rem, 1.1vw, 1.1rem); font-weight: 400; color: var(--sc-ink);
+  }
+  .hero__slot {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: clamp(240px, 34vw, 500px); z-index: 4;
+    transform: translate(-50%, 28px); opacity: 0;
+    transition: transform 1000ms var(--sc-ease-out) 120ms, opacity 800ms var(--sc-ease-out) 120ms;
+  }
+  .is-loaded .hero__slot { transform: translateX(-50%); opacity: 1; }
+  /* the hero copy sits above him, he sits above the title's baseline */
+  .hero .sc-copy-band { z-index: 6; }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192" />
-    <link rel="icon" type="image/png" href="/logo.png" sizes="1024x1024" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  /* --------------------------------------------------------------- reel -- */
+  .reel { display: grid; align-content: center; gap: clamp(.6rem, 1.2vw, 1rem); padding-block: 8vh; }
+  .reel__row { display: flex; gap: clamp(.6rem, 1.2vw, 1rem); width: max-content; will-change: transform; }
+  .reel__row--b { transform: translate3d(calc(var(--sc-p, 0) * var(--reel-over, 60vw) - var(--reel-over, 60vw)), 0, 0); }
+  .reel__item {
+    margin: 0; width: clamp(240px, 29vw, 440px); aspect-ratio: 16/10; flex: none;
+    border-radius: var(--sc-r-md); overflow: hidden; background: var(--sc-surface);
+    box-shadow: var(--sc-e1);
+  }
+  .reel__item video, .reel__item img { width: 100%; height: 100%; object-fit: cover; }
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <noscript>
-      <p style="color:#D7E2EA;background:#0C0C0C;padding:2rem;font-family:sans-serif;text-align:center;">
-        Robin Molinas — Strategy &amp; AI Builder. Please enable JavaScript to view this site.
+  /* -------------------------------------------------------------- about -- */
+  .about { position: relative; min-height: 100svh; display: grid; place-items: center; padding: var(--sc-section) var(--sc-gutter); overflow: clip; }
+  .about__inner { display: grid; justify-items: center; gap: clamp(1.5rem, 4vh, 3rem); text-align: center; max-width: 40rem; }
+  .about__title { padding: .04em 0; }           /* room for the wipe, see devices.md §4 */
+  .about__text {
+    margin: 0; font-size: clamp(1.05rem, 1.6vw, 1.4rem); font-weight: 400; line-height: 1.55;
+    color: var(--sc-ink); text-wrap: pretty;
+  }
+  .obj { position: absolute; z-index: 2; touch-action: none; }
+  .obj__drag { will-change: transform; cursor: grab; }
+  .obj__drag.is-dragging { cursor: grabbing; }
+  .obj img { width: 100%; height: auto; display: block; user-select: none; -webkit-user-drag: none; pointer-events: none; filter: drop-shadow(0 18px 30px rgba(0,0,0,.55)); }
+  .obj--brick   { width: clamp(110px, 14vw, 220px); top: 7%; left: 4%; }
+  .obj--headset { width: clamp(140px, 18vw, 280px); top: 6%; right: 3%; }
+  .obj--bolt    { width: clamp(80px, 10vw, 160px); bottom: 8%; left: 8%; }
+  .obj--cursor  { width: clamp(100px, 13vw, 210px); bottom: 8%; right: 7%; }
+  @media (hover: hover) and (pointer: fine) { .obj__drag img { pointer-events: auto; } }
+
+  /* ---------------------------------------------------------------- deal -- */
+  #work { pointer-events: none; }
+  #work .deal__title, #work .card, #work .figure { pointer-events: auto; }
+  .deal { display: block; }
+  .deal__title { position: absolute; left: 0; right: 0; top: clamp(1.25rem, 4vh, 3rem); text-align: center; z-index: 3; }
+  .deck { position: absolute; left: var(--sc-gutter); right: var(--sc-gutter); top: 12vh; height: 60vh; max-width: var(--sc-maxw); margin-inline: auto; z-index: 2; }
+  .figure--deal { position: absolute; left: 50%; bottom: -7vh; width: 40vh; transform: translateX(-50%); z-index: 1; }
+  .card {
+    position: absolute; inset: 0; background: var(--card-bg); border: 2px solid var(--line);
+    border-radius: clamp(24px, 4vw, 50px); padding: clamp(1.25rem, 2.8vw, 2.75rem);
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.25rem, 3vw, 3rem);
+    transform-origin: 50% 0; will-change: transform, opacity; opacity: 0; visibility: hidden;
+    box-shadow: var(--sc-e3);
+    transition: border-color var(--sc-d-base) var(--sc-ease-out);
+  }
+  .card:hover { border-color: var(--line-strong); }
+  .card__text { display: flex; flex-direction: column; gap: clamp(.8rem, 1.6vh, 1.25rem); min-width: 0; }
+  .card__head { display: flex; gap: clamp(.8rem, 1.6vw, 1.5rem); align-items: flex-start; }
+  .card__num { font-family: var(--sc-font-display); font-weight: 900; font-size: clamp(2.4rem, 5.2vw, 5.6rem); line-height: .86; color: var(--display-ink); letter-spacing: -0.03em; }
+  .card__cat { margin: 0 0 .3rem; }
+  .card__cat--self { color: var(--sc-ink); }
+  .card__name { margin: 0; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; font-size: clamp(1.35rem, 2.3vw, 2.4rem); line-height: 1.05; white-space: pre-line; color: var(--sc-ink); }
+  .card__desc { margin: 0; max-width: 44ch; font-size: clamp(.95rem, 1.15vw, 1.15rem); line-height: 1.5; color: rgba(215,226,234,.84); text-wrap: pretty; }
+  .card__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+  .card__tags li { border: 1px solid var(--line); border-radius: var(--sc-r-pill); padding: .28rem .7rem; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: rgba(215,226,234,.7); }
+  .card__stat { margin: 0; display: flex; align-items: baseline; gap: .6rem; color: var(--sc-ink-soft); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
+  .card__stat b { font-family: var(--sc-font-display); font-weight: 800; font-size: clamp(1.5rem, 2.2vw, 2.2rem); color: var(--sc-ink); letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .card__actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: .75rem; }
+  .card__media { border-radius: var(--sc-r-md); overflow: hidden; background: #0a0a0c; min-height: 0; }
+  .card__media video { width: 100%; height: 100%; object-fit: cover; }
+
+  /* -------------------------------------------------------------- close -- */
+  .close { position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding: var(--sc-section) var(--sc-gutter) var(--sc-6); }
+  .close__inner { display: grid; justify-items: center; align-content: center; gap: clamp(1.5rem, 4vh, 3rem); text-align: center; }
+  .close__row { display: flex; align-items: center; gap: clamp(1.25rem, 3vw, 2.5rem); flex-wrap: wrap; justify-content: center; }
+  .figure--close { width: clamp(150px, 22vh, 230px); }
+  .close__cta { display: grid; gap: var(--sc-4); justify-items: center; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: var(--sc-4); border-top: 1px solid rgba(215,226,234,.1); padding-top: var(--sc-5); margin-top: var(--sc-8); flex-wrap: wrap; }
+  .foot small { color: rgba(215,226,234,.45); text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; }
+  .foot .links a { font-size: .75rem; color: rgba(215,226,234,.65); }
+  .foot .links a:hover { color: var(--sc-ink); opacity: 1; }
+
+  /* ------------------------------------------------------------- detail -- */
+  dialog.detail { border: 0; padding: 0; background: transparent; max-width: none; max-height: none; width: 100vw; height: 100dvh; margin: 0; inset: 0; overflow: auto; }
+  dialog.detail::backdrop { background: rgba(0,0,0,.72); backdrop-filter: blur(10px); }
+  .detail__panel {
+    position: relative; margin: clamp(1rem, 4vh, 3rem) auto; width: min(72rem, calc(100vw - 2rem));
+    background: #060607; border: 1px solid rgba(215,226,234,.12); border-radius: var(--sc-r-md);
+    display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; box-shadow: var(--sc-e3);
+    animation: panel-in 320ms var(--sc-ease-out);
+  }
+  @keyframes panel-in { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
+  .detail__close {
+    position: absolute; top: 1rem; right: 1rem; z-index: 2; width: 2.75rem; height: 2.75rem; border-radius: 50%;
+    border: 0; background: rgba(215,226,234,.08); color: var(--sc-ink); cursor: pointer; display: grid; place-items: center;
+    transition: background var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .detail__close:hover { background: rgba(215,226,234,.18); }
+  .detail__media { background: #0a0a0c; border-right: 1px solid rgba(215,226,234,.06); padding: clamp(1rem, 2.5vw, 2rem); display: grid; align-content: center; gap: 1rem; }
+  .detail__media video { width: 100%; border-radius: var(--sc-r-sm); display: block; background: #000; }
+  .detail__media figure { margin: 0; }
+  .detail__media figcaption { margin-top: .5rem; }
+  .detail__body { padding: clamp(1.5rem, 3.5vw, 3.5rem); display: grid; gap: clamp(1.5rem, 3vh, 2.5rem); align-content: start; }
+  .detail__body h3 { margin: .35rem 0 .5rem; font-weight: 900; text-transform: uppercase; font-size: clamp(1.8rem, 3vw, 3.2rem); line-height: 1.02; letter-spacing: -0.02em; color: var(--sc-ink); white-space: pre-line; }
+  .detail__client { margin: 0; color: rgba(215,226,234,.5); text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 600; }
+  .detail__body h4 { margin: 0 0 .75rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sc-ink-soft); font-weight: 700; }
+  .detail__body p { margin: 0; color: rgba(215,226,234,.84); line-height: 1.6; text-wrap: pretty; }
+  .detail__lede { color: var(--sc-ink) !important; font-size: 1.1rem; }
+  .detail__body ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .7rem; }
+  .detail__body ul li { position: relative; padding-left: 1.2rem; color: rgba(215,226,234,.84); line-height: 1.55; }
+  .detail__body ul li::before { content: ""; position: absolute; left: 0; top: .62em; width: .45rem; height: .45rem; border-radius: 50%; background: var(--sc-accent); }
+  .detail__body ul li b { color: var(--sc-ink); font-weight: 700; }
+  .metrics { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2rem; }
+  .metrics div { border-left: 2px solid color-mix(in oklab, var(--sc-accent) 40%, transparent); padding-left: .9rem; }
+  .metrics dt { font-family: var(--sc-font-display); font-weight: 900; font-size: clamp(1.6rem, 2.4vw, 2.4rem); line-height: 1; color: var(--sc-ink); letter-spacing: -0.02em; }
+  .metrics dd { margin: .3rem 0 0; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(215,226,234,.6); }
+  .chips { display: flex !important; flex-wrap: wrap; gap: .45rem !important; }
+  .chips li { padding: .35rem .8rem !important; border: 1px solid rgba(215,226,234,.14); border-radius: var(--sc-r-sm); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: rgba(215,226,234,.85) !important; }
+  .chips li::before { display: none; }
+  .detail__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+  html.has-dialog { overflow: hidden; }
+
+  /* ---------------------------------------------------- reduced motion -- */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__title, .hero__slot { transition: none; transform: none; opacity: 1; }
+    .hero__slot { transform: translateX(-50%); }
+    .bubble { animation: none; }
+    .detail__panel { animation: none; }
+    #work { height: auto !important; }
+    #work .deal { position: static; height: auto; overflow: visible; }
+    #work .deal__title { position: static; padding: var(--sc-section) 0 var(--sc-7); }
+    #work .deck { position: static; height: auto; display: grid; gap: var(--sc-6); padding-bottom: var(--sc-section); }
+    #work .card { position: relative; opacity: 1; visibility: visible; transform: none !important; min-height: 60vh; }
+    #work .figure--deal { display: none; }
+    .figure--stage { opacity: 1; visibility: visible; }
+    .obj__drag { cursor: default; }
+  }
+
+  /* ------------------------------------------------------------- phones -- */
+  @media (max-width: 860px) {
+    :root { --corner: 56px; --corner-pad: 14px; }
+    .hero__title { font-size: min(15vw, 262px); }
+    .hero__foot { flex-direction: column; align-items: flex-start; gap: var(--sc-4); }
+    .hero__slot { width: min(68vw, 300px); bottom: 21svh; }
+    .hero__tag { max-width: 14rem; }
+    .reel { padding-block: 4vh; }
+    .deck { top: 9svh; height: 60svh; left: var(--sc-4); right: var(--sc-4); }
+    .figure--deal { width: 36svh; bottom: -6svh; }
+    .card { grid-template-columns: 1fr; grid-template-rows: 30% 1fr; padding: 1.1rem; border-radius: var(--sc-r-md); gap: .9rem; }
+    .card__media { order: -1; border-radius: var(--sc-r-sm); }
+    .card__desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card__tags { display: none; }
+    .card__stat b { font-size: 1.4rem; }
+    .card__actions .btn { padding: .75rem 1.3rem; font-size: .72rem; min-height: 2.6rem; }
+    .obj--brick { top: 4%; left: 2%; } .obj--headset { top: 3%; right: 1%; }
+    .obj--bolt { bottom: 4%; left: 4%; } .obj--cursor { bottom: 4%; right: 3%; }
+    .detail__panel { grid-template-columns: 1fr; width: calc(100vw - 1.5rem); margin: .75rem auto; }
+    .detail__media { border-right: 0; border-bottom: 1px solid rgba(215,226,234,.06); }
+    .metrics { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) { .hero__title { font-size: 14vw; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to work</a>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<main id="main">
+
+  <!-- 1 · HI, I'M ROBIN: pin. He wakes under the hand. -->
+  <section id="top" data-sc-act="pin" data-sc-span="2" aria-label="Introduction">
+    <div data-sc-stage class="hero" data-sc-verify-state="">
+      <ul class="hero__nav" data-sc-cue="0 0.5 0 0.4">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+      </ul>
+      <h1 class="display hero__title" data-sc-cue="0 0.92 0 0.25">Hi, I'm Robin</h1>
+      <div class="hero__foot">
+        <p class="hero__tag" data-sc-cue="0 0.92 0 0.25">A strategist and AI builder who'd rather build the idea than sit through the meeting about it.</p>
+        <ul class="links" data-sc-cue="0 0.92 0 0.25">
+          <li><a href="mailto:robin.molinas@outlook.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/robinmolinas/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="hero__slot">
+        <div class="figure figure--stage figure--hero" data-figure="hero">
+          <button class="figure__btn" type="button" aria-haspopup="menu" aria-controls="menu" aria-label="Open the menu">
+            <div class="figure__pose">
+              <img src="assets/avatar.png" width="820" height="978" alt="Robin Molinas, as a 3D character, glancing sideways" decoding="async" fetchpriority="high">
+              <canvas aria-hidden="true"></canvas>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · THE WORK, GLIMPSED: pan. Two rows of his own footage. -->
+  <section id="glimpse" data-sc-act="pan" data-sc-span="1.7" aria-label="A glimpse of the work">
+    <div data-sc-stage class="reel">
+      <div class="reel__row reel__row--a" data-sc-pan="0.05">
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/trends-poster.jpg" data-src="assets/trends-rec.mp4" aria-label="2026 Trends Atlas, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/sigma-poster.jpg" data-src="assets/sigma.mp4" aria-label="Sigma AI, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/qfh-poster.jpg" data-src="assets/qfh-rec.mp4" aria-label="Quest for Hope, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/power-claims-poster.jpg" data-src="assets/power-claims.mp4" aria-label="Power Claims, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/forvia-x-poster.jpg" data-src="assets/forvia-x.mp4" aria-label="Forvia-X, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/songai-poster.jpg" data-src="assets/songai.mp4" aria-label="SongAI, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/leopards-poster.jpg" data-src="assets/leopards.mp4" aria-label="Quest for Hope, the Arabian leopard"></video></figure>
+      </div>
+      <div class="reel__row reel__row--b">
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/roblox-poster.jpg" data-src="assets/roblox.mp4" aria-label="Quest for Hope, the Roblox world"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/sigma-motion-poster.jpg" data-src="assets/sigma-motion.mp4" aria-label="Sigma AI, in motion"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/power-claims-2-poster.jpg" data-src="assets/power-claims-2.mp4" aria-label="Power Claims, the platform"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/trends-poster.jpg" data-src="assets/trends.mp4" aria-label="2026 Trends Atlas, the graph"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/songai-poster.jpg" data-src="assets/songai.mp4" aria-label="SongAI, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/forvia-x-poster.jpg" data-src="assets/forvia-x.mp4" aria-label="Forvia-X, screen recording"></video></figure>
+        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/qfh-poster.jpg" data-src="assets/qfh.mp4" aria-label="Quest for Hope, the campaign"></video></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · ABOUT ME: flow. One sentence, four objects with mass. -->
+  <section id="about" class="about" data-sc-act="flow" aria-labelledby="about-title">
+    <div class="obj obj--brick" data-sc-in><div class="obj__drag"><img src="assets/lego_icon.png" width="708" height="862" alt="" data-sc-tilt="7"></div></div>
+    <div class="obj obj--headset" data-sc-in><div class="obj__drag"><img src="assets/vision_pro-alpha.png" width="904" height="824" alt="" data-sc-tilt="7"></div></div>
+    <div class="obj obj--bolt" data-sc-in><div class="obj__drag"><img src="assets/lightning-alpha.png" width="1024" height="915" alt="" data-sc-tilt="7"></div></div>
+    <div class="obj obj--cursor" data-sc-in><div class="obj__drag"><img src="assets/cursor_3d.png" width="688" height="676" alt="" data-sc-tilt="7"></div></div>
+    <div class="about__inner">
+      <h2 id="about-title" class="display display--poster about__title" data-sc-reveal="up" data-sc-reveal-at="0.1 0.4">About me</h2>
+      <p class="about__text" data-sc-cue="0.24" data-sc-kinetic="lines">7 years building at the intersection of strategy and AI, from agentic platforms to growth strategies for some of the world's most iconic brands. I turn complex business challenges into scalable, intelligent solutions. Builder by nature, strategist by training.</p>
+      <a class="btn btn--primary" href="mailto:robin.molinas@outlook.com" data-sc-cue="0.34">Contact me</a>
+    </div>
+  </section>
+
+  <!-- 4 · WORK, THE DEAL: pin, the peak. He deals six cards from behind his head. -->
+  <section id="work" data-sc-act="pin" data-sc-span="6" aria-labelledby="work-title">
+    <div data-sc-stage class="deal" data-sc-verify-state="">
+      <h2 id="work-title" class="display display--poster deal__title" data-sc-cue="0 0.14 0 0.45">Work</h2>
+
+      <div class="figure figure--stage figure--deal" data-figure="deal">
+        <button class="figure__btn" type="button" aria-haspopup="menu" aria-controls="menu" aria-label="Open the menu">
+          <div class="figure__pose">
+            <img src="assets/avatar.png" width="820" height="978" alt="" decoding="async">
+            <canvas aria-hidden="true"></canvas>
+          </div>
+        </button>
+      </div>
+
+      <div class="deck">
+
+        <article class="card" data-card="0" aria-labelledby="p1">
+          <div class="card__text">
+            <div class="card__head">
+              <span class="card__num" aria-hidden="true">01</span>
+              <div>
+                <p class="label card__cat card__cat--self">Self-built AI product</p>
+                <h3 id="p1" class="card__name">2026 Trends
+Atlas</h3>
+              </div>
+            </div>
+            <p class="card__desc">A RAG-powered knowledge graph ingesting 70+ macro trend reports, so the whole team can query 2026's biggest signals like a strategist, with citations.</p>
+            <ul class="card__tags"><li>LLM-Wiki Architecture</li><li>Knowledge Graphs</li><li>Trends 2026</li></ul>
+            <p class="card__stat"><b><span data-sc-count="0 63" data-sc-count-at="0.13 0.20">63</span></b> trend reports ingested</p>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="https://trends-lime.vercel.app/" target="_blank" rel="noopener noreferrer">Launch live app <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+              <button class="btn btn--ghost" type="button" data-open="detail-trends">Learn more</button>
+            </div>
+          </div>
+          <div class="card__media"><video muted loop playsinline preload="metadata" poster="assets/trends-poster.jpg" data-src="assets/trends-rec.mp4" aria-label="2026 Trends Atlas, screen recording"></video></div>
+        </article>
+
+        <article class="card" data-card="1" aria-labelledby="p2">
+          <div class="card__text">
+            <div class="card__head">
+              <span class="card__num" aria-hidden="true">02</span>
+              <div>
+                <p class="label card__cat card__cat--self">Self-built AI product</p>
+                <h3 id="p2" class="card__name">Sigma
+AI</h3>
+              </div>
+            </div>
+            <p class="card__desc">An autonomous multi-agent platform that turns complex research into boardroom-ready strategic insights in just minutes.</p>
+            <ul class="card__tags"><li>Multi-Agent Systems</li><li>Prompt Engineering</li><li>n8n</li></ul>
+            <p class="card__stat"><b><span data-sc-count="0 18" data-sc-count-at="0.265 0.335">18</span></b> MECE sub-briefs per run</p>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="https://sigmai.lovable.app/demo" target="_blank" rel="noopener noreferrer">Launch live app <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+              <button class="btn btn--ghost" type="button" data-open="detail-sigma">Learn more</button>
+            </div>
+          </div>
+          <div class="card__media"><video muted loop playsinline preload="metadata" poster="assets/sigma-poster.jpg" data-src="assets/sigma-m-rec.mp4" aria-label="Sigma AI, screen recording"></video></div>
+        </article>
+
+        <article class="card" data-card="2" aria-labelledby="p3">
+          <div class="card__text">
+            <div class="card__head">
+              <span class="card__num" aria-hidden="true">03</span>
+              <div>
+                <p class="label card__cat">AI platform · Product design</p>
+                <h3 id="p3" class="card__name">Power
+Claims</h3>
+              </div>
+            </div>
+            <p class="card__desc">An AI-powered platform reinventing how the world's largest beauty company creates, substantiates, and activates product claims.</p>
+            <ul class="card__tags"><li>AI Platform</li><li>Product Design</li><li>Process Reinvention</li></ul>
+            <p class="card__stat"><b><span data-sc-count="0 130" data-sc-count-at="0.40 0.47">130</span>+</b> champions trained on the new process</p>
+            <div class="card__actions">
+              <button class="btn btn--ghost" type="button" data-open="detail-claims">Learn more</button>
+            </div>
+          </div>
+          <div class="card__media"><video muted loop playsinline preload="metadata" poster="assets/power-claims-poster.jpg" data-src="assets/power-claims.mp4" aria-label="Power Claims, screen recording"></video></div>
+        </article>
+
+        <article class="card" data-card="3" aria-labelledby="p4">
+          <div class="card__text">
+            <div class="card__head">
+              <span class="card__num" aria-hidden="true">04</span>
+              <div>
+                <p class="label card__cat">GenAI · Innovation</p>
+                <h3 id="p4" class="card__name">Forvia-X</h3>
+              </div>
+            </div>
+            <p class="card__desc">Reinvented Forvia's innovation process by mapping 60+ GenAI use cases and prioritizing the 10 highest-value ones into built POCs.</p>
+            <ul class="card__tags"><li>GenAI</li><li>Process Design</li><li>Value Case</li><li>Roadmap</li></ul>
+            <p class="card__stat"><b><span data-sc-count="0 60" data-sc-count-at="0.535 0.605">60</span>+</b> use cases mapped</p>
+            <div class="card__actions">
+              <button class="btn btn--ghost" type="button" data-open="detail-forvia">Learn more</button>
+            </div>
+          </div>
+          <div class="card__media"><video muted loop playsinline preload="metadata" poster="assets/forvia-x-poster.jpg" data-src="assets/forvia-x.mp4" aria-label="Forvia-X, screen recording"></video></div>
+        </article>
+
+        <article class="card" data-card="4" aria-labelledby="p5">
+          <div class="card__text">
+            <div class="card__head">
+              <span class="card__num" aria-hidden="true">05</span>
+              <div>
+                <p class="label card__cat">AI project</p>
+                <h3 id="p5" class="card__name">SongAI
+GenAI platform</h3>
+              </div>
+            </div>
+            <p class="card__desc">Led the product strategy for Accenture Song's global GenAI platform, transforming fragmented AI experimentation into a modular creative operating system for research, strategy, content, and delivery.</p>
+            <ul class="card__tags"><li>GenAI Strategy</li><li>Marketing reinvention</li><li>Platform design</li></ul>
+            <p class="card__stat"><b><span data-sc-count="0 70" data-sc-count-at="0.67 0.74">70</span>+</b> practitioner interviews</p>
+            <div class="card__actions">
+              <button class="btn btn--ghost" type="button" data-open="detail-songai">Learn more</button>
+            </div>
+          </div>
+          <div class="card__media"><video muted loop playsinline preload="metadata" poster="assets/songai-poster.jpg" data-src="assets/songai.mp4" aria-label="SongAI, screen recording"></video></div>
+        </article>
+
+        <article class="card" data-card="5" aria-labelledby="p6">
+          <div class="card__text">
+            <div class="card__head">
+              <span class="card__num" aria-hidden="true">06</span>
+              <div>
+                <p class="label card__cat">Metaverse · Gaming</p>
+                <h3 id="p6" class="card__name">Quest for
+Hope</h3>
+              </div>
+            </div>
+            <p class="card__desc">A decentralized conservation campaign turning endangered Arabian leopards into playable Roblox &amp; Decentraland adventures, launched on the first ever UN International Arabian Leopard Day.</p>
+            <ul class="card__tags"><li>Roblox</li><li>Conservation</li><li>Gaming</li><li>NFT</li></ul>
+            <p class="card__stat"><b><span data-sc-count="0 19.1" data-sc-count-at="0.805 0.875">19.1</span>M</b> press views</p>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="https://questforhope.com/" target="_blank" rel="noopener noreferrer">Launch live app <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+              <button class="btn btn--ghost" type="button" data-open="detail-qfh">Learn more</button>
+            </div>
+          </div>
+          <div class="card__media"><video muted loop playsinline preload="metadata" poster="assets/leopards-poster.jpg" data-src="assets/leopards.mp4" aria-label="Quest for Hope, the Arabian leopard"></video></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · LET'S BUILD: flow. He arrives beside the ask. -->
+  <section id="contact" class="close" data-sc-act="flow" aria-labelledby="close-title">
+    <div class="close__inner" data-sc-in data-sc-stagger="80">
+      <h2 id="close-title" class="display display--poster">Let's build</h2>
+      <div class="close__row">
+        <div class="close__cta">
+          <a class="btn btn--primary" href="mailto:robin.molinas@outlook.com" data-sc-magnet="0.24">Contact me</a>
+          <ul class="links">
+            <li><a href="mailto:robin.molinas@outlook.com">Email</a></li>
+            <li><a href="https://www.linkedin.com/in/robinmolinas/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div class="figure figure--stage figure--close" data-figure="close">
+          <button class="figure__btn" type="button" aria-haspopup="menu" aria-controls="menu" aria-label="Open the menu">
+            <div class="figure__pose">
+              <img src="assets/avatar.png" width="820" height="978" alt="" decoding="async">
+              <canvas aria-hidden="true"></canvas>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <footer class="foot">
+      <small>© <span id="year">2026</span> Robin Molinas</small>
+      <ul class="links">
+        <li><a href="mailto:robin.molinas@outlook.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/robinmolinas/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      </ul>
+    </footer>
+  </section>
+
+</main>
+
+<!-- the fixed companion: travels between the stages, sits in the corner as a badge -->
+<div id="companion" class="companion" data-sc-verify-state="" aria-hidden="true">
+  <div class="companion__disc"></div>
+  <div class="figure figure--fixed" data-figure="fixed">
+    <button class="figure__btn" type="button" aria-haspopup="menu" aria-controls="menu" aria-label="Open the menu" tabindex="-1">
+      <div class="figure__pose">
+        <img src="assets/avatar.png" width="820" height="978" alt="" decoding="async">
+        <canvas aria-hidden="true"></canvas>
+      </div>
+    </button>
+  </div>
+</div>
+<nav id="menu" class="bubble" hidden aria-label="Site menu">
+  <a href="#about" role="menuitem">About</a>
+  <a href="#work" role="menuitem">Work</a>
+  <a href="mailto:robin.molinas@outlook.com" role="menuitem">Contact me</a>
+</nav>
+
+<!-- ============================================================ deep dives -- -->
+<dialog class="detail" id="detail-trends" aria-labelledby="dt-trends">
+  <div class="detail__panel">
+    <button class="detail__close" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="detail__media"><video muted loop playsinline preload="none" poster="assets/trends-poster.jpg" data-src="assets/trends-rec.mp4" aria-label="2026 Trends Atlas, screen recording"></video></div>
+    <div class="detail__body">
+      <header>
+        <p class="label">Self-built AI product</p>
+        <h3 id="dt-trends">2026 Trends Atlas</h3>
+        <p class="detail__client">Self-built · Compounding Trend Intelligence Knowledge Graph</p>
+      </header>
+      <section>
+        <h4>Summary</h4>
+        <p class="detail__lede">Every strategist starts the year drowning in the same 60+ trend reports (Accenture, Gartner, Deloitte, McKinsey, WGSN, GWI, and dozens more), each siloed in its own PDF, none of them talking to each other. The standard fix is RAG: dump the PDFs into a vector database and retrieve chunks at query time. But that approach re-derives everything from scratch on every question and accumulates nothing: the connections between reports (which is where the real insight lives) are never actually built.</p>
+        <p style="margin-top:.9rem">I took a different approach, based on Andrej Karpathy's "LLM-Wiki" pattern. Instead of retrieving raw chunks on demand, the system has an LLM incrementally build and maintain a persistent, interlinked wiki that sits between the user and the raw reports. As each source is ingested, the LLM reads it, extracts the key claims, files them into structured pages, and updates the cross-references and synthesis across the whole wiki. The knowledge is compiled once and kept current, compounding with every source added. On top of that living wiki I built an interactive knowledge graph and a query layer: ask a strategic question in plain language, and the Atlas reads its own index, drills into the relevant pages, and returns a synthesized answer with every claim mapped back to its source evidence. The result is a static pile of PDFs turned into a compounding, interrogable intelligence system, with no vector database required.</p>
+      </section>
+      <section>
+        <h4>Key outcomes</h4>
+        <dl class="metrics">
+          <div><dt>63</dt><dd>trend reports ingested</dd></div>
+          <div><dt>17</dt><dd>cross-domain concepts mapped</dd></div>
+          <div><dt>0</dt><dd>vector DBs (index-based retrieval)</dd></div>
+          <div><dt>1</dt><dd>compounding knowledge graph</dd></div>
+        </dl>
+      </section>
+      <section>
+        <h4>What I did</h4>
+        <ul>
+          <li>Designed and built the full application end-to-end as an interactive Next.js web app, deployed on Vercel</li>
+          <li><b>Implemented the Karpathy LLM-Wiki pattern:</b> a three-layer architecture of immutable raw sources, an LLM-maintained markdown wiki, and a schema file governing ingest and synthesis conventions</li>
+          <li>Built the ingest workflow so the LLM extracts claims from each report, files them into structured source/concept/entity pages, and maintains cross-references and contradiction flags across the wiki</li>
+          <li>Engineered index-based retrieval where the query engine reads a content catalog (index.md) first, then drills into linked pages, deliberately avoiding embedding/vector-DB infrastructure, which is unnecessary at this scale (63 sources)</li>
+          <li>Built the graph visualization layer from the wiki's Obsidian-style links: nodes, weighted connections, type filtering, search and navigation</li>
+          <li><b>Engineered a dual-mode query engine:</b> a deterministic retrieval-and-ranking mode and an optional LLM-grounded mode (via OpenRouter)</li>
+          <li>Designed the evidence-grounding system so every answer maps its claims to specific source pages with inline citations, guarding against unsupported AI output</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Business impact</h4>
+        <ul>
+          <li>Replaces query-time RAG with a knowledge layer that compounds, where every source added makes the whole system richer, not just larger</li>
+          <li>Surfaces cross-domain connections that linear report-reading and chunk-retrieval both miss, which is the actual source of strategic insight</li>
+          <li>Cuts the front-end of any strategy or innovation project from days of manual reading to minutes of querying</li>
+          <li>Every synthesized answer is auditable back to its evidence, making it usable in real client and boardroom contexts</li>
+          <li>Demonstrates a repeatable pattern: turning any large, messy knowledge corpus into a navigable, self-maintaining graph</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Competencies</h4>
+        <ul class="chips"><li>LLM-Wiki Architecture</li><li>Knowledge Graphs</li><li>Trends 2026</li></ul>
+      </section>
+      <p class="detail__actions"><a class="btn btn--primary" href="https://trends-lime.vercel.app/" target="_blank" rel="noopener noreferrer">Visit live product</a></p>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="detail" id="detail-sigma" aria-labelledby="dt-sigma">
+  <div class="detail__panel">
+    <button class="detail__close" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="detail__media"><video muted loop playsinline preload="none" poster="assets/sigma-poster.jpg" data-src="assets/sigma-m-rec.mp4" aria-label="Sigma AI, screen recording"></video></div>
+    <div class="detail__body">
+      <header>
+        <p class="label">Self-built AI product</p>
+        <h3 id="dt-sigma">Sigma AI</h3>
+        <p class="detail__client">Self-built · Multi-Agent Strategic Insight Engine</p>
+      </header>
+      <section>
+        <h4>Summary</h4>
+        <p class="detail__lede">The most valuable (and most manual) part of strategy consulting is turning a mountain of research into a handful of insights sharp enough to change a decision. It's slow, it's subjective, and it doesn't scale. Sigma AI is my attempt to operationalize that craft.</p>
+        <p style="margin-top:.9rem">It's an autonomous multi-agent platform that takes a company and a research brief and runs the entire foresight workflow end-to-end: it decomposes the topic into 18 MECE sub-briefs, launches parallel research agents, consolidates findings across a proprietary six-lens framework (SCHEMA: Structures, Culture, Humans, Economics, Machinery, Actors), then generates insights by deliberately cross-combining those lenses (such as Culture × Economics and Humans × Technology) to surface the non-obvious tensions and paradoxes where real insight lives. Crucially, it doesn't stop at a first draft. Every insight is scored against an FPET rubric (Fresh, Potent, Energizing, True), and weak insights are critiqued and rewritten in an autonomous quality loop until they clear a threshold. The output isn't raw text; it is a polished, presentation-ready insight deck. Sigma AI isn't "AI that summarizes research." It's a system that encodes a strategic methodology and runs it at scale.</p>
+      </section>
+      <section>
+        <h4>Key outcomes</h4>
+        <dl class="metrics">
+          <div><dt>18</dt><dd>MECE sub-briefs per run</dd></div>
+          <div><dt>6</dt><dd>SCHEMA research lenses</dd></div>
+          <div><dt>4-point</dt><dd>FPET quality scoring</dd></div>
+          <div><dt>End-to-End</dt><dd>research → deck pipeline</dd></div>
+        </dl>
+      </section>
+      <section>
+        <h4>What I did</h4>
+        <ul>
+          <li>Designed the full multi-agent strategic intelligence architecture, from research orchestration to deck output</li>
+          <li>Developed the proprietary SCHEMA framework decomposing any topic into six strategic research dimensions</li>
+          <li><b>Engineered the orchestration logic:</b> MECE decomposition into 18 sub-briefs, parallelized research agents, and SCHEMA-based consolidation</li>
+          <li>Built the insight-generation engine that cross-combines dimensions pairwise to surface hidden tensions and opportunity spaces</li>
+          <li>Created the FPET evaluation system (Fresh, Potent, Energizing, True) and the autonomous QA loop that scores, critiques, rewrites and version-tracks insights until quality thresholds are met</li>
+          <li>Built large-scale n8n orchestration pipelines integrating OpenRouter, GPT models and Perplexity for parallelized research and synthesis</li>
+          <li><b>Automated the final deliverable:</b> Google Sheets and Google Slides integration for templated, presentation-ready insight decks</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Business impact</h4>
+        <ul>
+          <li>Automates the slowest, most senior-dependent step of strategy work: research-to-insight synthesis</li>
+          <li>Codifies a consulting methodology into a repeatable system, removing reliance on individual intuition</li>
+          <li>Parallelized architecture compresses what is normally days of analyst work into a single orchestrated run</li>
+          <li>The self-improving QA loop raises insight quality without manual review cycles</li>
+          <li>Outputs boardroom-ready decks, not raw notes, operationalizing the entire consulting deliverable pipeline</li>
+          <li>Positions the work at the intersection of strategy, AI systems design and foresight automation</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Competencies</h4>
+        <ul class="chips"><li>Multi-Agent Systems</li><li>Prompt Engineering</li><li>n8n</li></ul>
+      </section>
+      <p class="detail__actions"><a class="btn btn--primary" href="https://sigmai.lovable.app/demo" target="_blank" rel="noopener noreferrer">Visit live product</a></p>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="detail" id="detail-claims" aria-labelledby="dt-claims">
+  <div class="detail__panel">
+    <button class="detail__close" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="detail__media"><video muted loop playsinline preload="none" poster="assets/power-claims-poster.jpg" data-src="assets/power-claims.mp4" aria-label="Power Claims, screen recording"></video></div>
+    <div class="detail__body">
+      <header>
+        <p class="label">AI platform · Product design</p>
+        <h3 id="dt-claims">Power Claims</h3>
+        <p class="detail__client">L'Oréal · Global Claims Transformation</p>
+      </header>
+      <section>
+        <h4>Summary</h4>
+        <p class="detail__lede">Every promise L'Oréal makes on a pack, a page, or an ad starts as a claim. The process behind those claims ran on siloed tools and manual handoffs between teams that rarely talked, while indie brands and K-Beauty disruptors shipped bolder claims faster.</p>
+        <p style="margin-top:.9rem">I led product design and AI strategy for Power Claims, a unified platform covering the full claims lifecycle: competitive intelligence, brief creation, scientific substantiation, regulatory review, and local activation. The MVP launched on skincare across eight pilot countries, with an ecosystem of AI agents orchestrating the flow across five modules, each built around how a specific user actually works, from global marketers to regulatory reviewers to local teams.</p>
+      </section>
+      <section>
+        <h4>Key outcomes</h4>
+        <dl class="metrics">
+          <div><dt>130+</dt><dd>champions trained on the new process</dd></div>
+          <div><dt>11</dt><dd>countries in Claim Committee rollout</dd></div>
+          <div><dt>8</dt><dd>pilot countries at MVP launch</dd></div>
+          <div><dt>3</dt><dd>skincare pilot projects live on the platform</dd></div>
+        </dl>
+      </section>
+      <section>
+        <h4>What I did</h4>
+        <ul>
+          <li>Sole design and AI strategy lead, from vision through MVP delivery and the post-MVP roadmap</li>
+          <li><b>Designed the end-to-end claims lifecycle architecture across five modules:</b> Claim Knowledge, Claim Project, Predict Claim, Risk Escalation, and Claim Dossier</li>
+          <li>Architected an ecosystem of 20+ AI agents, from an orchestrator that drafts full claim lists to specialists scoring consumer relevancy, competitive whitespace, scientific grounding, and regulatory risk</li>
+          <li>Prototyped the entire claims pipeline as a working agent system before platform engineering began, de-risking the AI architecture with real dossiers and real users</li>
+          <li>Designed role-specific workflows so five very different users, marketers, regulators and scientists among them, could collaborate in one tool without drowning in each other's noise</li>
+          <li>Connected competitive and consumer intelligence (Mintel, Revuze, TalkWalker, internal insight platforms) so claims start from market evidence, not intuition</li>
+          <li><b>Defined the scaling roadmap:</b> deeper AI consolidation, wider process coverage, and expansion across categories and divisions</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Business impact</h4>
+        <ul>
+          <li>Selected as L'Oréal's global claims transformation backbone, replacing fragmented legacy tooling</li>
+          <li>Agent architecture adopted as the reference model for L'Oréal Beauty Tech's agentic platform</li>
+          <li>130+ R&amp;I and marketing champions trained, 3 pilot projects onboarded, rollout underway in 11 priority countries</li>
+          <li>Scaling path defined across L'Oréal's divisions through 2027, built to deliver on three goals: bolder claims, faster time to claim, smarter collaboration</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Competencies</h4>
+        <ul class="chips"><li>AI Agents</li><li>Product Design</li><li>Beauty Tech</li><li>Enterprise</li></ul>
+      </section>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="detail" id="detail-forvia" aria-labelledby="dt-forvia">
+  <div class="detail__panel">
+    <button class="detail__close" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="detail__media"><video muted loop playsinline preload="none" poster="assets/forvia-x-poster.jpg" data-src="assets/forvia-x.mp4" aria-label="Forvia-X, screen recording"></video></div>
+    <div class="detail__body">
+      <header>
+        <p class="label">GenAI · Innovation</p>
+        <h3 id="dt-forvia">Forvia-X</h3>
+        <p class="detail__client">Forvia · R&amp;D Process Reinvention</p>
+      </header>
+      <section>
+        <h4>Summary</h4>
+        <p class="detail__lede">Forvia's innovation and R&amp;D teams knew GenAI could help, but didn't know where. I led a structured diagnosis of their innovation process across departments, mapped where GenAI could genuinely assist, and built a value case to separate hype from real impact. The result was a prioritized, build-ready roadmap.</p>
+      </section>
+      <section>
+        <h4>Key outcomes</h4>
+        <dl class="metrics">
+          <div><dt>60+</dt><dd>use cases mapped</dd></div>
+          <div><dt>10</dt><dd>POCs built</dd></div>
+          <div><dt>8-pt</dt><dd>scoring matrix</dd></div>
+          <div><dt>4 mo</dt><dd>engagement</dd></div>
+        </dl>
+      </section>
+      <section>
+        <h4>What I did</h4>
+        <ul>
+          <li>Identified pain points across all innovation teams and departments</li>
+          <li>Uncovered 60+ GenAI use cases spanning research, ideation, product development and handover</li>
+          <li>Assessed R&amp;D pain points and overall GenAI maturity</li>
+          <li>Built an 8-point criteria matrix to score and prioritize use cases</li>
+          <li>Developed the POC-to-MVP roadmap and handover plan</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Business impact</h4>
+        <ul>
+          <li>Narrowed 60+ use cases down to 10 prioritized bets</li>
+          <li>10 selected use cases built as POCs for global testing at Forvia</li>
+          <li>Gave leadership a clear, evidence-based GenAI investment path</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Competencies</h4>
+        <ul class="chips"><li>GenAI</li><li>Process Design</li><li>Value Case</li><li>Roadmap</li></ul>
+      </section>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="detail" id="detail-songai" aria-labelledby="dt-songai">
+  <div class="detail__panel">
+    <button class="detail__close" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="detail__media"><video muted loop playsinline preload="none" poster="assets/songai-poster.jpg" data-src="assets/songai.mp4" aria-label="SongAI, screen recording"></video></div>
+    <div class="detail__body">
+      <header>
+        <p class="label">AI project</p>
+        <h3 id="dt-songai">SongAI GenAI platform</h3>
+        <p class="detail__client">Accenture Song · Global Internal Platform</p>
+      </header>
+      <section>
+        <h4>The challenge</h4>
+        <p class="detail__lede">Creative teams were experimenting with GenAI everywhere, but value was fragmented. Tools were scattered. Workflows were disconnected. Knowledge was hard to reuse. Practitioners needed one trusted place to research, ideate, create, and deliver with AI at scale.</p>
+      </section>
+      <section>
+        <h4>The idea</h4>
+        <p>SongAI was designed as a modular GenAI platform for Accenture Song. Not another isolated tool, but a creative operating system connecting proprietary assets, third-party AI tools, project knowledge, and end-to-end workflows into one unified experience.</p>
+      </section>
+      <section>
+        <h4>Key outcomes</h4>
+        <dl class="metrics">
+          <div><dt>70+</dt><dd>practitioner interviews across roles, practices, and markets</dd></div>
+          <div><dt>30+</dt><dd>GenAI opportunity areas mapped across the creative value chain</dd></div>
+          <div><dt>10</dt><dd>high-priority modules defined for the roadmap</dd></div>
+          <div><dt>3</dt><dd>Alpha modules launched in the global platform foundation</dd></div>
+          <div><dt>1</dt><dd>unified strategy replacing a fragmented GenAI tooling ecosystem</dd></div>
+        </dl>
+      </section>
+      <section>
+        <h4>What I did</h4>
+        <ul>
+          <li>Led the product strategy and concept development from discovery through Alpha launch</li>
+          <li>Conducted practitioner research, mapped opportunity spaces, and defined platform positioning</li>
+          <li>Orchestrated module definition, roadmap prioritization, workflow design, and launch activities</li>
+          <li>Built modular AI applications for research, content, ideation, testing, design, and delivery</li>
+          <li>Designed pre-built workflows connecting AI modules into repeatable, standardized ways of working</li>
+          <li>Shaped the conversational interface for frictionless access to tools, project knowledge, and intelligence</li>
+          <li>Established a scalable architecture integrating internal capabilities and third-party AI tools</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Business impact</h4>
+        <ul>
+          <li>Shifted GenAI adoption from isolated experimentation to scalable, operational transformation</li>
+          <li>Created a unified operating system replacing a fragmented, disconnected GenAI tooling landscape</li>
+          <li>Provided creative teams with a structured, intuitive way to leverage AI across the entire creative lifecycle</li>
+          <li>Amplified human judgment, research, strategy, creativity, and delivery through secure, modular intelligence</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Competencies</h4>
+        <ul class="chips"><li>GenAI Strategy</li><li>Product Strategy</li><li>Platform Design</li><li>AI Workflow Design</li><li>Practitioner Research</li><li>Creative Operations</li></ul>
+      </section>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="detail" id="detail-qfh" aria-labelledby="dt-qfh">
+  <div class="detail__panel">
+    <button class="detail__close" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="detail__media">
+      <figure><video muted loop playsinline preload="none" poster="assets/qfh-poster.jpg" data-src="assets/qfh.mp4" aria-label="Quest for Hope, the campaign"></video><figcaption class="label">The Quest</figcaption></figure>
+      <figure><video muted loop playsinline preload="none" poster="assets/leopards-poster.jpg" data-src="assets/leopards.mp4" aria-label="The Arabian leopard, in game"></video><figcaption class="label">Arabian Leopard</figcaption></figure>
+      <figure><video muted loop playsinline preload="none" poster="assets/roblox-poster.jpg" data-src="assets/roblox.mp4" aria-label="The Roblox world"></video><figcaption class="label">Roblox World</figcaption></figure>
+    </div>
+    <div class="detail__body">
+      <header>
+        <p class="label">Metaverse · Gaming</p>
+        <h3 id="dt-qfh">Quest for Hope</h3>
+        <p class="detail__client">RCU Saudi Arabia · AlUla Activation</p>
+      </header>
+      <section>
+        <h4>Summary</h4>
+        <p class="detail__lede">Fewer than 200 Arabian leopards exist in the wild. The Royal Commission for AlUla wanted to turn that urgency into global engagement, not with another awareness film, but with something people would actually play.</p>
+        <p style="margin-top:.9rem">I conceptualized Quest for Hope: a decentralized conservation campaign built across Roblox and Decentraland, launched on the first-ever UN International Day of the Arabian Leopard (10 February 2024). The concept: 18 Arabian leopards become digital twins inside a metaverse recreation of AlUla's mountains, Old Town and Hegra. Players explore, photograph and collect these leopards, and each one maps to a real animal being reintroduced into AlUla's wilderness. The game mechanics are designed around play-to-learn: reward-earning activities teach players about biodiversity loss while they race through Valley Rush, navigate the Old Town Maze and cross the Cosmic Crossing. Rare leopard collectibles function as both in-game rewards and symbolic adoption links to the real conservation programme run by RCU, Panthera, Catmosphere and the Arabian Leopard Fund. The campaign was amplified by billboard activations in New York, London, Paris and Beijing, a campaign film, and a 7km Community Catwalk Trail event in AlUla itself, tying the virtual experience to a physical conservation moment on the ground.</p>
+      </section>
+      <section>
+        <h4>Key outcomes</h4>
+        <dl class="metrics">
+          <div><dt>19.1M</dt><dd>press views</dd></div>
+          <div><dt>18</dt><dd>digital leopard twins</dd></div>
+          <div><dt>2</dt><dd>platforms</dd></div>
+          <div><dt>4</dt><dd>global billboards</dd></div>
+        </dl>
+      </section>
+      <section>
+        <h4>What I did</h4>
+        <ul>
+          <li>Conceptualized and developed the full creative concept end-to-end</li>
+          <li>Designed the decentralized conservation mechanic linking digital leopard twins to real-world reintroduction tracking</li>
+          <li>Built the gaming experience across both Roblox and Decentraland platforms</li>
+          <li>Digitally recreated key AlUla landmarks (Hegra, the Old Town, the mountain landscapes) as explorable in-game environments</li>
+          <li><b>Designed play-to-learn game mechanics:</b> Valley Rush, Old Town Maze, Cosmic Crossing, leopard photography quests</li>
+          <li>Created the rare leopard collectible / NFT adoption system tying gameplay to the real conservation programme</li>
+          <li>Coordinated the campaign to launch on the first UN International Arabian Leopard Day (10 Feb 2024)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Business impact</h4>
+        <ul>
+          <li>19.1M press coverage views globally</li>
+          <li>20.9K social media views</li>
+          <li>3K Roblox game visits at launch</li>
+          <li>Billboard activations across New York, London, Paris and Beijing</li>
+          <li>Launched as part of the global "Leap of Hope" campaign alongside a campaign film and 7km Community Catwalk in AlUla</li>
+          <li>Featured in Arab News, Fast Company Middle East, and global PR coverage</li>
+          <li>Brought AlUla's conservation mission to younger, gaming-native audiences worldwide</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Competencies</h4>
+        <ul class="chips"><li>Roblox</li><li>Conservation</li><li>Gaming</li><li>NFT</li></ul>
+      </section>
+      <p class="detail__actions">
+        <a class="btn btn--primary" href="https://questforhope.com/" target="_blank" rel="noopener noreferrer">Visit live product</a>
+        <a class="btn btn--ghost" href="https://www.frog.co/work/leaping-into-decentralized-conservation" target="_blank" rel="noopener noreferrer">Read case study</a>
       </p>
-    </noscript>
-  </body>
-</html>
+    </div>
+  </div>
+</dialog>
 
+<script src="/scrollcraft.js"></script>
+<script src="/page.js"></script>
+<noscript><p style="color:#D7E2EA;background:#0C0C0C;padding:2rem;text-align:center">Robin Molinas, Strategy and AI Builder. Please enable JavaScript to view this site.</p></noscript>
+</body>
+</html>

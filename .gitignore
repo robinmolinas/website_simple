@@ -25,5 +25,8 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
+
+# Local tooling & lab scratchpads
+.codex/
+scrollcraft/
