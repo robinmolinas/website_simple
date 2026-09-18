@@ -131,12 +131,17 @@
       else { setFixed(corner.x, corner.y, corner.s, 1); mode = 'corner'; }
     } else if (y < workAct.top + workAct.height - vh) {
       if (pW < 0.08) { travel(corner, rectOf(figs.deal), pW / 0.08, 1, 0); mode = 'travel'; }
-      else if (pW < 0.92) { setStage('deal'); mode = 'deal'; }
-      else { travel(rectOf(figs.deal), corner, (pW - 0.92) / 0.08, 0, 1); mode = 'travel'; }
+      else { setStage('deal'); mode = 'deal'; }
     } else {
-      if (pC < 0.2) { setFixed(corner.x, corner.y, corner.s, 1); mode = 'corner'; }
-      else if (pC < 0.48) { travel(corner, rectOf(figs.close), (pC - 0.2) / 0.28, 1, 0); mode = 'travel'; }
-      else { setStage('close'); mode = 'close'; }
+      // Straight from where he stands under the deck to his place beside the
+      // ask. No detour through the corner. The deal figure scrolls up with its
+      // stage once the pin releases, so its resting spot is its current rect
+      // shifted back by however far the page has moved since the release.
+      var pinEnd = workAct.top + workAct.height - vh;
+      if (pC < 0.48) {
+        var from = rectOf(figs.deal); from.y += y - pinEnd;
+        travel(from, rectOf(figs.close), pC / 0.48, 0, 0); mode = 'handoff';
+      } else { setStage('close'); mode = 'close'; }
     }
     fixedEl.setAttribute('data-sc-verify-state', mode + '|' + fixedState);
     if (mode === 'hero') heroStage.setAttribute('data-sc-verify-state', 'wake:' + Math.round(modeT * 40));
@@ -205,7 +210,7 @@
   function pickFrame() {
     var smile = frames.wake ? frames.wake[frames.wake.length - 1] : null;
     if (mode === 'hero' && frames.wake) return frames.wake[Math.round(modeT * (frames.wake.length - 1))];
-    if ((mode === 'deal' || mode === 'close') && frames.gaze && fine.matches && hasPointer) {
+    if ((mode === 'deal' || mode === 'handoff' || mode === 'close') && frames.gaze && fine.matches && hasPointer) {
       // The generated sweep runs from the viewer's right to the viewer's left,
       // so the pointer maps onto it mirrored.
       return frames.gaze[Math.round((1 - px) * (frames.gaze.length - 1))];
