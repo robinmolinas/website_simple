@@ -126,8 +126,8 @@
       else fixedEl.classList.remove('is-on');
       mode = between ? 'corner' : 'stage';
     } else if (y < workAct.top) {
-      if (pH < 0.62) { setStage('hero'); mode = 'hero'; modeT = pH / 0.62; }
-      else if (pH < 1) { travel(rectOf(figs.hero), corner, (pH - 0.62) / 0.38, 0, 1); mode = 'travel'; }
+      if (pH < 0.55) { setStage('hero'); mode = 'hero'; modeT = pH / 0.55; }
+      else if (pH < 0.9) { travel(rectOf(figs.hero), corner, (pH - 0.55) / 0.35, 0, 1); mode = 'travel'; }
       else { setFixed(corner.x, corner.y, corner.s, 1); mode = 'corner'; }
     } else if (y < workAct.top + workAct.height - vh) {
       if (pW < 0.08) { travel(corner, rectOf(figs.deal), pW / 0.08, 1, 0); mode = 'travel'; }
@@ -154,7 +154,8 @@
     // Fallback wake, until the frames exist: he starts turned away and comes
     // round to face the visitor across the first part of the hero.
     var lean = mode === 'hero' ? (1 - smooth(modeT)) : 0;
-    var tiltMax = hasFrames ? 4 : 12, pitchMax = hasFrames ? 3 : 8;
+    if (hasFrames) return;   // the frames are the motion; no tilt on top of them
+    var tiltMax = 12, pitchMax = 8;
     for (var i = 0; i < poses.length; i++) {
       var P = poses[i];
       if (!P.fig.classList.contains('is-on') && P.fig !== fixedFig) continue;
@@ -193,17 +194,23 @@
     if (frames.wake || frames.gaze) {
       hasFrames = true;
       allFigs.forEach(function (f) { f.classList.add('has-frames'); });
-      poses.forEach(function (P) { P.drawn = -1; });
+      // drop any fallback tilt that was written before the frames arrived
+      poses.forEach(function (P) { P.drawn = -1; P.rx = 0; P.ry = 0; P.el.style.transform = 'none'; });
     }
   }).catch(function () {});
 
+  // The wake plays under the wheel in the hero. From then on he holds the last
+  // smile everywhere small (the travel, the corner badge). Only the two big
+  // appearances, the deal and the close, turn to follow the pointer.
   function pickFrame() {
+    var smile = frames.wake ? frames.wake[frames.wake.length - 1] : null;
     if (mode === 'hero' && frames.wake) return frames.wake[Math.round(modeT * (frames.wake.length - 1))];
-    if (frames.gaze) {
-      var g = (fine.matches && hasPointer) ? px : 0.5;
-      return frames.gaze[Math.round(g * (frames.gaze.length - 1))];
+    if ((mode === 'deal' || mode === 'close') && frames.gaze && fine.matches && hasPointer) {
+      // The generated sweep runs from the viewer's right to the viewer's left,
+      // so the pointer maps onto it mirrored.
+      return frames.gaze[Math.round((1 - px) * (frames.gaze.length - 1))];
     }
-    return frames.wake ? frames.wake[frames.wake.length - 1] : null;
+    return smile || (frames.gaze ? frames.gaze[Math.round(0.5 * (frames.gaze.length - 1))] : null);
   }
   function drawFrames() {
     if (!hasFrames) return;
@@ -220,10 +227,15 @@
       if (P.canvas.width !== size) { P.canvas.width = size; P.canvas.height = size; P.drawn = -1; }
       if (P.drawn === img) continue;
       var ctx = P.canvas.getContext('2d');
-      // cover-fit crop: a square from the centre of the 16:9 frame
-      var sw = Math.min(img.naturalWidth, img.naturalHeight), sh = sw;
-      var sx = (img.naturalWidth - sw) / 2, sy = 0;
-      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, size, size);
+      // The frames are already square. Their backdrop is a touch darker than
+      // the page ground, so paint the ground first and composite with
+      // 'lighten': every backdrop pixel lands exactly on the ground colour and
+      // nothing brighter is touched.
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#0C0C0C';
+      ctx.fillRect(0, 0, size, size);
+      ctx.globalCompositeOperation = 'lighten';
+      ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, size, size);
       P.drawn = img;
     }
   }
@@ -427,6 +439,9 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
   addEventListener('load', relayout);
   relayout();
+
+  // read-only debug hook for the verification pass
+  window.__companion = { get px() { return px; }, get mode() { return mode; }, get pointer() { return hasPointer; }, get frames() { return { wake: frames.wake && frames.wake.length, gaze: frames.gaze && frames.gaze.length }; } };
 
   (function loop() {
     updateCompanion();
