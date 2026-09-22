@@ -34,309 +34,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/scrollcraft.css">
-<style>
-  /* ------------------------------------------------------------ tokens -- */
-  :root {
-    --sc-canvas:     #0C0C0C;
-    --sc-surface:    #141518;
-    --sc-ink:        #D7E2EA;
-    --sc-ink-soft:   #8C97A0;
-    --sc-accent:     #6C5CE7;
-    --sc-accent-ink: #0C0C0C;
-    --sc-font-display: "Kanit", system-ui, sans-serif;
-    --sc-font-text:    "Kanit", system-ui, sans-serif;
-    --sc-r-sm: 12px; --sc-r-md: 24px; --sc-r-lg: 50px;   /* DESIGN.md rounded scale */
-    --sc-shadow-color: 220 20% 2%;
-    --display-ink: #BBCCD7;   /* the current site's heading tone, from its own CSS */
-    --card-bg: #050506;
-    --line: rgba(215, 226, 234, 0.2);
-    --line-strong: rgba(215, 226, 234, 0.75);
-    --cw: 360px;               /* the fixed companion's base box */
-    --corner: 72px;            /* corner badge size, desktop */
-    --corner-pad: 28px;
-  }
-  body { font-weight: 400; }
-  .skip { position: absolute; left: var(--sc-4); top: -4rem; z-index: 100; background: var(--sc-ink); color: var(--sc-canvas); padding: .6rem 1rem; border-radius: var(--sc-r-pill); font-weight: 700; }
-  .skip:focus { top: var(--sc-4); }
-
-  /* ------------------------------------------------------------- type --- */
-  .display {
-    font-family: var(--sc-font-display); font-weight: 900; text-transform: uppercase;
-    line-height: .92; letter-spacing: -0.02em; color: var(--display-ink); margin: 0;
-    text-wrap: balance;
-  }
-  .display--poster { font-size: clamp(3rem, 12vw, 160px); }
-  .label {
-    font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700;
-    color: var(--sc-ink-soft); margin: 0;
-  }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
-    border-radius: var(--sc-r-pill); padding: .95rem 2.3rem; min-height: 3rem;
-    font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: .8rem;
-    text-decoration: none; white-space: nowrap; cursor: pointer; border: 2px solid transparent;
-    transition: transform var(--sc-d-fast) var(--sc-ease-out), background var(--sc-d-fast) var(--sc-ease-out), border-color var(--sc-d-fast) var(--sc-ease-out), color var(--sc-d-fast) var(--sc-ease-out);
-  }
-  .btn:active { transform: scale(.97); }
-  .btn--primary { background: var(--sc-ink); color: var(--sc-canvas); border-color: var(--sc-ink); }
-  .btn--primary:hover { background: color-mix(in oklab, var(--sc-ink) 88%, white); border-color: transparent; }
-  .btn--ghost { color: var(--sc-ink); border-color: rgba(215,226,234,.45); background: transparent; }
-  .btn--ghost:hover { border-color: var(--sc-ink); background: rgba(215,226,234,.06); }
-  .btn svg { width: 1em; height: 1em; }
-  .links { display: flex; gap: var(--sc-6); margin: 0; padding: 0; list-style: none; }
-  .links a {
-    font-weight: 500; text-transform: uppercase; letter-spacing: .05em; font-size: clamp(.875rem, 1vw + .5rem, 1.125rem);
-    text-decoration: none; color: var(--sc-ink); transition: opacity var(--sc-d-fast) var(--sc-ease-out);
-  }
-  .links a:hover { opacity: .7; }
-
-  /* ----------------------------------------------------------- figures -- */
-  /* One drawing of him, used in four places. Square box, image cover-fit and
-     top-anchored, so a circle clip of the box frames the face. */
-  .figure { position: relative; aspect-ratio: 1; }
-  .figure__btn {
-    display: block; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background: none;
-    cursor: pointer; border-radius: inherit; overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .figure__btn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 4px; }
-  .figure__pose { width: 100%; height: 100%; transform-style: preserve-3d; will-change: transform; }
-  .figure img, .figure canvas {
-    width: 100%; height: 100%; object-fit: cover; object-position: 50% 0;
-    user-select: none; -webkit-user-drag: none; pointer-events: none;
-  }
-  .figure canvas { position: absolute; inset: 0; }
-  /* The frames carry the clip's own near-black backdrop. Feather the square's
-     edges so the ground and the backdrop meet without a rim. */
-  .figure img, .figure canvas {
-    -webkit-mask-image: radial-gradient(ellipse 62% 66% at 50% 46%, #000 62%, transparent 100%);
-    mask-image: radial-gradient(ellipse 62% 66% at 50% 46%, #000 62%, transparent 100%);
-  }
-  .figure.has-frames img { visibility: hidden; }
-  .figure:not(.has-frames) canvas { display: none; }
-  .figure--stage { opacity: 0; visibility: hidden; }
-  .figure--stage.is-on { opacity: 1; visibility: visible; }
-
-  /* the fixed companion: travels between stages, sits in the corner as a badge */
-  .companion {
-    position: fixed; left: 0; top: 0; width: var(--cw); height: var(--cw);
-    transform-origin: 0 0; z-index: 35; pointer-events: none;
-    opacity: 0; visibility: hidden; will-change: transform;
-  }
-  .companion.is-on { opacity: 1; visibility: visible; }
-  .companion .figure { width: 100%; height: 100%; }
-  .companion .figure__btn { pointer-events: auto; }
-  .companion__disc {
-    position: absolute; inset: -3%; border-radius: 50%; background: var(--sc-surface);
-    box-shadow: var(--sc-e2), 0 0 0 2px color-mix(in oklab, var(--sc-accent) 55%, transparent);
-    opacity: 0; pointer-events: none;
-  }
-  .bubble {
-    position: fixed; z-index: 60; background: var(--sc-ink); color: var(--sc-canvas);
-    border-radius: var(--sc-r-md); padding: .5rem; box-shadow: var(--sc-e3);
-    display: flex; gap: .25rem; flex-direction: column; min-width: 12rem;
-    transform-origin: 50% 100%;
-    animation: bubble-in 220ms var(--sc-ease-out);
-  }
-  .bubble[hidden] { display: none; }
-  .bubble::after {
-    content: ""; position: absolute; left: var(--ax, 50%); bottom: -8px; width: 16px; height: 16px;
-    background: var(--sc-ink); transform: translateX(-50%) rotate(45deg);
-  }
-  .bubble--below { transform-origin: 50% 0; }
-  .bubble--below::after { bottom: auto; top: -8px; }
-  .bubble a, .bubble button {
-    display: block; width: 100%; text-align: left; padding: .7rem 1rem; border-radius: var(--sc-r-sm);
-    font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .78rem;
-    color: inherit; text-decoration: none; background: none; border: 0; cursor: pointer;
-    transition: background var(--sc-d-fast) var(--sc-ease-out);
-  }
-  .bubble a:hover, .bubble button:hover { background: rgba(12,12,12,.08); }
-  .bubble a:focus-visible { outline-color: var(--sc-accent-ink); }
-  @keyframes bubble-in { from { opacity: 0; transform: scale(.92) translateY(6px); } to { opacity: 1; transform: none; } }
-
-  /* --------------------------------------------------------------- hero -- */
-  .hero { display: grid; grid-template-rows: auto 1fr auto; padding: clamp(1.25rem, 3vh, 2rem) var(--sc-gutter) clamp(1.5rem, 4vh, 2.5rem); }
-  .hero__nav { display: flex; justify-content: center; gap: clamp(1.5rem, 4vw, 3rem); margin: 0; padding: 0; list-style: none; }
-  .hero__nav a {
-    color: var(--sc-ink); font-weight: 500; text-transform: uppercase; letter-spacing: .12em;
-    font-size: clamp(.85rem, 1.2vw, 1.25rem); text-decoration: none; transition: opacity var(--sc-d-fast) var(--sc-ease-out);
-  }
-  .hero__nav a:hover { opacity: .7; }
-  .hero__title {
-    font-size: min(15.5vw, 262px); white-space: nowrap; text-align: center; letter-spacing: -0.03em;
-    line-height: 1; margin-top: clamp(.25rem, 1vh, 1rem); align-self: start;
-    transform: translateY(24px); opacity: 0;
-    transition: transform 900ms var(--sc-ease-out), opacity 700ms var(--sc-ease-out);
-  }
-  .is-loaded .hero__title { transform: none; opacity: 1; }
-  .hero__foot { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sc-6); }
-  .hero__tag {
-    margin: 0; max-width: 14em; text-transform: uppercase; letter-spacing: .025em; line-height: 1.3;
-    font-size: clamp(.75rem, 1.4vw, 1.5rem); font-weight: 300; color: var(--sc-ink);
-  }
-  .hero__slot {
-    position: absolute; left: 50%; bottom: 3vh; transform: translateX(-50%);
-    width: clamp(240px, 36vw, 540px); z-index: 4;
-    transform: translate(-50%, 28px); opacity: 0;
-    transition: transform 1000ms var(--sc-ease-out) 120ms, opacity 800ms var(--sc-ease-out) 120ms;
-  }
-  .is-loaded .hero__slot { transform: translateX(-50%); opacity: 1; }
-  /* the hero copy sits above him, he sits above the title's baseline */
-  .hero .sc-copy-band { z-index: 6; }
-
-  /* --------------------------------------------------------------- reel -- */
-  .reel { display: grid; align-content: center; gap: clamp(.6rem, 1.2vw, 1rem); padding-block: 8vh; }
-  .reel__row { display: flex; gap: clamp(.6rem, 1.2vw, 1rem); width: max-content; will-change: transform; }
-  .reel__row--b { transform: translate3d(calc(var(--sc-p, 0) * var(--reel-over, 60vw) - var(--reel-over, 60vw)), 0, 0); }
-  .reel__item {
-    margin: 0; width: clamp(240px, 29vw, 440px); aspect-ratio: 16/10; flex: none;
-    border-radius: var(--sc-r-md); overflow: hidden; background: var(--sc-surface);
-    box-shadow: var(--sc-e1);
-  }
-  .reel__item video, .reel__item img { width: 100%; height: 100%; object-fit: cover; }
-
-  /* -------------------------------------------------------------- about -- */
-  .about { position: relative; min-height: 100svh; display: grid; place-items: center; padding: var(--sc-section) var(--sc-gutter); overflow: clip; }
-  .about__inner { display: grid; justify-items: center; gap: clamp(1.5rem, 4vh, 3rem); text-align: center; max-width: 40rem; }
-  .about__title { padding: .04em 0; }           /* room for the wipe, see devices.md §4 */
-  .about__text {
-    margin: 0; font-size: clamp(1.05rem, 1.6vw, 1.4rem); font-weight: 400; line-height: 1.55;
-    color: var(--sc-ink); text-wrap: pretty;
-  }
-  .obj { position: absolute; z-index: 2; touch-action: none; }
-  .obj__drag { will-change: transform; cursor: grab; }
-  .obj__drag.is-dragging { cursor: grabbing; }
-  .obj img { width: 100%; height: auto; display: block; user-select: none; -webkit-user-drag: none; pointer-events: none; filter: drop-shadow(0 18px 30px rgba(0,0,0,.55)); }
-  .obj--brick   { width: clamp(110px, 14vw, 220px); top: 7%; left: 4%; }
-  .obj--headset { width: clamp(140px, 18vw, 280px); top: 6%; right: 3%; }
-  .obj--bolt    { width: clamp(80px, 10vw, 160px); bottom: 8%; left: 8%; }
-  .obj--cursor  { width: clamp(100px, 13vw, 210px); bottom: 8%; right: 7%; }
-  @media (hover: hover) and (pointer: fine) { .obj__drag img { pointer-events: auto; } }
-
-  /* ---------------------------------------------------------------- deal -- */
-  #work { pointer-events: none; }
-  #work .deal__title, #work .card, #work .figure { pointer-events: auto; }
-  .deal { display: block; }
-  .deal__title { position: absolute; left: 0; right: 0; top: clamp(1.25rem, 4vh, 3rem); text-align: center; z-index: 3; }
-  .deck { position: absolute; left: var(--sc-gutter); right: var(--sc-gutter); top: 12vh; height: 60vh; max-width: var(--sc-maxw); margin-inline: auto; z-index: 2; }
-  .figure--deal { position: absolute; left: 50%; bottom: -7vh; width: 40vh; transform: translateX(-50%); z-index: 1; }
-  .card {
-    position: absolute; inset: 0; background: var(--card-bg); border: 2px solid var(--line);
-    border-radius: clamp(24px, 4vw, 50px); padding: clamp(1.25rem, 2.8vw, 2.75rem);
-    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.25rem, 3vw, 3rem);
-    transform-origin: 50% 0; will-change: transform, opacity; opacity: 0; visibility: hidden;
-    box-shadow: var(--sc-e3);
-    transition: border-color var(--sc-d-base) var(--sc-ease-out);
-  }
-  .card:hover { border-color: var(--line-strong); }
-  .card__text { display: flex; flex-direction: column; gap: clamp(.8rem, 1.6vh, 1.25rem); min-width: 0; }
-  .card__head { display: flex; gap: clamp(.8rem, 1.6vw, 1.5rem); align-items: flex-start; }
-  .card__num { font-family: var(--sc-font-display); font-weight: 900; font-size: clamp(2.4rem, 5.2vw, 5.6rem); line-height: .86; color: var(--display-ink); letter-spacing: -0.03em; }
-  .card__cat { margin: 0 0 .3rem; }
-  .card__cat--self { color: var(--sc-ink); }
-  .card__name { margin: 0; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; font-size: clamp(1.35rem, 2.3vw, 2.4rem); line-height: 1.05; white-space: pre-line; color: var(--sc-ink); }
-  .card__desc { margin: 0; max-width: 44ch; font-size: clamp(.95rem, 1.15vw, 1.15rem); line-height: 1.5; color: rgba(215,226,234,.84); text-wrap: pretty; }
-  .card__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
-  .card__tags li { border: 1px solid var(--line); border-radius: var(--sc-r-pill); padding: .28rem .7rem; font-size: .6875rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: rgba(215,226,234,.7); }
-  .card__stat { margin: 0; display: flex; align-items: baseline; gap: .6rem; color: var(--sc-ink-soft); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
-  .card__stat b { font-family: var(--sc-font-display); font-weight: 800; font-size: clamp(1.5rem, 2.2vw, 2.2rem); color: var(--sc-ink); letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
-  .card__actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: .75rem; }
-  .card__media { border-radius: var(--sc-r-md); overflow: hidden; background: #0a0a0c; min-height: 0; }
-  .card__media video { width: 100%; height: 100%; object-fit: cover; }
-
-  /* -------------------------------------------------------------- close -- */
-  .close { position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding: var(--sc-section) var(--sc-gutter) var(--sc-6); }
-  .close__inner { display: grid; justify-items: center; align-content: center; gap: clamp(1.5rem, 4vh, 3rem); text-align: center; }
-  .close__row { display: flex; align-items: center; gap: clamp(1.25rem, 3vw, 2.5rem); flex-wrap: wrap; justify-content: center; }
-  .figure--close { width: clamp(150px, 22vh, 230px); }
-  .close__cta { display: grid; gap: var(--sc-4); justify-items: center; }
-  .foot { display: flex; justify-content: space-between; align-items: center; gap: var(--sc-4); border-top: 1px solid rgba(215,226,234,.1); padding-top: var(--sc-5); margin-top: var(--sc-8); flex-wrap: wrap; }
-  .foot small { color: rgba(215,226,234,.45); text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; }
-  .foot .links a { font-size: .75rem; color: rgba(215,226,234,.65); }
-  .foot .links a:hover { color: var(--sc-ink); opacity: 1; }
-
-  /* ------------------------------------------------------------- detail -- */
-  dialog.detail { border: 0; padding: 0; background: transparent; max-width: none; max-height: none; width: 100vw; height: 100dvh; margin: 0; inset: 0; overflow: auto; }
-  dialog.detail::backdrop { background: rgba(0,0,0,.72); backdrop-filter: blur(10px); }
-  .detail__panel {
-    position: relative; margin: clamp(1rem, 4vh, 3rem) auto; width: min(72rem, calc(100vw - 2rem));
-    background: #060607; border: 1px solid rgba(215,226,234,.12); border-radius: var(--sc-r-md);
-    display: grid; grid-template-columns: 1fr 1.15fr; overflow: hidden; box-shadow: var(--sc-e3);
-    animation: panel-in 320ms var(--sc-ease-out);
-  }
-  @keyframes panel-in { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
-  .detail__close {
-    position: absolute; top: 1rem; right: 1rem; z-index: 2; width: 2.75rem; height: 2.75rem; border-radius: 50%;
-    border: 0; background: rgba(215,226,234,.08); color: var(--sc-ink); cursor: pointer; display: grid; place-items: center;
-    transition: background var(--sc-d-fast) var(--sc-ease-out);
-  }
-  .detail__close:hover { background: rgba(215,226,234,.18); }
-  .detail__media { background: #0a0a0c; border-right: 1px solid rgba(215,226,234,.06); padding: clamp(1rem, 2.5vw, 2rem); display: grid; align-content: center; gap: 1rem; }
-  .detail__media video { width: 100%; border-radius: var(--sc-r-sm); display: block; background: #000; }
-  .detail__media figure { margin: 0; }
-  .detail__media figcaption { margin-top: .5rem; }
-  .detail__body { padding: clamp(1.5rem, 3.5vw, 3.5rem); display: grid; gap: clamp(1.5rem, 3vh, 2.5rem); align-content: start; }
-  .detail__body h3 { margin: .35rem 0 .5rem; font-weight: 900; text-transform: uppercase; font-size: clamp(1.8rem, 3vw, 3.2rem); line-height: 1.02; letter-spacing: -0.02em; color: var(--sc-ink); white-space: pre-line; }
-  .detail__client { margin: 0; color: rgba(215,226,234,.5); text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 600; }
-  .detail__body h4 { margin: 0 0 .75rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sc-ink-soft); font-weight: 700; }
-  .detail__body p { margin: 0; color: rgba(215,226,234,.84); line-height: 1.6; text-wrap: pretty; }
-  .detail__lede { color: var(--sc-ink) !important; font-size: 1.1rem; }
-  .detail__body ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .7rem; }
-  .detail__body ul li { position: relative; padding-left: 1.2rem; color: rgba(215,226,234,.84); line-height: 1.55; }
-  .detail__body ul li::before { content: ""; position: absolute; left: 0; top: .62em; width: .45rem; height: .45rem; border-radius: 50%; background: var(--sc-accent); }
-  .detail__body ul li b { color: var(--sc-ink); font-weight: 700; }
-  .metrics { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2rem; }
-  .metrics div { border-left: 2px solid color-mix(in oklab, var(--sc-accent) 40%, transparent); padding-left: .9rem; }
-  .metrics dt { font-family: var(--sc-font-display); font-weight: 900; font-size: clamp(1.6rem, 2.4vw, 2.4rem); line-height: 1; color: var(--sc-ink); letter-spacing: -0.02em; }
-  .metrics dd { margin: .3rem 0 0; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(215,226,234,.6); }
-  .chips { display: flex !important; flex-wrap: wrap; gap: .45rem !important; }
-  .chips li { padding: .35rem .8rem !important; border: 1px solid rgba(215,226,234,.14); border-radius: var(--sc-r-sm); font-size: .6875rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: rgba(215,226,234,.85) !important; }
-  .chips li::before { display: none; }
-  .detail__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
-  html.has-dialog { overflow: hidden; }
-
-  /* ---------------------------------------------------- reduced motion -- */
-  @media (prefers-reduced-motion: reduce) {
-    .hero__title, .hero__slot { transition: none; transform: none; opacity: 1; }
-    .hero__slot { transform: translateX(-50%); }
-    .bubble { animation: none; }
-    .detail__panel { animation: none; }
-    #work { height: auto !important; }
-    #work .deal { position: static; height: auto; overflow: visible; }
-    #work .deal__title { position: static; padding: var(--sc-section) 0 var(--sc-7); }
-    #work .deck { position: static; height: auto; display: grid; gap: var(--sc-6); padding-bottom: var(--sc-section); }
-    #work .card { position: relative; opacity: 1; visibility: visible; transform: none !important; min-height: 60vh; }
-    #work .figure--deal { display: none; }
-    .figure--stage { opacity: 1; visibility: visible; }
-    .obj__drag { cursor: default; }
-  }
-
-  /* ------------------------------------------------------------- phones -- */
-  @media (max-width: 860px) {
-    :root { --corner: 56px; --corner-pad: 14px; }
-    .hero__title { font-size: min(15vw, 262px); }
-    .hero__foot { flex-direction: column; align-items: flex-start; gap: var(--sc-4); }
-    .hero__slot { width: min(68vw, 300px); bottom: 21svh; }
-    .hero__tag { max-width: 18em; font-size: .9rem; }
-    .hero__foot .links a { font-size: 1rem; }
-    .reel { padding-block: 4vh; }
-    .deck { top: 9svh; height: 60svh; left: var(--sc-4); right: var(--sc-4); }
-    .figure--deal { width: 36svh; bottom: -6svh; }
-    .card { grid-template-columns: 1fr; grid-template-rows: 30% 1fr; padding: 1.1rem; border-radius: var(--sc-r-md); gap: .9rem; }
-    .card__media { order: -1; border-radius: var(--sc-r-sm); }
-    .card__desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .card__tags { display: none; }
-    .card__stat b { font-size: 1.4rem; }
-    .card__actions .btn { padding: .75rem 1.3rem; font-size: .72rem; min-height: 2.6rem; }
-    .obj--brick { top: 4%; left: 2%; } .obj--headset { top: 3%; right: 1%; }
-    .obj--bolt { bottom: 4%; left: 4%; } .obj--cursor { bottom: 4%; right: 3%; }
-    .detail__panel { grid-template-columns: 1fr; width: calc(100vw - 1.5rem); margin: .75rem auto; }
-    .detail__media { border-right: 0; border-bottom: 1px solid rgba(215,226,234,.06); }
-    .metrics { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 420px) { .hero__title { font-size: 14vw; } }
-</style>
+<link rel="stylesheet" href="/page.css">
 </head>
 <body>
 <a class="skip" href="#work">Skip to work</a>
@@ -615,7 +313,7 @@ Hope</h3>
       <section>
         <h4>Summary</h4>
         <p class="detail__lede">Every strategist starts the year drowning in the same 60+ trend reports (Accenture, Gartner, Deloitte, McKinsey, WGSN, GWI, and dozens more), each siloed in its own PDF, none of them talking to each other. The standard fix is RAG: dump the PDFs into a vector database and retrieve chunks at query time. But that approach re-derives everything from scratch on every question and accumulates nothing: the connections between reports (which is where the real insight lives) are never actually built.</p>
-        <p style="margin-top:.9rem">I took a different approach, based on Andrej Karpathy's "LLM-Wiki" pattern. Instead of retrieving raw chunks on demand, the system has an LLM incrementally build and maintain a persistent, interlinked wiki that sits between the user and the raw reports. As each source is ingested, the LLM reads it, extracts the key claims, files them into structured pages, and updates the cross-references and synthesis across the whole wiki. The knowledge is compiled once and kept current, compounding with every source added. On top of that living wiki I built an interactive knowledge graph and a query layer: ask a strategic question in plain language, and the Atlas reads its own index, drills into the relevant pages, and returns a synthesized answer with every claim mapped back to its source evidence. The result is a static pile of PDFs turned into a compounding, interrogable intelligence system, with no vector database required.</p>
+        <p class="detail__followup">I took a different approach, based on Andrej Karpathy's "LLM-Wiki" pattern. Instead of retrieving raw chunks on demand, the system has an LLM incrementally build and maintain a persistent, interlinked wiki that sits between the user and the raw reports. As each source is ingested, the LLM reads it, extracts the key claims, files them into structured pages, and updates the cross-references and synthesis across the whole wiki. The knowledge is compiled once and kept current, compounding with every source added. On top of that living wiki I built an interactive knowledge graph and a query layer: ask a strategic question in plain language, and the Atlas reads its own index, drills into the relevant pages, and returns a synthesized answer with every claim mapped back to its source evidence. The result is a static pile of PDFs turned into a compounding, interrogable intelligence system, with no vector database required.</p>
       </section>
       <section>
         <h4>Key outcomes</h4>
@@ -670,7 +368,7 @@ Hope</h3>
       <section>
         <h4>Summary</h4>
         <p class="detail__lede">The most valuable (and most manual) part of strategy consulting is turning a mountain of research into a handful of insights sharp enough to change a decision. It's slow, it's subjective, and it doesn't scale. Sigma AI is my attempt to operationalize that craft.</p>
-        <p style="margin-top:.9rem">It's an autonomous multi-agent platform that takes a company and a research brief and runs the entire foresight workflow end-to-end: it decomposes the topic into 18 MECE sub-briefs, launches parallel research agents, consolidates findings across a proprietary six-lens framework (SCHEMA: Structures, Culture, Humans, Economics, Machinery, Actors), then generates insights by deliberately cross-combining those lenses (such as Culture × Economics and Humans × Technology) to surface the non-obvious tensions and paradoxes where real insight lives. Crucially, it doesn't stop at a first draft. Every insight is scored against an FPET rubric (Fresh, Potent, Energizing, True), and weak insights are critiqued and rewritten in an autonomous quality loop until they clear a threshold. The output isn't raw text; it is a polished, presentation-ready insight deck. Sigma AI isn't "AI that summarizes research." It's a system that encodes a strategic methodology and runs it at scale.</p>
+        <p class="detail__followup">It's an autonomous multi-agent platform that takes a company and a research brief and runs the entire foresight workflow end-to-end: it decomposes the topic into 18 MECE sub-briefs, launches parallel research agents, consolidates findings across a proprietary six-lens framework (SCHEMA: Structures, Culture, Humans, Economics, Machinery, Actors), then generates insights by deliberately cross-combining those lenses (such as Culture × Economics and Humans × Technology) to surface the non-obvious tensions and paradoxes where real insight lives. Crucially, it doesn't stop at a first draft. Every insight is scored against an FPET rubric (Fresh, Potent, Energizing, True), and weak insights are critiqued and rewritten in an autonomous quality loop until they clear a threshold. The output isn't raw text; it is a polished, presentation-ready insight deck. Sigma AI isn't "AI that summarizes research." It's a system that encodes a strategic methodology and runs it at scale.</p>
       </section>
       <section>
         <h4>Key outcomes</h4>
@@ -726,7 +424,7 @@ Hope</h3>
       <section>
         <h4>Summary</h4>
         <p class="detail__lede">Every promise L'Oréal makes on a pack, a page, or an ad starts as a claim. The process behind those claims ran on siloed tools and manual handoffs between teams that rarely talked, while indie brands and K-Beauty disruptors shipped bolder claims faster.</p>
-        <p style="margin-top:.9rem">I led product design and AI strategy for Power Claims, a unified platform covering the full claims lifecycle: competitive intelligence, brief creation, scientific substantiation, regulatory review, and local activation. The MVP launched on skincare across eight pilot countries, with an ecosystem of AI agents orchestrating the flow across five modules, each built around how a specific user actually works, from global marketers to regulatory reviewers to local teams.</p>
+        <p class="detail__followup">I led product design and AI strategy for Power Claims, a unified platform covering the full claims lifecycle: competitive intelligence, brief creation, scientific substantiation, regulatory review, and local activation. The MVP launched on skincare across eight pilot countries, with an ecosystem of AI agents orchestrating the flow across five modules, each built around how a specific user actually works, from global marketers to regulatory reviewers to local teams.</p>
       </section>
       <section>
         <h4>Key outcomes</h4>
@@ -889,7 +587,7 @@ Hope</h3>
       <section>
         <h4>Summary</h4>
         <p class="detail__lede">Fewer than 200 Arabian leopards exist in the wild. The Royal Commission for AlUla wanted to turn that urgency into global engagement, not with another awareness film, but with something people would actually play.</p>
-        <p style="margin-top:.9rem">I conceptualized Quest for Hope: a decentralized conservation campaign built across Roblox and Decentraland, launched on the first-ever UN International Day of the Arabian Leopard (10 February 2024). The concept: 18 Arabian leopards become digital twins inside a metaverse recreation of AlUla's mountains, Old Town and Hegra. Players explore, photograph and collect these leopards, and each one maps to a real animal being reintroduced into AlUla's wilderness. The game mechanics are designed around play-to-learn: reward-earning activities teach players about biodiversity loss while they race through Valley Rush, navigate the Old Town Maze and cross the Cosmic Crossing. Rare leopard collectibles function as both in-game rewards and symbolic adoption links to the real conservation programme run by RCU, Panthera, Catmosphere and the Arabian Leopard Fund. The campaign was amplified by billboard activations in New York, London, Paris and Beijing, a campaign film, and a 7km Community Catwalk Trail event in AlUla itself, tying the virtual experience to a physical conservation moment on the ground.</p>
+        <p class="detail__followup">I conceptualized Quest for Hope: a decentralized conservation campaign built across Roblox and Decentraland, launched on the first-ever UN International Day of the Arabian Leopard (10 February 2024). The concept: 18 Arabian leopards become digital twins inside a metaverse recreation of AlUla's mountains, Old Town and Hegra. Players explore, photograph and collect these leopards, and each one maps to a real animal being reintroduced into AlUla's wilderness. The game mechanics are designed around play-to-learn: reward-earning activities teach players about biodiversity loss while they race through Valley Rush, navigate the Old Town Maze and cross the Cosmic Crossing. Rare leopard collectibles function as both in-game rewards and symbolic adoption links to the real conservation programme run by RCU, Panthera, Catmosphere and the Arabian Leopard Fund. The campaign was amplified by billboard activations in New York, London, Paris and Beijing, a campaign film, and a 7km Community Catwalk Trail event in AlUla itself, tying the virtual experience to a physical conservation moment on the ground.</p>
       </section>
       <section>
         <h4>Key outcomes</h4>
@@ -938,6 +636,6 @@ Hope</h3>
 
 <script src="/scrollcraft.js"></script>
 <script src="/page.js"></script>
-<noscript><p style="color:#D7E2EA;background:#0C0C0C;padding:2rem;text-align:center">Robin Molinas, Strategy and AI Builder. Please enable JavaScript to view this site.</p></noscript>
+<noscript><p class="noscript-message">Robin Molinas, Strategy and AI Builder. Please enable JavaScript to view this site.</p></noscript>
 </body>
 </html>
