@@ -1,47 +1,47 @@
-# Robin Molinas — Strategy & AI Builder
+# Robin Molinas | Strategy & AI Builder
 
-> Personal portfolio and strategic project showcase of Robin Molinas.
+> Robin Molinas's portfolio.
 
-7 years building at the intersection of strategy and AI, from autonomous multi-agent platforms to growth strategies for iconic brands. Specializes in turning complex research into boardroom-ready strategic insights.
+Robin Molinas has seven years of experience building AI platforms and developing growth strategies for brands including L'Oréal and Forvia.
 
-## Profile & Contact
+## Profile and contact
 - **Name:** Robin Molinas
 - **Role:** Strategy & AI Builder
 - **Email:** robin.molinas@outlook.com
 - **LinkedIn:** https://www.linkedin.com/in/robinmolinas/
 - **Website:** https://robinmolinas.vercel.app
 
-## Core Projects
+## Projects
 
 ### 01. 2026 Trends Atlas
 - **Category:** Self-Built AI Product
-- **Description:** A RAG-powered knowledge graph ingesting 70+ macro trend reports, enabling teams to query signal concepts with verifiable inline citations. Built using the "LLM-Wiki" pattern (incremental markdown synthesis) instead of traditional database-heavy RAG.
+- **Description:** A RAG-powered knowledge graph built from 70+ macro trend reports. Teams can ask questions and trace answers through inline citations. Uses the "LLM-Wiki" pattern to maintain a linked markdown wiki and retrieve evidence without a vector database.
 - **Link:** https://trends-lime.vercel.app/
-- **Key Metrics:** 63 trend reports ingested, 17 concepts mapped, 0 vector DBs.
+- **Key Metrics:** 70+ trend reports ingested, 17 concepts mapped, 0 vector DBs.
 
 ### 02. Sigma AI
 - **Category:** Self-Built AI Product
-- **Description:** An autonomous multi-agent strategic insight engine. Orchestrates a 7-step research pipeline: MECE decomposition of briefs into 18 sub-briefs, parallel research agents, synthesis using the SCHEMA framework (6 strategic lenses), and iterative quality loop using the FPET rubric (Fresh, Potent, Energizing, True) to generate boardroom-ready slides/decks.
+- **Description:** An autonomous platform with a 7-step research pipeline. It splits briefs into 18 MECE sub-briefs, runs AI research agents in parallel, and organizes findings using SCHEMA's 6 research lenses. An automated review loop scores and rewrites insights against FPET (Fresh, Potent, Energizing, True), then produces presentation-ready decks.
 - **Link:** https://sigmai.lovable.app/demo
 - **Key Metrics:** 18 MECE sub-briefs, 6 SCHEMA lenses, 4-point FPET scoring.
 
 ### 03. Power Claims
 - **Category:** AI Platform · Product Design (L'Oréal)
-- **Description:** A global claims transformation platform for L'Oréal managing the full claims lifecycle (intelligence, briefs, science, regulation, and local activation). Built around persona-based workflows and an ecosystem of 20+ AI agents.
+- **Description:** A global platform for L'Oréal's claims process, connecting competitive intelligence, briefs, scientific substantiation, regulatory review, and local activation. Uses role-specific workflows and 20+ AI agents.
 - **Key Metrics:** 130+ champions trained, 11 countries in rollout, 3 skincare pilot projects live.
 
 ### 04. Forvia-X
 - **Category:** GenAI · Innovation (Forvia)
-- **Description:** Reinventing Forvia's R&D process by mapping 60+ GenAI use cases and building POCs for the 10 highest-value ones.
+- **Description:** Mapped 60+ GenAI use cases across Forvia's innovation and R&D process and built proofs of concept for the 10 with the highest value.
 - **Key Metrics:** 60+ use cases mapped, 10 POCs built, 8-pt scoring matrix.
 
 ### 05. SongAI GenAI Platform
 - **Category:** AI Platform (Accenture Song)
-- **Description:** Product strategy for Accenture Song's global creative operating system, connecting proprietary assets and workflows for strategy, ideation, and design.
+- **Description:** Product strategy for Accenture Song's modular GenAI platform. Connects proprietary assets, third-party AI tools, and project knowledge with workflows for research, ideation, content creation, and delivery.
 - **Key Metrics:** 70+ interviews, 30+ opportunity areas, 10 high-priority modules.
 
 ### 06. Quest for Hope
 - **Category:** Metaverse · Gaming (RCU Saudi Arabia)
-- **Description:** A conservation campaign turning endangered Arabian leopards into playable digital twin adventures in Roblox & Decentraland, launched on the UN International Arabian Leopard Day.
+- **Description:** A decentralized conservation campaign on Roblox and Decentraland, where players meet digital twins of endangered Arabian leopards. Launched on the first UN International Arabian Leopard Day.
 - **Link:** https://questforhope.com/
 - **Key Metrics:** 19.1M press views, 18 digital leopard twins.
