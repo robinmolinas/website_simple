@@ -15,9 +15,9 @@ Robin Molinas has seven years of experience building AI platforms and developing
 
 ### 01. Dionysus
 - **Category:** Self-Built AI Product
-- **Description:** An interactive, sensory AI experience that turns a five-minute instinctual journey into a bespoke cocktail and a four-movement personal reading. Replaces survey forms with tactile physics and canvas interactions synchronized to a nine-hold film descent and an eight-stem generative Web Audio score. Uses a two-tier AI architecture: an offline multi-agent Pour Studio (The Psychologist, The Historian, and The Mixologist) that authors and validates 132 bespoke cocktails and readings against Dave Arnold's Liquid Intelligence balance equations, paired with a deterministic runtime matching engine, hard allergen vetoes, and a guardrailed live Bartender agent.
+- **Description:** An interactive, sensory web experience born from Robin's twin passions for building things as a creator and the craft and lore of cocktails. Replaces boring questionnaire forms with an instinctual, five-minute dark-room journey set to sumi-e ink washes and generative audio. Behind the curtain, three specialized AI agents (The Psychologist, The Historian, and The Mixologist) collaborate in an authored Pour Studio to craft 132 bespoke cocktails and personal stories for 132 distinct personas. Built end to end as a solo creator using agentic development workflows and BMAD methodologies.
 - **Link:** https://dionysus-two.vercel.app/
-- **Key Metrics:** 132 bespoke cocktails and readings, 3 Pour Studio specialist agents, 9 interactive cinema holds, 100% verified pairing reachability.
+- **Key Metrics:** 132 bespoke personas and cocktails, 3 Pour Studio specialist AI agents, 1 solo creator build, 0 form fields or checkboxes.
 
 ### 02. 2026 Trends Atlas
 - **Category:** Self-Built AI Product
