@@ -13,34 +13,40 @@ Robin Molinas has seven years of experience building AI platforms and developing
 
 ## Projects
 
-### 01. 2026 Trends Atlas
+### 01. Dionysus
+- **Category:** Self-Built AI Product
+- **Description:** An interactive, sensory AI experience that turns a five-minute instinctual journey into a bespoke cocktail and a four-movement personal reading. Replaces survey forms with tactile physics and canvas interactions synchronized to a nine-hold film descent and an eight-stem generative Web Audio score. Uses a two-tier AI architecture: an offline multi-agent Pour Studio (The Psychologist, The Historian, and The Mixologist) that authors and validates 132 bespoke cocktails and readings against Dave Arnold's Liquid Intelligence balance equations, paired with a deterministic runtime matching engine, hard allergen vetoes, and a guardrailed live Bartender agent.
+- **Link:** https://dionysus-two.vercel.app/
+- **Key Metrics:** 132 bespoke cocktails and readings, 3 Pour Studio specialist agents, 9 interactive cinema holds, 100% verified pairing reachability.
+
+### 02. 2026 Trends Atlas
 - **Category:** Self-Built AI Product
 - **Description:** A RAG-powered knowledge graph built from 70+ macro trend reports. Teams can ask questions and trace answers through inline citations. Uses the "LLM-Wiki" pattern to maintain a linked markdown wiki and retrieve evidence without a vector database.
 - **Link:** https://trends-lime.vercel.app/
 - **Key Metrics:** 70+ trend reports ingested, 17 concepts mapped, 0 vector DBs.
 
-### 02. Sigma AI
+### 03. Sigma AI
 - **Category:** Self-Built AI Product
 - **Description:** An autonomous platform with a 7-step research pipeline. It splits briefs into 18 MECE sub-briefs, runs AI research agents in parallel, and organizes findings using SCHEMA's 6 research lenses. An automated review loop scores and rewrites insights against FPET (Fresh, Potent, Energizing, True), then produces presentation-ready decks.
 - **Link:** https://sigmai.lovable.app/demo
 - **Key Metrics:** 18 MECE sub-briefs, 6 SCHEMA lenses, 4-point FPET scoring.
 
-### 03. Power Claims
+### 04. Power Claims
 - **Category:** AI Platform · Product Design (L'Oréal)
 - **Description:** A global platform for L'Oréal's claims process, connecting competitive intelligence, briefs, scientific substantiation, regulatory review, and local activation. Uses role-specific workflows and 20+ AI agents.
 - **Key Metrics:** 130+ champions trained, 11 countries in rollout, 3 skincare pilot projects live.
 
-### 04. Forvia-X
+### 05. Forvia-X
 - **Category:** GenAI · Innovation (Forvia)
 - **Description:** Mapped 60+ GenAI use cases across Forvia's innovation and R&D process and built proofs of concept for the 10 with the highest value.
 - **Key Metrics:** 60+ use cases mapped, 10 POCs built, 8-pt scoring matrix.
 
-### 05. SongAI GenAI Platform
+### 06. SongAI GenAI Platform
 - **Category:** AI Platform (Accenture Song)
 - **Description:** Product strategy for Accenture Song's modular GenAI platform. Connects proprietary assets, third-party AI tools, and project knowledge with workflows for research, ideation, content creation, and delivery.
 - **Key Metrics:** 70+ interviews, 30+ opportunity areas, 10 high-priority modules.
 
-### 06. Quest for Hope
+### 07. Quest for Hope
 - **Category:** Metaverse · Gaming (RCU Saudi Arabia)
 - **Description:** A decentralized conservation campaign on Roblox and Decentraland, where players meet digital twins of endangered Arabian leopards. Launched on the first UN International Arabian Leopard Day.
 - **Link:** https://questforhope.com/

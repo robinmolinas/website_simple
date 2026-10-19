@@ -8,7 +8,7 @@
      the companion   one character with a life across the page: wakes in the
                      hero, travels to the corner, is the menu, steps into the
                      Work stage to deal the cards, arrives beside the ask
-     the deal        six cards dealt from behind his head into a stack
+     the deal        seven cards dealt from behind his head into a stack
      the reel        row B travels the other way (CSS reads --sc-p; JS only
                      measures the overflow)
      the objects     four chrome objects with mass you can grab and throw
@@ -247,7 +247,7 @@
 
   // ---- the deal --------------------------------------------------------------
   var deck = q('.deck'), cards = qa('.card', deck), N = cards.length;
-  var S0 = 0.10, STEP = 0.135, LAND = 0.09;
+  var S0 = 0.0881, STEP = 0.1189, LAND = 0.0793;
   var ty0 = 0;
   function layoutDeal() {
     var d = deck.getBoundingClientRect(), f = figs.deal.getBoundingClientRect();
