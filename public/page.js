@@ -19,6 +19,8 @@
 (function () {
   'use strict';
 
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = matchMedia('(hover: hover) and (pointer: fine)');
   var small = matchMedia('(max-width: 860px)');
