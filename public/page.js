@@ -42,7 +42,7 @@
   var sc = ScrollCraft.mount(document.body);
   var actById = {};
   sc.acts.forEach(function (a) { actById[a.el.id] = a; });
-  var heroAct = actById.top, workAct = actById.work, closeAct = actById.contact;
+  var heroAct = actById.top, aboutAct = actById.about, workAct = actById.work, closeAct = actById.contact;
   var heroStage = q('#top .hero'), dealStage = q('#work .deal');
 
   requestAnimationFrame(function () { document.documentElement.classList.add('is-loaded'); });
@@ -316,6 +316,33 @@
     if (!e.shiftKey && el === f[f.length - 1] && i < N - 1) { e.preventDefault(); parkOnCard(i + 1, false); }
     else if (e.shiftKey && el === f[0] && i > 0) { e.preventDefault(); parkOnCard(i - 1, true); }
   });
+
+  // ---- navigation: hash links (About and Work) -----------------------------
+  function targetY(hash) {
+    if (hash === '#work') return reduce ? workAct.top : landedY(0);
+    if (hash === '#about') return aboutAct.top;
+    return null;
+  }
+  function navTo(hash, smooth) {
+    var y = targetY(hash);
+    if (y === null) return false;
+    scrollTo({ top: y, behavior: smooth && !reduce ? 'smooth' : 'instant' });
+    if (history.pushState) history.pushState(null, '', hash);
+    return true;
+  }
+  addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var hash = a.getAttribute('href');
+    if (hash === '#work' || hash === '#about') {
+      e.preventDefault();
+      closeMenu(false);
+      navTo(hash, true);
+    }
+  });
+  if (location.hash === '#work' || location.hash === '#about') {
+    setTimeout(function () { navTo(location.hash, false); }, 60);
+  }
 
   // ---- the menu: he is the nav ---------------------------------------------
   var menu = q('#menu'), menuAnchor = null, menuScrollY = 0;

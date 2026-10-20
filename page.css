@@ -121,10 +121,14 @@ body { font-weight: 400; }
 
 /* --------------------------------------------------------------- hero -- */
 .hero { display: grid; grid-template-rows: auto 1fr auto; padding: clamp(1.25rem, 3vh, 2rem) var(--sc-gutter) clamp(1.5rem, 4vh, 2.5rem); }
-.hero__nav { display: flex; justify-content: center; gap: clamp(1.5rem, 4vw, 3rem); margin: 0; padding: 0; list-style: none; }
+.hero__nav {
+  position: relative; z-index: 10;
+  display: flex; justify-content: center; gap: clamp(1.5rem, 4vw, 3rem); margin: 0; padding: 0; list-style: none;
+}
 .hero__nav a {
   color: var(--sc-ink); font-weight: 500; text-transform: uppercase; letter-spacing: .12em;
   font-size: clamp(.85rem, 1.2vw, 1.25rem); text-decoration: none; transition: opacity var(--sc-d-fast) var(--sc-ease-out);
+  cursor: pointer;
 }
 .hero__nav a:hover { opacity: .7; }
 .hero__title {
