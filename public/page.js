@@ -177,25 +177,26 @@
       var manEnd = manAct.top + manAct.height - vh;
       var dealIn = workAct.top + 0.08 * (workAct.height - vh);
       var workEnd = workAct.top + workAct.height - vh;
+      leg = '';
       if (y <= heroEnd) {
         setStage('hero'); mode = 'hero'; modeT = clamp01(pH / 0.75);
       } else if (y < manAct.top) {
         // Aim at where his seat will be once the stage locks, not where it is
         // mid-slide, so he glides across while the page moves under him.
         var a0 = rectOf(figs.hero); a0.y += y - heroEnd;
-        travel(a0, seatOf(figs.manifesto, manAct), (y - heroEnd) / Math.max(manAct.top - heroEnd, 1), 0, 0); mode = 'handoff';
+        leg = 'h2m'; travel(a0, seatOf(figs.manifesto, manAct), (y - heroEnd) / Math.max(manAct.top - heroEnd, 1), 0, 0); mode = 'handoff';
       } else if (y <= manEnd) {
         setStage('manifesto'); mode = 'manifesto';
       } else if (y < dealIn) {
         var b0 = rectOf(figs.manifesto); b0.y += y - manEnd;
-        travel(b0, seatOf(figs.deal, workAct), (y - manEnd) / Math.max(dealIn - manEnd, 1), 0, 0); mode = 'handoff';
+        leg = 'm2d'; travel(b0, seatOf(figs.deal, workAct), (y - manEnd) / Math.max(dealIn - manEnd, 1), 0, 0); mode = 'handoff';
       } else if (y < workEnd) {
         setStage('deal'); mode = 'deal';
       } else {
         var pinEnd = workEnd;
         if (pC < 0.48) {
           var from = rectOf(figs.deal); from.y += y - pinEnd;
-          travel(from, rectOf(figs.close), pC / 0.48, 0, 0); mode = 'handoff';
+          leg = 'd2c'; travel(from, rectOf(figs.close), pC / 0.48, 0, 0); mode = 'handoff';
         } else { setStage('close'); mode = 'close'; }
       }
     }
@@ -212,12 +213,16 @@
     px = e.clientX / innerWidth; py = e.clientY / innerHeight; hasPointer = true;
   }, { passive: true });
   var lastY = scrollY, vel = 0;
+  var poseCleared = false;
   function updatePose() {
     vel += ((scrollY - lastY) - vel) * 0.15; lastY = scrollY;
     // While the wake plays, the frames are the motion. As it ends, the tilt
     // fades in, so there is no moment where he snaps from one state to another.
-    var w = mode === 'hero' ? smooth((modeT - 0.8) / 0.2) : 1;
-    if (!hasFrames) w = 1;
+    if (hasFrames) {
+      if (!poseCleared) { poses.forEach(function (P) { P.rx = P.ry = 0; P.el.style.transform = 'none'; }); poseCleared = true; }
+      return;
+    }
+    var w = 1;
     var tiltMax = 7, pitchMax = 4;
     for (var i = 0; i < poses.length; i++) {
       var P = poses[i];
@@ -248,7 +253,7 @@
   var frames = { wake: null, gaze: null }, hasFrames = false;
   fetch('assets/companion/manifest.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
     if (!m || reduce) return;
-    ['wake'].forEach(function (k) {
+    ['wake', 'gaze'].forEach(function (k) {
       if (!m[k] || !m[k].count) return;
       var list = [];
       for (var i = 0; i < m[k].count; i++) {
@@ -269,19 +274,45 @@
   // The wake plays under the wheel in the hero. From then on he holds the last
   // smile everywhere small (the travel, the corner badge). Only the two big
   // appearances, the deal and the close, turn to follow the pointer.
-  // One face. The wake plays under the wheel in the hero and ends on his
-  // smile; from then on he is always that same frame. He stays alive through
-  // a small tilt toward the pointer (updatePose), never by swapping in frames
-  // from another clip, which read as a different person.
-  function pickFrame() {
-    if (!frames.wake) return null;
-    if (mode === 'hero') return frames.wake[Math.round(modeT * (frames.wake.length - 1))];
-    return frames.wake[frames.wake.length - 1];
+  // ---- his face: one arc across the page ------------------------------------
+  //   hero          smiling, as he says hello
+  //   hero → manifesto   the wake clip runs BACKWARDS under the wheel: the
+  //                 smile turns into his side-eye as the question arrives
+  //   manifesto     that doubt, held (wake frame 0, same clip, same crop)
+  //   → work        still doubting on the way down
+  //   work          the look-around clip follows the pointer, smoothed
+  //   → close       back to the smile
+  // Changing clip is always a dissolve, never a cut; within a clip it scrubs.
+  var leg = '';                 // which handoff is running: h2m | m2d | d2c
+  var gi = -1;                  // smoothed gaze index
+  var curKey = '', curImg = null, prevImg = null, fadeT0 = 0, fadeMs = 500;
+  function face() {
+    var W = frames.wake, G = frames.gaze, n = W.length;
+    var y = scrollY, vh = innerHeight;
+    if (mode === 'hero' || leg === 'h2m') {
+      var from = heroAct.top + 0.4 * (heroAct.height - vh);
+      var e = smooth(clamp01((y - from) / Math.max(manAct.top - from, 1)));
+      return { key: 'scrub', img: W[Math.round((1 - e) * (n - 1))] };
+    }
+    if (mode === 'manifesto' || leg === 'm2d') return { key: 'doubt', img: W[0] };
+    if (mode === 'deal' && G) {
+      var target = (fine.matches && hasPointer) ? (1 - px) * (G.length - 1) : (G.length - 1) / 2;
+      if (curKey !== 'gaze' || gi < 0) gi = target;
+      gi += (target - gi) * 0.12;
+      return { key: 'gaze', img: G[Math.round(clamp(gi, 0, G.length - 1))] };
+    }
+    return { key: 'smile', img: W[n - 1] };
   }
   function drawFrames() {
-    if (!hasFrames) return;
-    var img = pickFrame();
-    if (!img || !img.complete || !img.naturalWidth) return;
+    if (!hasFrames || !frames.wake) return;
+    var f = face(), now = performance.now();
+    if (!f.img || !f.img.complete || !f.img.naturalWidth) return;
+    if (f.key !== curKey) {
+      prevImg = curImg; fadeT0 = now; fadeMs = f.key === 'smile' ? 600 : f.key === 'gaze' ? 350 : 500; curKey = f.key;
+    }
+    curImg = f.img;
+    var a = prevImg ? smooth(clamp01((now - fadeT0) / fadeMs)) : 1;
+    if (a >= 1) prevImg = null;
     for (var i = 0; i < poses.length; i++) {
       var P = poses[i];
       var on = P.fig === fixedFig ? fixedEl.classList.contains('is-on') : P.fig.classList.contains('is-on');
@@ -291,18 +322,24 @@
       var dpr = Math.min(devicePixelRatio || 1, 2);
       var size = Math.round(box * dpr);
       if (P.canvas.width !== size) { P.canvas.width = size; P.canvas.height = size; P.drawn = -1; }
-      if (P.drawn === img) continue;
+      if (P.drawn === curImg && !prevImg && P.drawnA === 1) continue;
       var ctx = P.canvas.getContext('2d');
-      // The frames are already square. Their backdrop is a touch darker than
-      // the page ground, so paint the ground first and composite with
-      // 'lighten': every backdrop pixel lands exactly on the ground colour and
-      // nothing brighter is touched.
+      // The frames' backdrop is a touch darker than the page ground: paint the
+      // ground, then 'lighten' so every backdrop pixel lands on the ground.
+      ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = 'source-over';
       ctx.fillStyle = '#0C0C0C';
       ctx.fillRect(0, 0, size, size);
       ctx.globalCompositeOperation = 'lighten';
-      ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, size, size);
-      P.drawn = img;
+      if (prevImg) {
+        ctx.drawImage(prevImg, 0, 0, prevImg.naturalWidth, prevImg.naturalHeight, 0, 0, size, size);
+        // the dissolve: the new face over the old at rising opacity
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = a;
+      }
+      ctx.drawImage(curImg, 0, 0, curImg.naturalWidth, curImg.naturalHeight, 0, 0, size, size);
+      ctx.globalAlpha = 1;
+      P.drawn = curImg; P.drawnA = prevImg ? a : 1;
     }
   }
 
@@ -363,7 +400,7 @@
     var target = last ? f[f.length - 1] : f[0];
     if (target) target.focus({ preventScroll: true });
   }
-  var aboutCta = q('#manifesto .mf__eyebrow');
+  var aboutCta = q('#manifesto .mf__read');
   var closeFirst = q('#contact .figure__btn');
   addEventListener('keydown', function (e) {
     if (e.key !== 'Tab' || reduce) return;

@@ -111,20 +111,15 @@
 
 .mf__text { grid-column: 2; max-width: 44rem; display: grid; justify-items: start; }
 /* what this is, and the way in, before anything moves */
-.mf__eyebrow {
-  display: inline-flex; align-items: baseline; gap: 1rem; margin-bottom: clamp(1.4rem, 3.4vh, 2.4rem);
-  text-decoration: none; color: var(--sc-ink);
-}
+.mf__eyebrow { display: flex; align-items: center; gap: 1.25rem; margin-bottom: clamp(1.6rem, 3.8vh, 2.6rem); }
 .mf__kind { font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--sc-ink-soft); }
-.mf__read {
-  display: inline-flex; align-items: center; gap: .4rem; font-size: .78rem; font-weight: 600; letter-spacing: .12em;
-  text-transform: uppercase; padding-bottom: .2rem; border-bottom: 1px solid var(--line-strong);
-  transition: border-color var(--sc-d-fast) var(--sc-ease-out), gap var(--sc-d-fast) var(--sc-ease-out);
-}
-.mf__read svg { width: .95em; height: .95em; color: var(--sc-accent); transition: transform var(--sc-d-fast) var(--sc-ease-out); }
-.mf__eyebrow:hover .mf__read { border-color: var(--sc-accent); }
-.mf__eyebrow:hover .mf__read svg { transform: translate(2px, -2px); }
-.mf__eyebrow:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 6px; border-radius: 4px; }
+.mf__read { padding: .8rem 1.5rem; min-height: 2.75rem; font-size: .76rem; }
+.mf__read svg { transition: transform var(--sc-d-fast) var(--sc-ease-out); }
+.mf__read:hover svg { transform: translate(2px, -2px); }
+/* once the title has landed, the arrow nods toward the door, once */
+.is-told .mf__read svg { animation: mf-nod 700ms var(--t) 2350ms 1 both; }
+.mf.is-quick .mf__read svg { animation: none; }
+@keyframes mf-nod { 0%, 100% { transform: none; } 45% { transform: translate(4px, -4px); } }
 
 .mf__q {
   margin: 0 0 clamp(.6rem, 1.6vh, 1.1rem); font-family: var(--sc-font-display); font-weight: 900; text-transform: uppercase;
@@ -203,9 +198,8 @@
 
 /* -------------------------------------------------------------- close -- */
 .close { position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding: var(--sc-section) var(--sc-gutter) var(--sc-6); }
-.close__inner { display: grid; justify-items: center; align-content: center; gap: clamp(1.5rem, 4vh, 3rem); text-align: center; }
-.close__row { display: flex; align-items: center; gap: clamp(1.25rem, 3vw, 2.5rem); flex-wrap: wrap; justify-content: center; }
-.figure--close { width: clamp(150px, 22vh, 230px); }
+.close__inner { display: grid; justify-items: center; align-content: center; gap: clamp(1.25rem, 3.4vh, 2.5rem); text-align: center; }
+.figure--close { width: clamp(150px, 24vh, 240px); margin-bottom: calc(-1 * clamp(1rem, 3vh, 2rem)); }
 .close__cta { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
 .foot { display: flex; justify-content: center; align-items: center; gap: var(--sc-4); border-top: 1px solid rgba(215,226,234,.1); padding-top: var(--sc-5); margin-top: var(--sc-8); flex-wrap: wrap; }
 .foot small { color: rgba(215,226,234,.45); text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; }
@@ -302,8 +296,13 @@ html.has-dialog { overflow: hidden; }
   .mf__title { font-size: 15vw; }
   .mf__habits { grid-template-columns: repeat(2, auto); }
   .mf__habits li { font-size: .7rem; }
+  .mf__eyebrow { gap: 1rem; }
 }
 @media (max-width: 860px) and (max-height: 700px) { .figure--manifesto { width: min(32vw, 18svh); } }
 @media (max-width: 420px) { .hero__title { font-size: 14vw; } }
 
 .sc-grain { z-index: 36; }
+
+/* While he travels over the page, his near-black backdrop must never hide the
+   copy sliding under him: lighten keeps whichever is brighter. */
+.companion { mix-blend-mode: lighten; }
