@@ -114,26 +114,50 @@
   // ---- the manifesto: told once on arrival, on its own clock ----------------
   // The wheel only decides WHEN. The strike, his doubt, the answer and the
   // smile play at their own pace, so a fast scroll still sees all of it.
-  var told = false, doubtT = [], html = document.documentElement;
+  var told = false, html = document.documentElement;
+  var SEQ_MS = 2300;          // strike, answer, title: matches the CSS delays
+  var toldAt = 0;
   function heroEnd0() { return heroAct.top + heroAct.height - innerHeight; }
   function tell() {
     if (told) return;
-    told = true; manStage.classList.add('is-told');
-    if (reduce) return;
-    doubtT.push(setTimeout(function () { html.classList.add('is-doubt'); }, 300));
-    doubtT.push(setTimeout(function () { html.classList.remove('is-doubt'); }, 2300));
+    told = true; toldAt = performance.now(); manStage.classList.add('is-told');
   }
   function untell() {
     if (!told) return;
     told = false; manStage.classList.remove('is-told', 'is-quick');
-    doubtT.forEach(clearTimeout); doubtT = [];
-    html.classList.remove('is-doubt');
   }
   function updateTelling(y, heroEnd, vh) {
     if (reduce) { tell(); return; }
-    if (y >= manAct.top - vh * 0.2) tell();
+    if (y >= manAct.top - vh * 0.05) tell();
     else if (y < heroEnd + vh * 0.05) untell();
   }
+
+  // ---- the hold: nobody skims past the manifesto ----------------------------
+  // The first time the reader scrolls down onto it, the page holds on the
+  // manifesto until the three moves have played, then lets go. Once per visit,
+  // never on the way back up, never during a nav jump, never under reduced motion.
+  var seen = false, gating = false, gateY = 0, navUntil = 0, lastGateY = scrollY;
+  function updateGate(y) {
+    if (gating) {
+      if (Math.abs(scrollY - gateY) > 1) scrollTo({ top: gateY, behavior: 'instant' });
+      if (performance.now() >= toldAt + SEQ_MS + 250) { gating = false; seen = true; html.classList.remove('is-held'); }
+      return;
+    }
+    if (!reduce && !seen && performance.now() > navUntil) {
+      var hold = holdY();
+      if (lastGateY < hold && y >= hold) {
+        gating = true; gateY = hold; tell(); html.classList.add('is-held');
+        scrollTo({ top: hold, behavior: 'instant' });
+      }
+    }
+    lastGateY = y;
+  }
+  function swallow(e) { if (gating) e.preventDefault(); }
+  addEventListener('wheel', swallow, { passive: false });
+  addEventListener('touchmove', swallow, { passive: false });
+  addEventListener('keydown', function (e) {
+    if (gating && [' ', 'PageDown', 'ArrowDown', 'End', 'Spacebar'].indexOf(e.key) > -1) e.preventDefault();
+  });
 
   function updateCompanion() {
     var y = scrollY, vh = innerHeight;
@@ -190,28 +214,32 @@
   var lastY = scrollY, vel = 0;
   function updatePose() {
     vel += ((scrollY - lastY) - vel) * 0.15; lastY = scrollY;
-    // Fallback wake, until the frames exist: he starts turned away and comes
-    // round to face the visitor across the first part of the hero.
-    var lean = mode === 'hero' ? (1 - smooth(modeT)) : 0;
-    if (hasFrames) return;   // the frames are the motion; no tilt on top of them
-    var tiltMax = 12, pitchMax = 8;
+    // While the wake plays, the frames are the motion. As it ends, the tilt
+    // fades in, so there is no moment where he snaps from one state to another.
+    var w = mode === 'hero' ? smooth((modeT - 0.8) / 0.2) : 1;
+    if (!hasFrames) w = 1;
+    var tiltMax = 7, pitchMax = 4;
     for (var i = 0; i < poses.length; i++) {
       var P = poses[i];
       if (!P.fig.classList.contains('is-on') && P.fig !== fixedFig) continue;
       if (P.fig === fixedFig && !fixedEl.classList.contains('is-on')) continue;
-      var ry, rx;
+      var ry = 0, rx;
       if (fine.matches && hasPointer) {
         var r = P.el.getBoundingClientRect();
         var cx = (r.left + r.width / 2) / innerWidth, cy = (r.top + r.height / 2) / innerHeight;
-        ry = clamp((px - cx) * 2, -1, 1) * tiltMax;
-        rx = -clamp((py - cy) * 2, -1, 1) * pitchMax;
+        ry = clamp((px - cx) * 1.6, -1, 1) * tiltMax;
+        rx = -clamp((py - cy) * 1.6, -1, 1) * pitchMax;
       } else {
-        ry = 0; rx = clamp(-vel / 40, -1, 1) * 6;
+        rx = clamp(-vel / 40, -1, 1) * 4;
       }
-      if (!hasFrames) { ry = ry * (1 - lean) + (-18) * lean; rx = rx * (1 - lean) + 6 * lean; }
-      P.rx += (rx - P.rx) * 0.08; P.ry += (ry - P.ry) * 0.08;
-      P.el.style.transform = 'perspective(900px) rotateX(' + P.rx.toFixed(2) + 'deg) rotateY(' + P.ry.toFixed(2) + 'deg)';
+      rx *= w; ry *= w;
+      P.rx += (rx - P.rx) * 0.06; P.ry += (ry - P.ry) * 0.06;
+      P.el.style.transform = 'perspective(1100px) rotateX(' + P.rx.toFixed(2) + 'deg) rotateY(' + P.ry.toFixed(2) + 'deg)';
     }
+    // every figure carries the same pose, so a handoff never pops the tilt
+    var lead = null;
+    for (var j = 0; j < poses.length; j++) { var Q = poses[j]; if ((Q.fig === fixedFig ? fixedEl.classList.contains('is-on') : Q.fig.classList.contains('is-on'))) { lead = Q; break; } }
+    if (lead) for (var k = 0; k < poses.length; k++) { poses[k].rx = lead.rx; poses[k].ry = lead.ry; }
   }
 
   // ---- frames: the two clips Robin generates, as image sequences ------------
@@ -220,7 +248,7 @@
   var frames = { wake: null, gaze: null }, hasFrames = false;
   fetch('assets/companion/manifest.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
     if (!m || reduce) return;
-    ['wake', 'gaze'].forEach(function (k) {
+    ['wake'].forEach(function (k) {
       if (!m[k] || !m[k].count) return;
       var list = [];
       for (var i = 0; i < m[k].count; i++) {
@@ -234,22 +262,21 @@
       hasFrames = true;
       allFigs.forEach(function (f) { f.classList.add('has-frames'); });
       // drop any fallback tilt that was written before the frames arrived
-      poses.forEach(function (P) { P.drawn = -1; P.rx = 0; P.ry = 0; P.el.style.transform = 'none'; });
+      poses.forEach(function (P) { P.drawn = -1; });
     }
   }).catch(function () {});
 
   // The wake plays under the wheel in the hero. From then on he holds the last
   // smile everywhere small (the travel, the corner badge). Only the two big
   // appearances, the deal and the close, turn to follow the pointer.
+  // One face. The wake plays under the wheel in the hero and ends on his
+  // smile; from then on he is always that same frame. He stays alive through
+  // a small tilt toward the pointer (updatePose), never by swapping in frames
+  // from another clip, which read as a different person.
   function pickFrame() {
-    var smile = frames.wake ? frames.wake[frames.wake.length - 1] : null;
-    if (mode === 'hero' && frames.wake) return frames.wake[Math.round(modeT * (frames.wake.length - 1))];
-    if ((mode === 'manifesto' || mode === 'deal' || mode === 'handoff' || mode === 'close') && frames.gaze && fine.matches && hasPointer) {
-      // The generated sweep runs from the viewer's right to the viewer's left,
-      // so the pointer maps onto it mirrored.
-      return frames.gaze[Math.round((1 - px) * (frames.gaze.length - 1))];
-    }
-    return smile || (frames.gaze ? frames.gaze[Math.round(0.5 * (frames.gaze.length - 1))] : null);
+    if (!frames.wake) return null;
+    if (mode === 'hero') return frames.wake[Math.round(modeT * (frames.wake.length - 1))];
+    return frames.wake[frames.wake.length - 1];
   }
   function drawFrames() {
     if (!hasFrames) return;
@@ -336,7 +363,7 @@
     var target = last ? f[f.length - 1] : f[0];
     if (target) target.focus({ preventScroll: true });
   }
-  var aboutCta = q('#manifesto .mf__cta .btn');
+  var aboutCta = q('#manifesto .mf__eyebrow');
   var closeFirst = q('#contact .figure__btn');
   addEventListener('keydown', function (e) {
     if (e.key !== 'Tab' || reduce) return;
@@ -356,6 +383,7 @@
     if (!reduce && (scrollY < manAct.top || scrollY > manAct.top + manAct.height - innerHeight)) scrollTo({ top: holdY(), behavior: 'instant' });
     // a keyboard arrival skips the performance: the control must be visible now
     if (!told) { manStage.classList.add('is-quick'); tell(); }
+    seen = true;
   });
 
   // ---- navigation: hash links (About and Work) -----------------------------
@@ -368,6 +396,7 @@
   function navTo(hash, smooth) {
     var y = targetY(hash);
     if (y === null) return false;
+    navUntil = performance.now() + 1800; lastGateY = y;
     scrollTo({ top: y, behavior: smooth && !reduce ? 'smooth' : 'instant' });
     if (history.pushState) history.pushState(null, '', hash);
     return true;
@@ -460,6 +489,7 @@
   window.__companion = { get px() { return px; }, get mode() { return mode; }, get pointer() { return hasPointer; }, get frames() { return { wake: frames.wake && frames.wake.length, gaze: frames.gaze && frames.gaze.length }; } };
 
   (function loop() {
+    updateGate(scrollY);
     updateCompanion();
     if (!reduce) updatePose();
     updateDeal();
