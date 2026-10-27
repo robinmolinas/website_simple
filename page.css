@@ -245,7 +245,10 @@ html.has-dialog { overflow: hidden; }
   .detail__panel { animation: none; }
   #manifesto { height: auto !important; --k1: 1; --k2: 1; --skeptic: 0; }
   #manifesto .mf { position: static; height: auto; overflow: visible; grid-template-rows: auto; row-gap: var(--sc-7); padding-block: var(--sc-section); }
-  #manifesto .mf__portrait { grid-row: 1; }
+  #manifesto .mf { grid-template-columns: minmax(0, 40rem); justify-content: center; }
+  #manifesto .mf__portrait { grid-row: 1; grid-column: 1; flex-direction: row; align-items: flex-end; gap: 1.5rem; }
+  #manifesto .figure--manifesto { width: min(60vw, 18rem); }
+  #manifesto .mf__beat { grid-column: 1; }
   #manifesto .mf__beat--a { grid-row: 2; }
   #manifesto .mf__beat--b { grid-row: 3; }
   #manifesto [data-sc-cue], #manifesto [data-sc-kinetic] { opacity: 1 !important; transform: none !important; }
