@@ -46,9 +46,10 @@
 <main id="main">
 
   <!-- 1 · HI, I'M ROBIN: pin. He wakes under the hand. -->
-  <section id="top" data-sc-act="pin" data-sc-span="2" aria-label="Introduction">
+  <section id="top" data-sc-act="pin" data-sc-span="1.5" aria-label="Introduction">
     <div data-sc-stage class="hero" data-sc-verify-state="">
       <ul class="hero__nav" data-sc-cue="0 0.5 0 0.4">
+        <li><a href="#manifesto">Manifesto</a></li>
         <li><a href="#work">Work</a></li>
       </ul>
       <h1 class="display hero__title" data-sc-cue="0 0.92 0 0.25">Hi, I'm Robin</h1>
@@ -72,9 +73,54 @@
     </div>
   </section>
 
+  <!-- 2 · WORTH BUILDING: pin. He steps aside and says what he believes. -->
+  <section id="manifesto" data-sc-act="pin" data-sc-span="3.4" aria-labelledby="manifesto-title">
+    <div data-sc-stage class="mf" data-sc-verify-state="">
+
+      <div class="mf__portrait">
+        <p class="mf__byline"><b>Robin Molinas</b> <span>Seven years building AI platforms and growth strategies for L'Oréal, Forvia and others.</span></p>
+        <div class="figure figure--stage figure--manifesto" data-figure="manifesto">
+          <button class="figure__btn" type="button" aria-haspopup="menu" aria-controls="menu" aria-label="Open the menu">
+            <div class="figure__pose">
+              <img src="assets/companion/poster-end.jpg" width="720" height="720" alt="" decoding="async">
+              <canvas aria-hidden="true"></canvas>
+              <img class="figure__skeptic" src="assets/avatar.png" width="820" height="978" alt="" decoding="async">
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="mf__beat mf__beat--a" data-sc-cue="0 0.36 0 0.17">
+        <p class="label">The bottleneck moved.</p>
+        <p class="display mf__q"><s><span class="mf__line mf__line--1">Can we</span><span class="mf__line mf__line--2">build it?</span></s></p>
+        <p class="display mf__a" data-sc-cue="0.16 1 0.1 0">Should we?</p>
+        <p class="mf__aside" data-sc-cue="0.22 1 0.1 0" data-sc-kinetic="lines">Nothing says no anymore, not the budget and not the tech, so every no has to come from us.</p>
+      </div>
+
+      <div class="mf__beat mf__beat--b">
+        <p class="label" data-sc-cue="0.36 1 0.094 0">Manifesto · 4 min read</p>
+        <h2 id="manifesto-title" class="display mf__title" data-sc-cue="0.38 1 0.097 0">Worth building.</h2>
+        <p class="mf__tag" data-sc-cue="0.42 1 0.103 0" data-sc-kinetic="lines">Anyone can build now. Almost no one asks if they should.</p>
+        <p class="mf__thesis" data-sc-cue="0.47 1 0.094 0">Building got cheap, so the expensive mistake is now building the wrong thing beautifully, at speed, for people who never asked.</p>
+        <ol class="mf__habits">
+          <li data-sc-cue="0.52 1 0.125 0"><span class="mf__num" aria-hidden="true">01</span><b>Hack first.</b> <span>The best signal is someone already hacking it.</span></li>
+          <li data-sc-cue="0.55 1 0.133 0"><span class="mf__num" aria-hidden="true">02</span><b>Money, magic, machines.</b> <span>It pays, it feels different, it's built for what's next.</span></li>
+          <li data-sc-cue="0.58 1 0.143 0"><span class="mf__num" aria-hidden="true">03</span><b>Fail fast.</b> <span>In people's hands while it's still cheap to fix.</span></li>
+          <li data-sc-cue="0.61 1 0.154 0"><span class="mf__num" aria-hidden="true">04</span><b>Lead with a vision.</b> <span>Show people what's worth wanting.</span></li>
+        </ol>
+        <div class="mf__cta" data-sc-cue="0.64 1 0.167 0">
+          <p class="mf__action">Before you build the next thing, read this.</p>
+          <a class="btn btn--primary" href="/worth-building">Read the manifesto <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- 4 · WORK, THE DEAL: pin, the peak. He deals seven cards from behind his head. -->
   <section id="work" data-sc-act="pin" data-sc-span="6.675" aria-labelledby="work-title">
     <div data-sc-stage class="deal" data-sc-verify-state="">
+      <p class="label deal__kicker" data-sc-cue="0 0.123 0 0.396">Built to prove it.</p>
       <h2 id="work-title" class="display display--poster deal__title" data-sc-cue="0 0.123 0 0.396">Work</h2>
 
       <div class="figure figure--stage figure--deal" data-figure="deal">
@@ -238,6 +284,7 @@ Hope</h3>
   <section id="contact" class="close" data-sc-act="flow" aria-labelledby="close-title">
     <div class="close__inner" data-sc-in data-sc-stagger="80">
       <h2 id="close-title" class="display display--poster">Let's build</h2>
+      <p class="close__lede">If you're building something and you're not sure it's worth it, let's find out. Fast.</p>
       <div class="close__row">
         <div class="close__cta">
           <a class="btn btn--primary" href="mailto:robin.molinas@outlook.com">Contact me</a>
@@ -280,6 +327,7 @@ Hope</h3>
   </div>
 </div>
 <nav id="menu" class="bubble" hidden aria-label="Site menu">
+  <a href="#manifesto" role="menuitem">Manifesto</a>
   <a href="#work" role="menuitem">Work</a>
   <a href="mailto:robin.molinas@outlook.com" role="menuitem">Contact me</a>
 </nav>

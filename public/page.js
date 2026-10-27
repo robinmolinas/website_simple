@@ -41,8 +41,8 @@
   var sc = ScrollCraft.mount(document.body);
   var actById = {};
   sc.acts.forEach(function (a) { actById[a.el.id] = a; });
-  var heroAct = actById.top, workAct = actById.work, closeAct = actById.contact;
-  var heroStage = q('#top .hero'), dealStage = q('#work .deal');
+  var heroAct = actById.top, manAct = actById.manifesto, workAct = actById.work, closeAct = actById.contact;
+  var heroStage = q('#top .hero'), manStage = q('#manifesto .mf'), dealStage = q('#work .deal');
 
   requestAnimationFrame(function () { document.documentElement.classList.add('is-loaded'); });
 
@@ -68,8 +68,8 @@
   var fixedEl = q('#companion');
   var disc = q('.companion__disc', fixedEl);
   var fixedFig = q('.figure', fixedEl);
-  var figs = { hero: q('[data-figure="hero"]'), deal: q('[data-figure="deal"]'), close: q('[data-figure="close"]') };
-  var allFigs = [figs.hero, figs.deal, figs.close, fixedFig];
+  var figs = { hero: q('[data-figure="hero"]'), manifesto: q('[data-figure="manifesto"]'), deal: q('[data-figure="deal"]'), close: q('[data-figure="close"]') };
+  var allFigs = [figs.hero, figs.manifesto, figs.deal, figs.close, fixedFig];
   var CW = 360;   // the fixed companion's base box, matches --cw
 
   var poses = allFigs.map(function (f) {
@@ -117,26 +117,34 @@
       if (between) setFixed(corner.x, corner.y, corner.s, 1);
       else fixedEl.classList.remove('is-on');
       mode = between ? 'corner' : 'stage';
-    } else if (y < workAct.top) {
-      if (pH < 0.55) { setStage('hero'); mode = 'hero'; modeT = pH / 0.55; }
-      else if (pH < 0.9) { travel(rectOf(figs.hero), corner, (pH - 0.55) / 0.35, 0, 1); mode = 'travel'; }
-      else { setFixed(corner.x, corner.y, corner.s, 1); mode = 'corner'; }
-    } else if (y < workAct.top + workAct.height - vh) {
-      if (pW < 0.08) { travel(corner, rectOf(figs.deal), pW / 0.08, 1, 0); mode = 'travel'; }
-      else { setStage('deal'); mode = 'deal'; }
     } else {
-      // Straight from where he stands under the deck to his place beside the
-      // ask. No detour through the corner. The deal figure scrolls up with its
-      // stage once the pin releases, so its resting spot is its current rect
-      // shifted back by however far the page has moved since the release.
-      var pinEnd = workAct.top + workAct.height - vh;
-      if (pC < 0.48) {
-        var from = rectOf(figs.deal); from.y += y - pinEnd;
-        travel(from, rectOf(figs.close), pC / 0.48, 0, 0); mode = 'handoff';
-      } else { setStage('close'); mode = 'close'; }
+      var heroEnd = heroAct.top + heroAct.height - vh;
+      var manEnd = manAct.top + manAct.height - vh;
+      var dealIn = workAct.top + 0.08 * (workAct.height - vh);
+      var workEnd = workAct.top + workAct.height - vh;
+      if (y <= heroEnd) {
+        setStage('hero'); mode = 'hero'; modeT = clamp01(pH / 0.75);
+      } else if (y < manAct.top) {
+        var a0 = rectOf(figs.hero); a0.y += y - heroEnd;
+        travel(a0, rectOf(figs.manifesto), (y - heroEnd) / Math.max(manAct.top - heroEnd, 1), 0, 0); mode = 'handoff';
+      } else if (y <= manEnd) {
+        setStage('manifesto'); mode = 'manifesto';
+      } else if (y < dealIn) {
+        var b0 = rectOf(figs.manifesto); b0.y += y - manEnd;
+        travel(b0, rectOf(figs.deal), (y - manEnd) / Math.max(dealIn - manEnd, 1), 0, 0); mode = 'handoff';
+      } else if (y < workEnd) {
+        setStage('deal'); mode = 'deal';
+      } else {
+        var pinEnd = workEnd;
+        if (pC < 0.48) {
+          var from = rectOf(figs.deal); from.y += y - pinEnd;
+          travel(from, rectOf(figs.close), pC / 0.48, 0, 0); mode = 'handoff';
+        } else { setStage('close'); mode = 'close'; }
+      }
     }
     fixedEl.setAttribute('data-sc-verify-state', mode + '|' + fixedState);
     if (mode === 'hero') heroStage.setAttribute('data-sc-verify-state', 'wake:' + Math.round(modeT * 40));
+    manStage.setAttribute('data-sc-verify-state', 'p:' + Math.round(manAct.p * 100) + '|' + mode);
   }
 
   // ---- pose: he turns toward the pointer; on touch he leans with the scroll --
@@ -202,7 +210,7 @@
   function pickFrame() {
     var smile = frames.wake ? frames.wake[frames.wake.length - 1] : null;
     if (mode === 'hero' && frames.wake) return frames.wake[Math.round(modeT * (frames.wake.length - 1))];
-    if ((mode === 'deal' || mode === 'handoff' || mode === 'close') && frames.gaze && fine.matches && hasPointer) {
+    if ((mode === 'manifesto' || mode === 'deal' || mode === 'handoff' || mode === 'close') && frames.gaze && fine.matches && hasPointer) {
       // The generated sweep runs from the viewer's right to the viewer's left,
       // so the pointer maps onto it mirrored.
       return frames.gaze[Math.round((1 - px) * (frames.gaze.length - 1))];
@@ -294,7 +302,7 @@
     var target = last ? f[f.length - 1] : f[0];
     if (target) target.focus({ preventScroll: true });
   }
-  var aboutCta = null;   // becomes the manifesto CTA in phase 2
+  var aboutCta = q('#manifesto .mf__cta .btn');
   var closeFirst = q('#contact .figure__btn');
   addEventListener('keydown', function (e) {
     if (e.key !== 'Tab' || reduce) return;
@@ -309,9 +317,16 @@
     else if (e.shiftKey && el === f[0] && i > 0) { e.preventDefault(); parkOnCard(i - 1, true); }
   });
 
+  addEventListener('focusin', function (e) {
+    if (reduce || !e.target.closest || !e.target.closest('.mf__beat--b')) return;
+    if (manAct.p < 0.68) scrollTo({ top: holdY(), behavior: 'instant' });
+  });
+
   // ---- navigation: hash links (About and Work) -----------------------------
+  function holdY() { return reduce ? manAct.top : manAct.top + 0.72 * (manAct.height - innerHeight); }
   function targetY(hash) {
     if (hash === '#work') return reduce ? workAct.top : landedY(0);
+    if (hash === '#manifesto' || hash === '#about') return holdY();
     return null;
   }
   function navTo(hash, smooth) {
@@ -325,13 +340,13 @@
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
     var hash = a.getAttribute('href');
-    if (hash === '#work') {
+    if (hash === '#work' || hash === '#manifesto' || hash === '#about') {
       e.preventDefault();
       closeMenu(false);
       navTo(hash, true);
     }
   });
-  if (location.hash === '#work') {
+  if (['#work', '#manifesto', '#about'].indexOf(location.hash) > -1) {
     setTimeout(function () { navTo(location.hash, false); }, 60);
   }
 
