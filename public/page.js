@@ -80,6 +80,13 @@
     var s = small.matches ? 56 : 72, pad = small.matches ? 14 : 28;
     return { x: innerWidth - pad - s, y: innerHeight - pad - s, s: s };
   }
+  // A stage figure's rect as it will be once its act's pin has begun. Before
+  // the pin the sticky stage sits (act.top - scrollY) lower than that.
+  function seatOf(fig, act) {
+    var r = rectOf(fig);
+    if (scrollY < act.top) r.y -= act.top - scrollY;
+    return r;
+  }
   function rectOf(fig) { var r = fig.getBoundingClientRect(); return { x: r.left, y: r.top, s: r.width }; }
 
   var mode = 'hero', modeT = 0, lastStage = '';
@@ -104,6 +111,30 @@
     setFixed(lerp(a.x, b.x, e), lerp(a.y, b.y, e), lerp(a.s, b.s, e), lerp(ra, rb, e));
   }
 
+  // ---- the manifesto: told once on arrival, on its own clock ----------------
+  // The wheel only decides WHEN. The strike, his doubt, the answer and the
+  // smile play at their own pace, so a fast scroll still sees all of it.
+  var told = false, doubtT = [], html = document.documentElement;
+  function heroEnd0() { return heroAct.top + heroAct.height - innerHeight; }
+  function tell() {
+    if (told) return;
+    told = true; manStage.classList.add('is-told');
+    if (reduce) return;
+    doubtT.push(setTimeout(function () { html.classList.add('is-doubt'); }, 300));
+    doubtT.push(setTimeout(function () { html.classList.remove('is-doubt'); }, 2300));
+  }
+  function untell() {
+    if (!told) return;
+    told = false; manStage.classList.remove('is-told', 'is-quick');
+    doubtT.forEach(clearTimeout); doubtT = [];
+    html.classList.remove('is-doubt');
+  }
+  function updateTelling(y, heroEnd, vh) {
+    if (reduce) { tell(); return; }
+    if (y >= manAct.top - vh * 0.2) tell();
+    else if (y < heroEnd + vh * 0.05) untell();
+  }
+
   function updateCompanion() {
     var y = scrollY, vh = innerHeight;
     var pH = heroAct.p, pW = workAct.p, pC = closeAct.p;
@@ -125,13 +156,15 @@
       if (y <= heroEnd) {
         setStage('hero'); mode = 'hero'; modeT = clamp01(pH / 0.75);
       } else if (y < manAct.top) {
+        // Aim at where his seat will be once the stage locks, not where it is
+        // mid-slide, so he glides across while the page moves under him.
         var a0 = rectOf(figs.hero); a0.y += y - heroEnd;
-        travel(a0, rectOf(figs.manifesto), (y - heroEnd) / Math.max(manAct.top - heroEnd, 1), 0, 0); mode = 'handoff';
+        travel(a0, seatOf(figs.manifesto, manAct), (y - heroEnd) / Math.max(manAct.top - heroEnd, 1), 0, 0); mode = 'handoff';
       } else if (y <= manEnd) {
         setStage('manifesto'); mode = 'manifesto';
       } else if (y < dealIn) {
         var b0 = rectOf(figs.manifesto); b0.y += y - manEnd;
-        travel(b0, rectOf(figs.deal), (y - manEnd) / Math.max(dealIn - manEnd, 1), 0, 0); mode = 'handoff';
+        travel(b0, seatOf(figs.deal, workAct), (y - manEnd) / Math.max(dealIn - manEnd, 1), 0, 0); mode = 'handoff';
       } else if (y < workEnd) {
         setStage('deal'); mode = 'deal';
       } else {
@@ -143,8 +176,9 @@
       }
     }
     fixedEl.setAttribute('data-sc-verify-state', mode + '|' + fixedState);
+    updateTelling(y, heroEnd0(), vh);
     if (mode === 'hero') heroStage.setAttribute('data-sc-verify-state', 'wake:' + Math.round(modeT * 40));
-    manStage.setAttribute('data-sc-verify-state', 'p:' + Math.round(manAct.p * 100) + '|' + mode);
+    manStage.setAttribute('data-sc-verify-state', 'p:' + Math.round(manAct.p * 100) + '|' + mode + '|' + (told ? 'told' : 'rest'));
   }
 
   // ---- pose: he turns toward the pointer; on touch he leans with the scroll --
@@ -318,12 +352,14 @@
   });
 
   addEventListener('focusin', function (e) {
-    if (reduce || !e.target.closest || !e.target.closest('.mf__beat--b')) return;
-    if (manAct.p < 0.68) scrollTo({ top: holdY(), behavior: 'instant' });
+    if (!e.target.closest || !e.target.closest('#manifesto')) return;
+    if (!reduce && (scrollY < manAct.top || scrollY > manAct.top + manAct.height - innerHeight)) scrollTo({ top: holdY(), behavior: 'instant' });
+    // a keyboard arrival skips the performance: the control must be visible now
+    if (!told) { manStage.classList.add('is-quick'); tell(); }
   });
 
   // ---- navigation: hash links (About and Work) -----------------------------
-  function holdY() { return reduce ? manAct.top : manAct.top + 0.72 * (manAct.height - innerHeight); }
+  function holdY() { return reduce ? manAct.top : manAct.top + 0.3 * (manAct.height - innerHeight); }
   function targetY(hash) {
     if (hash === '#work') return reduce ? workAct.top : landedY(0);
     if (hash === '#manifesto' || hash === '#about') return holdY();
@@ -390,7 +426,6 @@
   addEventListener('scroll', function () { if (!menu.hidden && Math.abs(scrollY - menuScrollY) > 80) closeMenu(false); }, { passive: true });
 
   // ---- the deep dives ---------------------------------------------------------
-  var html = document.documentElement;
   qa('dialog.detail').forEach(function (d) {
     var vids = qa('video[data-src]', d);
     d.addEventListener('close', function () {
