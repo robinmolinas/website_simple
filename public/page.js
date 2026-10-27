@@ -9,9 +9,6 @@
                      hero, travels to the corner, is the menu, steps into the
                      Work stage to deal the cards, arrives beside the ask
      the deal        seven cards dealt from behind his head into a stack
-     the reel        row B travels the other way (CSS reads --sc-p; JS only
-                     measures the overflow)
-     the objects     four chrome objects with mass you can grab and throw
      the deep dives  one <dialog> per project
 
    Every movement has a cause the visitor can see: scroll, pointer, or him.
@@ -44,7 +41,7 @@
   var sc = ScrollCraft.mount(document.body);
   var actById = {};
   sc.acts.forEach(function (a) { actById[a.el.id] = a; });
-  var heroAct = actById.top, aboutAct = actById.about, workAct = actById.work, closeAct = actById.contact;
+  var heroAct = actById.top, workAct = actById.work, closeAct = actById.contact;
   var heroStage = q('#top .hero'), dealStage = q('#work .deal');
 
   requestAnimationFrame(function () { document.documentElement.classList.add('is-loaded'); });
@@ -65,13 +62,6 @@
       if (v.closest('dialog') || v.closest('.card')) return;   // dialogs and cards drive their own
       vio.observe(v);
     });
-  }
-
-  // ---- the reel: row B travels the other way --------------------------------
-  var rowB = q('.reel__row--b');
-  function layoutReel() {
-    var over = Math.max(rowB.scrollWidth - innerWidth, 0);
-    rowB.style.setProperty('--reel-over', over + 'px');
   }
 
   // ---- figures --------------------------------------------------------------
@@ -304,7 +294,7 @@
     var target = last ? f[f.length - 1] : f[0];
     if (target) target.focus({ preventScroll: true });
   }
-  var aboutCta = q('#about .btn');
+  var aboutCta = null;   // becomes the manifesto CTA in phase 2
   var closeFirst = q('#contact .figure__btn');
   addEventListener('keydown', function (e) {
     if (e.key !== 'Tab' || reduce) return;
@@ -322,7 +312,6 @@
   // ---- navigation: hash links (About and Work) -----------------------------
   function targetY(hash) {
     if (hash === '#work') return reduce ? workAct.top : landedY(0);
-    if (hash === '#about') return aboutAct.top;
     return null;
   }
   function navTo(hash, smooth) {
@@ -336,13 +325,13 @@
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
     var hash = a.getAttribute('href');
-    if (hash === '#work' || hash === '#about') {
+    if (hash === '#work') {
       e.preventDefault();
       closeMenu(false);
       navTo(hash, true);
     }
   });
-  if (location.hash === '#work' || location.hash === '#about') {
+  if (location.hash === '#work') {
     setTimeout(function () { navTo(location.hash, false); }, 60);
   }
 
@@ -410,65 +399,8 @@
     });
   });
 
-  // ---- the objects: grab and throw ------------------------------------------
-  function initDrag() {
-    var sec = q('#about');
-    qa('.obj__drag').forEach(function (el) {
-      var st = { x: 0, y: 0, vx: 0, vy: 0, drag: false, ox: 0, oy: 0, lx: 0, ly: 0, lt: 0, raf: 0, home: null };
-      var apply = function () { el.style.transform = 'translate3d(' + st.x.toFixed(1) + 'px,' + st.y.toFixed(1) + 'px,0)'; };
-      var bounds = function () {
-        var s = sec.getBoundingClientRect();
-        return {
-          minX: s.left - st.home.l, maxX: s.right - st.home.l - st.home.w,
-          minY: s.top - st.home.t, maxY: s.bottom - st.home.t - st.home.h
-        };
-      };
-      el.addEventListener('pointerdown', function (e) {
-        if (e.button !== 0) return;
-        e.preventDefault();
-        el.setPointerCapture(e.pointerId);
-        cancelAnimationFrame(st.raf);
-        var r = el.getBoundingClientRect();
-        // home is the untransformed box, in viewport coords at this moment
-        st.home = { l: r.left - st.x, t: r.top - st.y, w: r.width, h: r.height };
-        st.drag = true; el.classList.add('is-dragging');
-        st.ox = e.clientX - st.x; st.oy = e.clientY - st.y;
-        st.lx = e.clientX; st.ly = e.clientY; st.lt = performance.now();
-        st.vx = st.vy = 0;
-      });
-      el.addEventListener('pointermove', function (e) {
-        if (!st.drag) return;
-        var now = performance.now(), dt = Math.max(now - st.lt, 1);
-        st.vx = ((e.clientX - st.lx) / dt) * 16; st.vy = ((e.clientY - st.ly) / dt) * 16;
-        st.lx = e.clientX; st.ly = e.clientY; st.lt = now;
-        st.x = e.clientX - st.ox; st.y = e.clientY - st.oy;
-        apply();
-      });
-      var release = function () {
-        if (!st.drag) return;
-        st.drag = false; el.classList.remove('is-dragging');
-        var step = function () {
-          var b = bounds();
-          st.vx *= 0.975; st.vy *= 0.975;
-          st.x += st.vx; st.y += st.vy;
-          if (st.x < b.minX) { st.x = b.minX; st.vx = -st.vx * 0.55; }
-          if (st.x > b.maxX) { st.x = b.maxX; st.vx = -st.vx * 0.55; }
-          if (st.y < b.minY) { st.y = b.minY; st.vy = -st.vy * 0.55; }
-          if (st.y > b.maxY) { st.y = b.maxY; st.vy = -st.vy * 0.55; }
-          apply();
-          if (Math.abs(st.vx) > 0.04 || Math.abs(st.vy) > 0.04) st.raf = requestAnimationFrame(step);
-        };
-        st.raf = requestAnimationFrame(step);
-      };
-      el.addEventListener('pointerup', release);
-      el.addEventListener('pointercancel', release);
-      el.addEventListener('lostpointercapture', release);
-    });
-  }
-  if (fine.matches && !reduce) initDrag();
-
   // ---- wiring -----------------------------------------------------------------
-  function relayout() { layoutReel(); layoutDeal(); }
+  function relayout() { layoutDeal(); }
   addEventListener('resize', relayout, { passive: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
   addEventListener('load', relayout);

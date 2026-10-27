@@ -33,8 +33,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/scrollcraft.css">
+<link rel="stylesheet" href="/base.css">
 <link rel="stylesheet" href="/page.css">
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -48,7 +49,6 @@
   <section id="top" data-sc-act="pin" data-sc-span="2" aria-label="Introduction">
     <div data-sc-stage class="hero" data-sc-verify-state="">
       <ul class="hero__nav" data-sc-cue="0 0.5 0 0.4">
-        <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
       </ul>
       <h1 class="display hero__title" data-sc-cue="0 0.92 0 0.25">Hi, I'm Robin</h1>
@@ -69,44 +69,6 @@
           </button>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 2 · THE WORK, GLIMPSED: pan. Two rows of his own footage. -->
-  <section id="glimpse" data-sc-act="pan" data-sc-span="1.7" aria-label="A glimpse of the work">
-    <div data-sc-stage class="reel">
-      <div class="reel__row reel__row--a" data-sc-pan="0.05">
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/dionysus-poster.jpg" data-src="assets/dionysus-loop.mp4" aria-label="Dionysus, sensory AI cocktail experience"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/trends-poster.jpg" data-src="assets/trends-rec.mp4" aria-label="2026 Trends Atlas, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/sigma-poster.jpg" data-src="assets/sigma.mp4" aria-label="Sigma AI, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/qfh-poster.jpg" data-src="assets/qfh-rec.mp4" aria-label="Quest for Hope, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/power-claims-poster.jpg" data-src="assets/power-claims.mp4" aria-label="Power Claims, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/forvia-x-poster.jpg" data-src="assets/forvia-x.mp4" aria-label="Forvia-X, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/songai-poster.jpg" data-src="assets/songai.mp4" aria-label="SongAI, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/leopards-poster.jpg" data-src="assets/leopards.mp4" aria-label="Quest for Hope, the Arabian leopard"></video></figure>
-      </div>
-      <div class="reel__row reel__row--b">
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/roblox-poster.jpg" data-src="assets/roblox.mp4" aria-label="Quest for Hope, the Roblox world"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/sigma-motion-poster.jpg" data-src="assets/sigma-motion.mp4" aria-label="Sigma AI, in motion"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/dionysus-poster.jpg" data-src="assets/dionysus-loop.mp4" aria-label="Dionysus, sensory AI cocktail experience"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/power-claims-2-poster.jpg" data-src="assets/power-claims-2.mp4" aria-label="Power Claims, the platform"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/trends-poster.jpg" data-src="assets/trends.mp4" aria-label="2026 Trends Atlas, the graph"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/songai-poster.jpg" data-src="assets/songai.mp4" aria-label="SongAI, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/forvia-x-poster.jpg" data-src="assets/forvia-x.mp4" aria-label="Forvia-X, screen recording"></video></figure>
-        <figure class="reel__item"><video muted loop playsinline preload="none" poster="assets/qfh-poster.jpg" data-src="assets/qfh.mp4" aria-label="Quest for Hope, the campaign"></video></figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3 · ABOUT ME: flow. One sentence, four objects with mass. -->
-  <section id="about" class="about" data-sc-act="flow" aria-labelledby="about-title">
-    <div class="obj obj--brick" data-sc-in><div class="obj__drag"><img src="assets/lego_icon.png" width="708" height="862" alt="" data-sc-tilt="7"></div></div>
-    <div class="obj obj--headset" data-sc-in><div class="obj__drag"><img src="assets/vision_pro-alpha.png" width="904" height="824" alt="" data-sc-tilt="7"></div></div>
-    <div class="obj obj--bolt" data-sc-in><div class="obj__drag"><img src="assets/lightning-alpha.png" width="1024" height="915" alt="" data-sc-tilt="7"></div></div>
-    <div class="obj obj--cursor" data-sc-in><div class="obj__drag"><img src="assets/cursor_3d.png" width="688" height="676" alt="" data-sc-tilt="7"></div></div>
-    <div class="about__inner">
-      <h2 id="about-title" class="display display--poster about__title" data-sc-reveal="up" data-sc-reveal-at="0.1 0.4">About me</h2>
-      <p class="about__text" data-sc-cue="0.24" data-sc-kinetic="lines">For seven years, I've worked on AI platforms and growth strategies for major brands, including L'Oréal and Forvia. I turn business problems into AI systems designed to scale. I trained in strategy, and I like building things myself.</p>
     </div>
   </section>
 
@@ -318,7 +280,6 @@ Hope</h3>
   </div>
 </div>
 <nav id="menu" class="bubble" hidden aria-label="Site menu">
-  <a href="#about" role="menuitem">About</a>
   <a href="#work" role="menuitem">Work</a>
   <a href="mailto:robin.molinas@outlook.com" role="menuitem">Contact me</a>
 </nav>
