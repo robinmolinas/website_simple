@@ -115,20 +115,25 @@
   // The wheel only decides WHEN. The strike, his doubt, the answer and the
   // smile play at their own pace, so a fast scroll still sees all of it.
   var told = false, html = document.documentElement;
-  var SEQ_MS = 2300;          // strike, answer, title: matches the CSS delays
-  var toldAt = 0;
+  var SEQ_MS = 1750;          // fallback only: strike, answer, title
+  var toldAt = 0, titleDone = false;
+  // The page is released the moment "building." has finished rising, not on a timer.
+  var lastRise = q('#manifesto .mf__ln:last-child .mf__rise');
+  if (lastRise) lastRise.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'transform' && told) titleDone = true;
+  });
   function heroEnd0() { return heroAct.top + heroAct.height - innerHeight; }
   function tell() {
     if (told) return;
-    told = true; toldAt = performance.now(); manStage.classList.add('is-told');
+    told = true; toldAt = performance.now(); titleDone = false; manStage.classList.add('is-told');
   }
   function untell() {
     if (!told) return;
-    told = false; manStage.classList.remove('is-told', 'is-quick');
+    told = false; titleDone = false; manStage.classList.remove('is-told', 'is-quick');
   }
   function updateTelling(y, heroEnd, vh) {
     if (reduce) { tell(); return; }
-    if (y >= manAct.top - vh * 0.05) tell();
+    if (y >= manAct.top - vh * 0.45) tell();   // plays as the stage slides up, so a steady scroll arrives to a finished screen
     else if (y < heroEnd + vh * 0.05) untell();
   }
 
@@ -140,12 +145,13 @@
   function updateGate(y) {
     if (gating) {
       if (Math.abs(scrollY - gateY) > 1) scrollTo({ top: gateY, behavior: 'instant' });
-      if (performance.now() >= toldAt + SEQ_MS + 250) { gating = false; seen = true; html.classList.remove('is-held'); }
+      if (titleDone || performance.now() >= toldAt + SEQ_MS + 150) { gating = false; seen = true; html.classList.remove('is-held'); }
       return;
     }
     if (!reduce && !seen && performance.now() > navUntil) {
       var hold = holdY();
-      if (lastGateY < hold && y >= hold) {
+      if (lastGateY < hold && y >= hold && titleDone) { seen = true; }
+      else if (lastGateY < hold && y >= hold) {
         gating = true; gateY = hold; tell(); html.classList.add('is-held');
         scrollTo({ top: hold, behavior: 'instant' });
       }
