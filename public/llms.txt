@@ -51,3 +51,9 @@ Robin Molinas has seven years of experience building AI platforms and developing
 - **Description:** A decentralized conservation campaign on Roblox and Decentraland, where players meet digital twins of endangered Arabian leopards. Launched on the first UN International Arabian Leopard Day.
 - **Link:** https://questforhope.com/
 - **Key Metrics:** 19.1M press views, 18 digital leopard twins.
+
+## Manifesto
+
+### Worth building.
+- **Link:** https://www.robinmolinas.com/worth-building
+- **Summary:** Anyone can build now, and almost no one asks if they should. Building got cheap, so the expensive mistake is building the wrong thing beautifully, at speed, for people who never asked. Slop is what happens when nobody decides. Robin decides what is worth building with four habits: hack first, money magic machines, fail fast, lead with a vision.
