@@ -53,8 +53,8 @@ export const PROJECTS: Project[] = [
     description:
       'An autonomous multi-agent platform that turns complex research into boardroom-ready strategic insights in just minutes.',
     buttonLabel: 'Launch Live App',
-    buttonHref: 'https://sigmai.lovable.app/demo',
-    tags: ['Multi-Agent Systems', 'Prompt Engineering', 'n8n'],
+    buttonHref: 'https://sigma-insights.vercel.app/demo',
+    tags: ['Multi-Agent Systems', 'n8n → Full-Stack TS', 'AI Product Design'],
     client: 'Self-built · Multi-Agent Strategic Insight Engine',
     intro:
       "The most valuable (and most manual) part of strategy consulting is turning a mountain of research into a handful of insights sharp enough to change a decision. It's slow, it's subjective, and it doesn't scale. Sigma AI is my attempt to operationalize that craft. It's an autonomous multi-agent platform that takes a company and a research brief and runs the entire foresight workflow end-to-end: it decomposes the topic into 18 MECE sub-briefs, launches parallel research agents, consolidates findings across a proprietary six-lens framework (SCHEMA: Structures, Culture, Humans, Economics, Machinery, Actors), then generates insights by deliberately cross-combining those lenses (such as Culture × Economics and Humans × Technology) to surface the non-obvious tensions and paradoxes where real insight lives. Crucially, it doesn't stop at a first draft. Every insight is scored against an FPET rubric (Fresh, Potent, Energizing, True), and weak insights are critiqued and rewritten in an autonomous quality loop until they clear a threshold. The output isn't raw text; it is a polished, presentation-ready insight deck. Sigma AI isn't \"AI that summarizes research.\" It's a system that encodes a strategic methodology and runs it at scale.",

@@ -27,9 +27,9 @@ Robin Molinas has seven years of experience building AI platforms and developing
 
 ### 03. Sigma AI
 - **Category:** Self-Built AI Product
-- **Description:** An autonomous platform with a 7-step research pipeline. It splits briefs into 18 MECE sub-briefs, runs AI research agents in parallel, and organizes findings using SCHEMA's 6 research lenses. An automated review loop scores and rewrites insights against FPET (Fresh, Potent, Energizing, True), then produces presentation-ready decks.
-- **Link:** https://sigmai.lovable.app/demo
-- **Key Metrics:** 18 MECE sub-briefs, 6 SCHEMA lenses, 4-point FPET scoring.
+- **Description:** An autonomous research intelligence platform that deconstructs briefs across the proprietary SCHEMA framework's 6 lenses and collides them across 21 cross-vector intersections. Insights are scored through an autonomous FPET quality gate with verified fact citation. Originally prototyped in n8n and subsequently evolved into a modern full-stack TypeScript application with an interactive constellation canvas.
+- **Link:** https://sigma-insights.vercel.app/demo
+- **Key Metrics:** 21 cross-vector intersections, 6 SCHEMA lenses, 4-point FPET gate, n8n to full-stack TS evolution.
 
 ### 04. Power Claims
 - **Category:** AI Platform · Product Design (L'Oréal)
