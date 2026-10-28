@@ -32,7 +32,8 @@
 <link rel="icon" type="image/png" href="/assets/favicon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/kanit/v17/nKKZ-Go6G5tXcraVGwCKd6xB.woff2" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/scrollcraft.css">
 <link rel="stylesheet" href="/base.css">
@@ -47,7 +48,7 @@
 
   <!-- 1 · HI, I'M ROBIN: pin. He wakes under the hand. -->
   <section id="top" data-sc-act="pin" data-sc-span="1.5" aria-label="Introduction">
-    <div data-sc-stage class="hero" data-sc-verify-state="">
+    <div data-sc-stage class="sc-stage hero" data-sc-verify-state="">
       <ul class="hero__nav">
         <li><a href="#manifesto">Manifesto</a></li>
         <li><a href="#work">Work</a></li>
@@ -64,7 +65,7 @@
         <div class="figure figure--stage figure--hero" data-figure="hero">
           <button class="figure__btn" type="button" aria-haspopup="menu" aria-controls="menu" aria-label="Open the menu">
             <div class="figure__pose">
-              <img src="assets/companion/poster-end.jpg" width="720" height="720" alt="Robin Molinas, as a 3D character, smiling" decoding="async" fetchpriority="high">
+              <img src="assets/companion/poster-end.jpg" srcset="assets/companion/poster-end-360.jpg 360w, assets/companion/poster-end.jpg 720w" sizes="(max-width: 860px) 280px, 540px" width="720" height="720" alt="Robin Molinas, as a 3D character, smiling" decoding="async" fetchpriority="high">
               <canvas aria-hidden="true"></canvas>
             </div>
           </button>
@@ -76,13 +77,13 @@
   <!-- 2 · WORTH BUILDING: a short pin. One screen, told once on arrival:
        the question is struck, he doubts, the answer lands, he smiles. -->
   <section id="manifesto" data-sc-act="pin" data-sc-span="1.5" aria-labelledby="manifesto-title">
-    <div data-sc-stage class="mf" data-sc-verify-state="">
+    <div data-sc-stage class="sc-stage mf" data-sc-verify-state="">
 
       <div class="mf__portrait">
         <div class="figure figure--stage figure--manifesto" data-figure="manifesto">
           <button class="figure__btn" type="button" aria-haspopup="menu" aria-controls="menu" aria-label="Open the menu">
             <div class="figure__pose">
-              <img src="assets/companion/poster-start.jpg" width="720" height="720" alt="" decoding="async">
+              <img src="assets/companion/poster-start.jpg" srcset="assets/companion/poster-start-360.jpg 360w, assets/companion/poster-start.jpg 720w" sizes="(max-width: 860px) 240px, 520px" width="720" height="720" alt="" decoding="async">
               <canvas aria-hidden="true"></canvas>
             </div>
           </button>
@@ -110,7 +111,7 @@
 
   <!-- 4 · WORK, THE DEAL: pin, the peak. He deals seven cards from behind his head. -->
   <section id="work" data-sc-act="pin" data-sc-span="6.675" aria-labelledby="work-title">
-    <div data-sc-stage class="deal" data-sc-verify-state="">
+    <div data-sc-stage class="sc-stage deal" data-sc-verify-state="">
       <h2 id="work-title" class="display display--poster deal__title" data-sc-cue="0 0.123 0 0.396">Work</h2>
 
       <div class="figure figure--stage figure--deal" data-figure="deal">
@@ -699,8 +700,7 @@ Hope</h3>
   </div>
 </dialog>
 
-<script src="/scrollcraft.js"></script>
-<script src="/page.js"></script>
+<script type="module" src="/main.js"></script>
 <noscript><p class="noscript-message">Robin Molinas, Strategy and AI Builder. Please enable JavaScript to view this site.</p></noscript>
 </body>
 </html>

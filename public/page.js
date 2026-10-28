@@ -257,25 +257,43 @@
   // assets/companion/manifest.json: { "wake": { "count": N }, "gaze": { "count": M }, "ext": "jpg" }
   // Absent manifest = static render, which is a complete state of the page.
   var frames = { wake: null, gaze: null }, hasFrames = false;
-  fetch('assets/companion/manifest.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
-    if (!m || reduce) return;
-    ['wake', 'gaze'].forEach(function (k) {
-      if (!m[k] || !m[k].count) return;
-      var list = [];
-      for (var i = 0; i < m[k].count; i++) {
-        var im = new Image(); im.decoding = 'async';
-        im.src = 'assets/companion/' + k + '/' + String(i).padStart(3, '0') + '.' + (m.ext || 'jpg');
-        list.push(im);
+
+  function loadCompanionFrames() {
+    fetch('assets/companion/manifest.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
+      if (!m || reduce) return;
+      var keys = ['wake'];
+      // gaze is only needed on desktop fine-pointer devices for card deck tracking
+      if (fine.matches) keys.push('gaze');
+
+      keys.forEach(function (k) {
+        if (!m[k] || !m[k].count) return;
+        var list = [];
+        for (var i = 0; i < m[k].count; i++) {
+          var im = new Image(); im.decoding = 'async';
+          im.src = 'assets/companion/' + k + '/' + String(i).padStart(3, '0') + '.' + (m.ext || 'jpg');
+          list.push(im);
+        }
+        frames[k] = list;
+      });
+      if (frames.wake || frames.gaze) {
+        hasFrames = true;
+        allFigs.forEach(function (f) { f.classList.add('has-frames'); });
+        // drop any fallback tilt that was written before the frames arrived
+        poses.forEach(function (P) { P.drawn = -1; });
       }
-      frames[k] = list;
+    }).catch(function () {});
+  }
+
+  // Defer sequence loading until idle / after initial paint to keep critical path clear
+  if (document.readyState === 'complete') {
+    if ('requestIdleCallback' in window) requestIdleCallback(loadCompanionFrames, { timeout: 2500 });
+    else setTimeout(loadCompanionFrames, 400);
+  } else {
+    window.addEventListener('load', function () {
+      if ('requestIdleCallback' in window) requestIdleCallback(loadCompanionFrames, { timeout: 2500 });
+      else setTimeout(loadCompanionFrames, 400);
     });
-    if (frames.wake || frames.gaze) {
-      hasFrames = true;
-      allFigs.forEach(function (f) { f.classList.add('has-frames'); });
-      // drop any fallback tilt that was written before the frames arrived
-      poses.forEach(function (P) { P.drawn = -1; });
-    }
-  }).catch(function () {});
+  }
 
   // The wake plays under the wheel in the hero. From then on he holds the last
   // smile everywhere small (the travel, the corner badge). Only the two big

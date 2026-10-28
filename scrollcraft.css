@@ -174,8 +174,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* =============================================================== DEVICES ==
    Driven by the engine. Restyle your own markup, not these.                */
 
-.sc-act--pinned { position: relative; }
-.sc-stage {
+.sc-act--pinned, [data-sc-act="pin"], [data-sc-act="scrub"], [data-sc-act="pan"] { position: relative; }
+.sc-stage, [data-sc-stage] {
   position: sticky; top: 0;
   height: 100vh; height: 100svh;
   overflow: clip;

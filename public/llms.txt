@@ -1,59 +1,25 @@
 # Robin Molinas | Strategy & AI Builder
 
-> Robin Molinas's portfolio.
+> Portfolio and manifesto of Robin Molinas, strategist and AI builder.
 
-Robin Molinas has seven years of experience building AI platforms and developing growth strategies for brands including L'Oréal and Forvia.
-
-## Profile and contact
-- **Name:** Robin Molinas
-- **Role:** Strategy & AI Builder
-- **Email:** robin.molinas@outlook.com
-- **LinkedIn:** https://www.linkedin.com/in/robinmolinas/
-- **Website:** https://www.robinmolinas.com
+Robin Molinas has seven years of experience building AI platforms and developing growth strategies for global brands and independent products, including L'Oréal, Forvia, and Accenture Song.
 
 ## Projects
 
-### 01. Dionysus
-- **Category:** Self-Built AI Product
-- **Description:** An interactive, sensory web experience born from Robin's twin passions for building things as a creator and the craft and lore of cocktails. Replaces boring questionnaire forms with an instinctual, five-minute dark-room journey set to sumi-e ink washes and generative audio. Behind the curtain, three specialized AI agents (The Psychologist, The Historian, and The Mixologist) collaborate in an authored Pour Studio to craft 132 bespoke cocktails and personal stories for 132 distinct personas. Built end to end as a solo creator using agentic development workflows and BMAD methodologies.
-- **Link:** https://dionysus-two.vercel.app/
-- **Key Metrics:** 132 bespoke personas and cocktails, 3 Pour Studio specialist AI agents, 1 solo creator build, 0 form fields or checkboxes.
-
-### 02. 2026 Trends Atlas
-- **Category:** Self-Built AI Product
-- **Description:** A RAG-powered knowledge graph built from 70+ macro trend reports. Teams can ask questions and trace answers through inline citations. Uses the "LLM-Wiki" pattern to maintain a linked markdown wiki and retrieve evidence without a vector database.
-- **Link:** https://trends-lime.vercel.app/
-- **Key Metrics:** 70+ trend reports ingested, 17 concepts mapped, 0 vector DBs.
-
-### 03. Sigma AI
-- **Category:** Self-Built AI Product
-- **Description:** An autonomous research intelligence platform that deconstructs briefs across the proprietary SCHEMA framework's 6 lenses and collides them across 21 cross-vector intersections. Insights are scored through an autonomous FPET quality gate with verified fact citation. Originally prototyped in n8n and subsequently evolved into a modern full-stack TypeScript application with an interactive constellation canvas.
-- **Link:** https://sigma-insights.vercel.app/demo
-- **Key Metrics:** 21 cross-vector intersections, 6 SCHEMA lenses, 4-point FPET gate, n8n to full-stack TS evolution.
-
-### 04. Power Claims
-- **Category:** AI Platform · Product Design (L'Oréal)
-- **Description:** A global platform for L'Oréal's claims process, connecting competitive intelligence, briefs, scientific substantiation, regulatory review, and local activation. Uses role-specific workflows and 20+ AI agents.
-- **Key Metrics:** 130+ champions trained, 11 countries in rollout, 3 skincare pilot projects live.
-
-### 05. Forvia-X
-- **Category:** GenAI · Innovation (Forvia)
-- **Description:** Mapped 60+ GenAI use cases across Forvia's innovation and R&D process and built proofs of concept for the 10 with the highest value.
-- **Key Metrics:** 60+ use cases mapped, 10 POCs built, 8-pt scoring matrix.
-
-### 06. SongAI GenAI Platform
-- **Category:** AI Platform (Accenture Song)
-- **Description:** Product strategy for Accenture Song's modular GenAI platform. Connects proprietary assets, third-party AI tools, and project knowledge with workflows for research, ideation, content creation, and delivery.
-- **Key Metrics:** 70+ interviews, 30+ opportunity areas, 10 high-priority modules.
-
-### 07. Quest for Hope
-- **Category:** Metaverse · Gaming (RCU Saudi Arabia)
-- **Description:** A decentralized conservation campaign on Roblox and Decentraland, where players meet digital twins of endangered Arabian leopards. Launched on the first UN International Arabian Leopard Day.
-- **Link:** https://questforhope.com/
-- **Key Metrics:** 19.1M press views, 18 digital leopard twins.
+- [Dionysus](https://dionysus-two.vercel.app/): Self-built sensory AI product. Replaces boring questionnaire forms with an instinctual, five-minute dark-room journey set to sumi-e ink washes and generative audio. Behind the curtain, three specialized AI agents (The Psychologist, The Historian, and The Mixologist) collaborate in an authored Pour Studio to craft 132 bespoke cocktails and personal stories for 132 distinct personas. Built end to end as a solo creator using agentic development workflows and BMAD methodologies.
+- [2026 Trends Atlas](https://trends-lime.vercel.app/): Self-built AI product. A RAG-powered knowledge graph built from 70+ macro trend reports. Teams can ask questions and trace answers through inline citations. Uses the Karpathy "LLM-Wiki" pattern to maintain a linked markdown wiki and retrieve evidence without a vector database.
+- [Sigma AI](https://sigma-insights.vercel.app/demo): Self-built AI product. An autonomous research intelligence platform that deconstructs briefs across the proprietary SCHEMA framework's 6 lenses and collides them across 21 cross-vector intersections. Insights are scored through an autonomous FPET quality gate with verified fact citation. Originally prototyped in n8n and subsequently evolved into a modern full-stack TypeScript application with an interactive constellation canvas.
+- [Power Claims](https://www.robinmolinas.com/#work): AI platform and product design for L'Oréal's global claims process, connecting competitive intelligence, briefs, scientific substantiation, regulatory review, and local activation across 11 countries with 20+ specialized AI agents.
+- [Forvia-X](https://www.robinmolinas.com/#work): GenAI innovation roadmap and 10 proofs-of-concept across Forvia's R&D process, prioritizing 60+ mapped use cases with an 8-point scoring matrix.
+- [SongAI GenAI Platform](https://www.robinmolinas.com/#work): Modular internal AI platform for Accenture Song connecting proprietary assets, third-party AI tools, and project knowledge across research, ideation, content creation, and delivery.
+- [Quest for Hope](https://questforhope.com/): Decentralized conservation campaign on Roblox and Decentraland for RCU Saudi Arabia, where players meet digital twins of endangered Arabian leopards. Launched on the first UN International Arabian Leopard Day with 19.1M press views.
 
 ## Manifesto
 
-### Worth building.
-- **Link:** https://www.robinmolinas.com/worth-building
-- **Summary:** Anyone can build now, and almost no one asks if they should. Building got cheap, so the expensive mistake is building the wrong thing beautifully, at speed, for people who never asked. Slop is what happens when nobody decides. Robin decides what is worth building with four habits: hack first, money magic machines, fail fast, lead with a vision.
+- [Worth Building](https://www.robinmolinas.com/worth-building): An essay and manifesto by Robin Molinas. Anyone can build now, and almost no one asks if they should. Building got cheap, so the expensive mistake is building the wrong thing beautifully, at speed, for people who never asked. Slop is what happens when nobody decides. Robin decides what is worth building with four habits: hack first, money magic machines, fail fast, and lead with a vision.
+
+## Profile and Contact
+
+- [Website](https://www.robinmolinas.com): Personal homepage and interactive portfolio
+- [LinkedIn](https://www.linkedin.com/in/robinmolinas/): Robin Molinas on LinkedIn
+- [Email](mailto:robin.molinas@outlook.com): Direct contact via email
